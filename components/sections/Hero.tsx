@@ -15,23 +15,28 @@ function HeroPicture() {
   const common = { alt: hero.image.alt, fetchPriority: "high", loading: "eager" } as const;
   const {
     props: { srcSet: desktopSrcSet },
-  } = getImageProps({ ...common, src: hero.image.desktop, width: 1448, height: 1086, sizes: "56vw" });
+  } = getImageProps({ ...common, src: hero.image.desktop, width: 1448, height: 1086, sizes: "75vw" });
   const { props: mobile } = getImageProps({ ...common, src: hero.image.mobile, width: 1358, height: 1086, sizes: "100vw" });
 
   return (
     <picture>
-      <source media="(min-width: 1024px)" srcSet={desktopSrcSet} sizes="56vw" />
+      <source media="(min-width: 1024px)" srcSet={desktopSrcSet} sizes="75vw" />
       {/* eslint-disable-next-line jsx-a11y/alt-text -- alt comes from getImageProps */}
-      <img {...mobile} className="absolute inset-0 size-full object-cover" />
+      <img {...mobile} className="absolute inset-0 size-full object-cover lg:object-[30%_50%]" />
     </picture>
   );
 }
 
 export function Hero() {
   return (
-    <section id="top" aria-labelledby="hero-heading" className="overflow-hidden bg-cream lg:py-10">
-      <Container className="grid items-center gap-6 lg:grid-cols-[44fr_56fr] lg:gap-10">
-        <div className="pt-5 lg:pt-0">
+    // One full-bleed photo card with the copy on top (founder, 11 Oct; replaces D-21).
+    // The scene has its pouches in the middle, so on desktop the photo starts just
+    // past the text column and its left edge fades into cream: the copy sits over
+    // the fade, never over the pouches. On mobile the photo sits under the copy and
+    // its top fades up into it.
+    <section id="top" aria-labelledby="hero-heading" className="relative overflow-hidden bg-cream">
+      <Container className="relative z-10 flex items-center lg:min-h-[520px] lg:py-14 xl:min-h-[600px]">
+        <div className="pt-5 lg:max-w-[400px] lg:pt-0 xl:max-w-[480px]">
           <Eyebrow>{hero.eyebrow}</Eyebrow>
           <h1 id="hero-heading" className="mt-3 type-h1 text-ink">
             {hero.headline.map((line) => (
@@ -56,17 +61,16 @@ export function Hero() {
             </Link>
           </div>
         </div>
-
-        {/* Full bleed on mobile; runs off the right edge of the viewport on desktop. */}
-        <div className="relative -mx-4 sm:-mx-6 lg:mr-[calc(-34px-max(0px,(100vw-1180px)/2))] lg:ml-0">
-          <div className="relative aspect-[5/4] lg:aspect-[4/3] lg:min-h-[480px] lg:overflow-hidden lg:rounded-l-[28px]">
-            <HeroPicture />
-          </div>
-          <HandNote rotate={6} mark="heart" className="absolute top-6 right-8 max-w-[150px] text-right">
-            {hero.note}
-          </HandNote>
-        </div>
       </Container>
+
+      {/* Mobile: full width under the copy. Desktop: fills the hero from 360px into the content column to the viewport edge. */}
+      <div className="relative -mt-6 aspect-[5/4] sm:aspect-[16/10] lg:absolute lg:inset-y-0 lg:right-0 lg:left-[calc(max(0px,(100vw-1180px)/2)+34px+380px)] xl:left-[calc(max(0px,(100vw-1180px)/2)+34px+360px)] lg:mt-0 lg:aspect-auto">
+        <HeroPicture />
+        <div aria-hidden className="absolute inset-x-0 top-0 h-1/4 bg-linear-to-b from-cream to-transparent lg:inset-y-0 lg:right-auto lg:h-auto lg:w-1/4 lg:bg-linear-to-r" />
+        <HandNote rotate={6} mark="heart" className="absolute top-8 right-10 max-w-[150px] text-right">
+          {hero.note}
+        </HandNote>
+      </div>
     </section>
   );
 }
