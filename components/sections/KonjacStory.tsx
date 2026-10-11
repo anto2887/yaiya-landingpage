@@ -1,4 +1,6 @@
+import { ArrowRight, Droplets, Sprout, Store } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { HandNote } from "@/components/ui/HandNote";
@@ -6,6 +8,12 @@ import { site } from "@/content/site";
 import { WaveTop } from "@/components/ui/WaveTop";
 
 const { story } = site;
+
+// Icons and tints for the heritage cards, keyed by id.
+const HERITAGE: Record<string, { Icon: typeof Sprout; tint: string }> = {
+  roots: { Icon: Sprout, tint: "bg-mint-soft" },
+  favorite: { Icon: Store, tint: "bg-mango-soft" },
+};
 
 export function KonjacStory() {
   return (
@@ -42,6 +50,58 @@ export function KonjacStory() {
             sizes="(min-width: 1024px) 150px, 96px"
             className="absolute -top-16 right-4 w-[96px] origin-bottom motion-safe:animate-wave lg:-top-24 lg:right-10 lg:w-[150px]"
           />
+        </div>
+
+        {/* More of the story: heritage, the fiber behind the wobble, and why it's in YAIYA. */}
+        <ul className="mt-6 grid grid-cols-1 gap-grid sm:grid-cols-2 lg:grid-cols-3">
+          {story.heritage.map((h, i) => {
+            const { Icon, tint } = HERITAGE[h.id];
+            return (
+              <li
+                key={h.id}
+                data-reveal
+                style={{ "--reveal-delay": `${i * 90}ms` } as React.CSSProperties}
+                className="jelly rounded-card bg-white p-5 lg:p-6"
+              >
+                <span aria-hidden className={`flex size-12 items-center justify-center rounded-full text-berry ${tint}`}>
+                  <Icon strokeWidth={1.75} className="size-6" />
+                </span>
+                <p className="mt-4 type-eyebrow text-eyebrow">{h.kicker}</p>
+                <p className="mt-2 font-heading text-[20px] leading-tight font-semibold text-ink">{h.title}</p>
+                <p className="mt-2 type-small text-muted">{h.line}</p>
+              </li>
+            );
+          })}
+          <li
+            data-reveal
+            style={{ "--reveal-delay": "180ms" } as React.CSSProperties}
+            className="jelly relative overflow-hidden rounded-card bg-ink p-5 text-white sm:col-span-2 lg:col-span-1 lg:p-6"
+          >
+            <span aria-hidden className="absolute -top-10 -right-10 size-40 rounded-full bg-berry/40 blur-2xl" />
+            <span aria-hidden className="relative flex size-12 items-center justify-center rounded-full bg-white/15 text-mango">
+              <Droplets strokeWidth={1.75} className="size-6" />
+            </span>
+            <p className="relative mt-4 type-eyebrow text-mango">{story.fiber.kicker}</p>
+            <p className="relative mt-2 font-heading text-[20px] leading-tight font-semibold">{story.fiber.title}</p>
+            <p className="relative mt-2 type-small text-white/85">{story.fiber.line}</p>
+          </li>
+        </ul>
+
+        <div
+          data-reveal
+          className="mt-6 flex flex-col gap-4 rounded-card bg-white p-5 sm:flex-row sm:items-center sm:justify-between sm:gap-8 lg:p-6"
+        >
+          <div>
+            <p className="type-eyebrow text-eyebrow">{story.why.kicker}</p>
+            <p className="mt-2 max-w-[720px] font-heading text-[18px] leading-snug font-semibold text-ink lg:text-[20px]">{story.why.line}</p>
+          </div>
+          <Link
+            href={story.why.cta.href}
+            className="group/btn inline-flex h-12 shrink-0 items-center justify-center gap-2 self-start rounded-pill border-2 border-outline px-[22px] type-button text-ink transition-colors hover:border-berry hover:bg-highlight sm:self-auto"
+          >
+            {story.why.cta.label}
+            <ArrowRight aria-hidden className="size-4 transition-transform motion-safe:group-hover/btn:translate-x-1" />
+          </Link>
         </div>
       </Container>
     </section>

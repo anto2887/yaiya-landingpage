@@ -318,6 +318,34 @@ export const site = {
       src: "/images/story-wobbie.png",
       alt: "Wobbie, YAIYA's jelly mascot, waving.",
     },
+    /**
+     * Founder copy, 11 Oct, safe version (D-11 kept): heritage and texture only.
+     * Not used: "backed by science", clinical, cholesterol, digestive and medicine claims (C-03, C-04).
+     */
+    heritage: [
+      {
+        id: "roots",
+        kicker: "01 · Old roots",
+        title: "A kitchen staple for generations",
+        line: "For generations, konjac has had a place in kitchens across Asia.",
+      },
+      {
+        id: "favorite",
+        kicker: "02 · Everyday favorite",
+        title: "A convenience-store classic",
+        line: "Konjac jelly is a convenience-store favorite across Japan and Korea.",
+      },
+    ],
+    fiber: {
+      kicker: "Glucomannan: the fiber inside konjac",
+      title: "Water-loving fiber",
+      line: "Glucomannan holds water and forms a gel, the quality behind konjac's distinctive texture.",
+    },
+    why: {
+      kicker: "Why we love it",
+      line: "Konjac helps create YAIYA's soft jelly texture. Protein, added fiber and vitamins bring a little more to the pouch.",
+      cta: { label: "Explore what's inside", href: "#inside" },
+    },
   },
 
   inside: {
