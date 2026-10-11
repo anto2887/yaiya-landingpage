@@ -235,6 +235,23 @@ export const site = {
     ],
   },
 
+  /**
+   * Giving pledge (founder, 11 Oct). Amount and cause are not decided, so this
+   * states an intention only: no number, no named charity, no "every purchase" promise.
+   * TODO(founder): add the share and the cause before launch, then tighten the copy.
+   */
+  giving: {
+    eyebrow: "Snacks that give back.",
+    // Not "good for you": reads as a health claim (07, banned "better for you").
+    heading: "A snack you can feel good about.",
+    body: "We're building giving into YAIYA from day one. As we grow, part of what we earn will go to a cause that matters.",
+    points: [
+      { id: "built-in", title: "Built in from day one.", line: "Giving is part of the plan, not an afterthought." },
+      { id: "transparent", title: "Out in the open.", line: "We'll share where it goes and how much." },
+      { id: "together", title: "Shared with you.", line: "Waitlist members hear the details first." },
+    ],
+  },
+
   story: {
     eyebrow: "Old roots. A fresh kind of joy.",
     // C-03: mockup said "Rooted in tradition. Backed by science."

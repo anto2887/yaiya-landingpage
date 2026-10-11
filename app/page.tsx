@@ -2,6 +2,7 @@ import { Benefits } from "@/components/sections/Benefits";
 import { Comparison } from "@/components/sections/Comparison";
 import { Faq } from "@/components/sections/Faq";
 import { Flavors } from "@/components/sections/Flavors";
+import { Giving } from "@/components/sections/Giving";
 import { Hero } from "@/components/sections/Hero";
 import { KonjacStory } from "@/components/sections/KonjacStory";
 import { Nutrition } from "@/components/sections/Nutrition";
@@ -23,6 +24,7 @@ export default function Home() {
         <Flavors content={site.flavors} />
         <Nutrition />
         <Occasions />
+        <Giving />
         <KonjacStory />
         <WhatsInside />
         <Comparison />
