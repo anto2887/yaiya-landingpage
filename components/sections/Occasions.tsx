@@ -15,25 +15,24 @@ export function Occasions() {
       <Container>
         <SectionHeading id="occasions-heading" title={occasions.heading} sub={occasions.body} />
 
-        {/* Mobile: a snap row where the next card peeks in. Tablet and up: three columns. */}
+        {/* Mobile: stacked. Tablet and up: three columns. */}
         <ul
           aria-label={occasions.scrollerLabel}
-          tabIndex={0}
-          className="no-scrollbar -mx-4 flex min-w-0 snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-4 px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-3 sm:gap-grid sm:overflow-visible sm:px-0"
+          className="grid grid-cols-1 gap-grid sm:grid-cols-3"
         >
           {occasions.personas.map((p, i) => (
             <li
               key={p.id}
               data-reveal
               style={{ "--reveal-delay": `${i * 100}ms` } as React.CSSProperties}
-              className="group flex w-[80vw] max-w-[340px] shrink-0 snap-start flex-col overflow-hidden rounded-card border border-line bg-paper transition-[transform,box-shadow] duration-300 motion-safe:hover:-translate-y-1.5 hover:shadow-[0_20px_40px_-24px_rgb(58_20_64/0.35)] sm:w-auto sm:max-w-none"
+              className="group flex flex-col overflow-hidden rounded-card border border-line bg-paper transition-[transform,box-shadow] duration-300 motion-safe:hover:-translate-y-1.5 hover:shadow-[0_20px_40px_-24px_rgb(58_20_64/0.35)]"
             >
               <div className="relative aspect-[4/5] overflow-hidden">
                 <Image
                   src={p.image}
                   alt={p.alt}
                   fill
-                  sizes="(min-width: 1024px) 370px, (min-width: 640px) 33vw, 78vw"
+                  sizes="(min-width: 1024px) 370px, (min-width: 640px) 33vw, 100vw"
                   className="object-cover transition-transform duration-700 ease-out motion-safe:group-hover:scale-105"
                 />
                 {/* Soft fade so the name reads over the photo's foot. */}
