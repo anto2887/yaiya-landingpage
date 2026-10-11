@@ -3,6 +3,7 @@ import { WaitlistForm } from "@/components/WaitlistForm";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { site } from "@/content/site";
+import { WaveTop } from "@/components/ui/WaveTop";
 
 const { waitlist } = site;
 
@@ -20,6 +21,7 @@ function Waves() {
 export function Waitlist() {
   return (
     <section id="waitlist" tabIndex={-1} aria-labelledby="waitlist-heading" className="relative isolate overflow-hidden bg-blush py-section outline-none">
+      <WaveTop fill="fill-lilac-soft" />
       <Waves />
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
         <span className="absolute -top-10 left-[10%] size-56 rounded-full bg-mango/40 blur-3xl motion-safe:animate-drift" />

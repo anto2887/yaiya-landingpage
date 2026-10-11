@@ -3,6 +3,7 @@ import { Container } from "@/components/ui/Container";
 import { HandNote } from "@/components/ui/HandNote";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { site } from "@/content/site";
+import { WaveTop } from "@/components/ui/WaveTop";
 
 const { comparison } = site;
 
@@ -30,7 +31,8 @@ export function Comparison() {
   const hl = "bg-highlight font-bold text-strawberry-ink";
 
   return (
-    <section id="compare" aria-labelledby="compare-heading" className="bg-cream py-section">
+    <section id="compare" aria-labelledby="compare-heading" className="relative bg-cream py-section">
+      <WaveTop fill="fill-mint-soft" />
       <Container>
         <SectionHeading id="compare-heading" title={comparison.heading} sub={comparison.sub} />
 

@@ -2,6 +2,7 @@ import { ChevronRight, Plus } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { site } from "@/content/site";
+import { WaveTop } from "@/components/ui/WaveTop";
 
 const { faq } = site;
 const COLUMNS = 2;
@@ -26,7 +27,8 @@ export function Faq() {
   );
 
   return (
-    <section id="faq" aria-labelledby="faq-heading" className="bg-paper py-section">
+    <section id="faq" aria-labelledby="faq-heading" className="relative bg-lilac-soft py-section">
+      <WaveTop fill="fill-cream" flip />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Container>
         <SectionHeading id="faq-heading" title={faq.heading} />

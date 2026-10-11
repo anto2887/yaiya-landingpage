@@ -4,10 +4,11 @@ import { Container } from "@/components/ui/Container";
 import { INSIDE_ICONS } from "@/components/ui/icons";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { site } from "@/content/site";
+import { WaveTop } from "@/components/ui/WaveTop";
 
 const { inside } = site;
 
-const TINTS = ["bg-highlight", "bg-mango-soft", "bg-mint-soft", "bg-strawberry", "bg-mango-soft", "bg-mint-soft"];
+const TINTS = ["bg-highlight", "bg-mango-soft", "bg-lilac-soft", "bg-strawberry", "bg-mango-soft", "bg-lilac-soft"];
 
 type Item = (typeof inside.items)[number];
 
@@ -49,7 +50,8 @@ export function WhatsInside() {
   const right = inside.items.slice(3);
 
   return (
-    <section id="inside" aria-labelledby="inside-heading" className="overflow-x-clip bg-paper py-section">
+    <section id="inside" aria-labelledby="inside-heading" className="relative overflow-x-clip bg-mint-soft py-section">
+      <WaveTop fill="fill-highlight" flip />
       <Container>
         <SectionHeading id="inside-heading" title={inside.heading} sub={inside.sub} />
 

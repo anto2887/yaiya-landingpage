@@ -7,6 +7,7 @@ import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import type { FlavorSlug, site } from "@/content/site";
 import { FLAVOR_STORAGE_KEY } from "@/lib/flavor";
+import { WaveTop } from "@/components/ui/WaveTop";
 
 /**
  * Each card shows its pouch floating over the flavor color and a jelly blob,
@@ -134,7 +135,8 @@ export function Flavors({ content: flavors }: FlavorsProps) {
   const focusIndex = Math.max(0, flavors.items.findIndex((f) => f.slug === selected));
 
   return (
-    <section id="flavors" aria-labelledby="flavors-heading" className="bg-cream py-section">
+    <section id="flavors" aria-labelledby="flavors-heading" className="relative bg-lilac-soft py-section">
+      <WaveTop fill="fill-cream" />
       <Container>
         <SectionHeading
           id="flavors-heading"
@@ -162,7 +164,7 @@ export function Flavors({ content: flavors }: FlavorsProps) {
                 data-reveal
                 style={{ "--reveal-delay": `${i * 100}ms` } as React.CSSProperties}
                 className={`group relative block rounded-card text-left transition-transform duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] motion-safe:hover:-translate-y-1.5 ${
-                  isSelected ? "ring-4 ring-berry ring-offset-4 ring-offset-cream" : ""
+                  isSelected ? "ring-4 ring-berry ring-offset-4 ring-offset-lilac-soft" : ""
                 }`}
               >
                 <span

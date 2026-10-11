@@ -3,12 +3,14 @@ import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { HandNote } from "@/components/ui/HandNote";
 import { site } from "@/content/site";
+import { WaveTop } from "@/components/ui/WaveTop";
 
 const { story } = site;
 
 export function KonjacStory() {
   return (
-    <section id="story" aria-labelledby="story-heading" className="bg-cream py-section">
+    <section id="story" aria-labelledby="story-heading" className="relative bg-highlight py-section">
+      <WaveTop fill="fill-cream" />
       <Container>
         {/* One mint panel, same container width as every other section. */}
         <div data-reveal className="relative mt-14 grid grid-cols-1 gap-6 rounded-card bg-mint-soft p-4 sm:p-6 lg:mt-16 lg:grid-cols-2 lg:items-center lg:gap-12 lg:p-10">

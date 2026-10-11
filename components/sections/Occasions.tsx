@@ -3,15 +3,18 @@ import { Container } from "@/components/ui/Container";
 import { CONVENIENCE_ICONS } from "@/components/ui/icons";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { OCCASION_OPTIONS, site } from "@/content/site";
+import { WaveTop } from "@/components/ui/WaveTop";
 
 const { occasions } = site;
+// Icon circle tints; the cards themselves are white on the mango section.
 const TINTS = ["bg-mango-soft", "bg-mint-soft", "bg-highlight"];
 
 const momentLabel = (id: string) => OCCASION_OPTIONS.find((o) => o.id === id)?.label ?? id;
 
 export function Occasions() {
   return (
-    <section id="occasions" aria-labelledby="occasions-heading" className="bg-cream py-section">
+    <section id="occasions" aria-labelledby="occasions-heading" className="relative bg-mango-soft py-section">
+      <WaveTop fill="fill-ink" />
       <Container>
         <SectionHeading id="occasions-heading" title={occasions.heading} sub={occasions.body} />
 
@@ -65,9 +68,9 @@ export function Occasions() {
                 key={c.id}
                 data-reveal
                 style={{ "--reveal-delay": `${i * 80}ms` } as React.CSSProperties}
-                className={`jelly flex items-center gap-4 rounded-card p-4 lg:p-5 ${TINTS[i % TINTS.length]}`}
+                className="jelly flex items-center gap-4 rounded-card bg-white p-4 lg:p-5"
               >
-                <span aria-hidden className="flex size-12 shrink-0 items-center justify-center rounded-full bg-white/80 text-accent">
+                <span aria-hidden className={`flex size-12 shrink-0 items-center justify-center rounded-full text-accent ${TINTS[i % TINTS.length]}`}>
                   {Icon && <Icon strokeWidth={1.75} className="size-6" />}
                 </span>
                 <div>

@@ -4,6 +4,7 @@ import { CountUp } from "@/components/ui/CountUp";
 import { STAT_ICONS } from "@/components/ui/icons";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { site } from "@/content/site";
+import { WaveTop } from "@/components/ui/WaveTop";
 
 const { nutrition } = site;
 const NOTE_ID = "targets-note";
@@ -77,12 +78,14 @@ export function Nutrition() {
   const [protein, fiber, sugar, dv] = nutrition.stats;
 
   return (
-    <section id="nutrition" aria-labelledby="nutrition-heading" className="overflow-x-clip bg-paper py-section">
+    <section id="nutrition" aria-labelledby="nutrition-heading" className="relative overflow-x-clip bg-ink py-section">
+      <WaveTop fill="fill-lilac-soft" flip />
       <Container>
         <SectionHeading
           id="nutrition-heading"
           title={nutrition.heading}
           sub={nutrition.sub}
+          tone="dark"
           aside={<p className="rounded-pill bg-highlight px-4 py-2 type-small font-semibold text-ink">{nutrition.perPouch}*</p>}
         />
 
@@ -90,7 +93,7 @@ export function Nutrition() {
         <div className="grid grid-cols-1 items-center gap-grid lg:grid-cols-[1fr_minmax(300px,380px)_1fr]">
           <div aria-hidden data-reveal className="relative mx-auto aspect-[5/4] w-full max-w-[340px] lg:order-2 lg:max-w-none">
             {/* Jelly glow behind the pouches. */}
-            <span className="absolute inset-[8%] rounded-full bg-highlight blur-2xl" />
+            <span className="absolute inset-[8%] rounded-full bg-berry/50 blur-3xl" />
             <span className="absolute inset-[18%] rounded-full bg-mango-soft/80 blur-xl motion-safe:animate-drift" />
             {FAN.map((p) => (
               <span key={p.src} className={`absolute w-[44%] ${p.cls}`}>
@@ -118,7 +121,7 @@ export function Nutrition() {
           </dl>
         </div>
 
-        <p id={NOTE_ID} className="mt-6 type-footnote text-muted lg:text-center">
+        <p id={NOTE_ID} className="mt-6 type-footnote text-white/75 lg:text-center">
           {nutrition.footnote}
         </p>
       </Container>

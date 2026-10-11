@@ -1,6 +1,7 @@
 import { Eye, HandHeart, Sprout, Users } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { site } from "@/content/site";
+import { WaveTop } from "@/components/ui/WaveTop";
 
 const { giving } = site;
 
@@ -13,7 +14,8 @@ const POINTS: Record<string, { Icon: typeof Eye; tint: string }> = {
 
 export function Giving() {
   return (
-    <section id="giving" aria-labelledby="giving-heading" className="bg-paper py-section">
+    <section id="giving" aria-labelledby="giving-heading" className="relative bg-cream py-section">
+      <WaveTop fill="fill-mango-soft" flip />
       <Container>
         <div data-reveal className="relative isolate overflow-hidden rounded-card bg-berry p-6 text-white sm:p-8 lg:p-12">
           {/* Soft drifting color behind the panel. */}
