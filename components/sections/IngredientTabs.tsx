@@ -39,7 +39,7 @@ export function IngredientTabs({ content }: IngredientTabsProps) {
       <div
         role="tablist"
         aria-label={content.heading}
-        className="no-scrollbar -mx-4 mt-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0"
+        className="mt-4 flex flex-wrap gap-2"
       >
         {content.tabs.map((t, i) => {
           const selected = i === active;
@@ -57,7 +57,7 @@ export function IngredientTabs({ content }: IngredientTabsProps) {
               tabIndex={selected ? 0 : -1}
               onClick={() => select(i)}
               onKeyDown={(e) => onKeyDown(e, i)}
-              className={`inline-flex min-h-11 shrink-0 items-center rounded-pill border-2 px-4 text-[14px] font-semibold whitespace-nowrap transition-[background-color,border-color,transform] duration-200 motion-safe:active:scale-95 ${
+              className={`inline-flex min-h-11 items-center rounded-pill border-2 px-4 text-[14px] font-semibold whitespace-nowrap transition-[background-color,border-color,transform] duration-200 motion-safe:active:scale-95 ${
                 selected ? "border-berry bg-berry text-white" : "border-line bg-white text-ink hover:border-berry"
               }`}
             >

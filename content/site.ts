@@ -291,15 +291,13 @@ export const site = {
         id: "konjac",
         name: "Konjac Jelly",
         line: "For a soft, satisfying texture",
-        image: "/images/inside-konjac.png",
-        icon: null,
+        icon: "konjac",
       },
       {
         id: "protein",
         // C-01: mockup said "Plant Protein". It is whey and collagen. Never say plant.
         name: "Protein",
         line: `${TARGETS.protein} per pouch*`,
-        image: null,
         icon: "protein",
       },
       {
@@ -307,14 +305,12 @@ export const site = {
         name: "Collagen",
         // C-06: mockup said "for skin & connective tissue".
         line: `${TARGETS.collagen} of the ${TARGETS.protein} protein*`,
-        image: null,
         icon: "collagen",
       },
       {
         id: "fiber",
         name: "Fiber",
         line: `${TARGETS.fiber} per pouch*`,
-        image: null,
         icon: "fiber",
       },
       {
@@ -322,7 +318,6 @@ export const site = {
         name: "Vitamins & Minerals",
         // C-09: mockup said "C, D, B vitamins, magnesium, zinc and more."
         line: "Selected vitamins and minerals, including magnesium*",
-        image: null,
         icon: "vitamins",
       },
       {
@@ -330,8 +325,7 @@ export const site = {
         // C-08: mockup said "Real Flavors / from fruits, cocoa and tea".
         name: "Flavors",
         line: "Strawberry peach, chocolate and matcha yuzu",
-        image: "/images/inside-flavors.png",
-        icon: null,
+        icon: "flavors",
       },
     ],
   },

@@ -7,12 +7,6 @@ import { site } from "@/content/site";
 
 const { inside } = site;
 
-// `className` sets the rendered width: the cube sits inside its disc, the flavors poke out.
-const CUTOUTS: Record<string, { width: number; height: number; className: string }> = {
-  "/images/inside-konjac.png": { width: 443, height: 421, className: "w-[46px] lg:w-[64px]" },
-  "/images/inside-flavors.png": { width: 640, height: 480, className: "w-[70px] max-w-none lg:w-[96px]" },
-};
-
 const TINTS = ["bg-highlight", "bg-mango-soft", "bg-mint-soft", "bg-strawberry", "bg-mango-soft", "bg-mint-soft"];
 
 type Item = (typeof inside.items)[number];
@@ -22,7 +16,7 @@ type Item = (typeof inside.items)[number];
  * first and the disc on the right, with a dotted line running toward the center.
  */
 function Ingredient({ item, index, side }: { item: Item; index: number; side: "left" | "right" }) {
-  const Icon = item.icon ? INSIDE_ICONS[item.icon] : null;
+  const Icon = INSIDE_ICONS[item.icon];
   const towardPouch = side === "left";
   return (
     <li
@@ -40,11 +34,7 @@ function Ingredient({ item, index, side }: { item: Item; index: number; side: "l
       <span
         className={`flex size-16 shrink-0 items-center justify-center rounded-full text-accent ring-4 ring-white transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] motion-safe:group-hover:scale-110 motion-safe:group-hover:-rotate-6 lg:size-[88px] ${TINTS[index % TINTS.length]}`}
       >
-        {item.image ? (
-          <Image src={item.image} {...CUTOUTS[item.image]} alt="" sizes="100px" />
-        ) : (
-          Icon && <Icon aria-hidden strokeWidth={1.5} className="size-9" />
-        )}
+        {Icon && <Icon aria-hidden strokeWidth={1.5} className="size-8 lg:size-9" />}
       </span>
       <div>
         <p className="font-heading text-[18px] leading-tight font-semibold text-ink lg:text-[20px]">{item.name}</p>

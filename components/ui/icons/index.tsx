@@ -60,6 +60,8 @@ export const CONVENIENCE_ICONS: Record<string, IconComponent> = {
 
 /** What's inside icons, keyed by `site.inside.items[].icon`. No leaf or plant for protein or collagen (C-01). */
 export const INSIDE_ICONS: Record<string, IconComponent> = {
+  konjac: JellyIcon,
+  flavors: Cherry,
   protein: Dumbbell,
   collagen: Droplet,
   fiber: Sprout,
