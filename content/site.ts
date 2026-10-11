@@ -88,6 +88,7 @@ export const site = {
 
   a11y: {
     skipLink: "Skip to content",
+    benefitsLabel: "Why YAIYA",
   },
 
   nav: {
@@ -154,6 +155,7 @@ export const site = {
 
   nutrition: {
     heading: "Good for more than your taste buds.",
+    // TODO(founder): "Real" conflicts with 07-copy-and-claims rule 3. Keep or change?
     sub: "Feel-good flavor. Real nutritional purpose.",
     stats: [
       {
