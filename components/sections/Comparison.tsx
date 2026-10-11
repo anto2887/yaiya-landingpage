@@ -1,34 +1,43 @@
-import Image from "next/image";
 import { Container } from "@/components/ui/Container";
-import { HandNote } from "@/components/ui/HandNote";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { site } from "@/content/site";
 import { WaveTop } from "@/components/ui/WaveTop";
+import { Wordmark } from "@/components/ui/Wordmark";
+import { site } from "@/content/site";
 
 const { comparison } = site;
+const [yaiya, ...others] = comparison.columns;
 
-function Dots({ score, outOf, label }: { score: number; outOf: number; label: string }) {
+type Cell = { main: string; sub: string };
+
+function CellText({ cell, strong = false }: { cell: Cell; strong?: boolean }) {
   return (
     <>
-      <span aria-hidden className="flex gap-1">
-        {Array.from({ length: outOf }, (_, i) => (
-          <span key={i} className={`size-2.5 rounded-full ${i < score ? "bg-accent" : "bg-line"}`} />
-        ))}
+      <span className={`block leading-snug ${strong ? "font-heading text-[17px] font-bold text-strawberry-ink" : "font-semibold text-ink"}`}>
+        {cell.main}
       </span>
-      <span className="sr-only">{`${score} ${label} ${outOf}`}</span>
+      {cell.sub && <span className="mt-0.5 block text-[12px] leading-snug text-muted">{cell.sub}</span>}
+    </>
+  );
+}
+
+function ColumnHeader({ col }: { col: (typeof comparison.columns)[number] }) {
+  return (
+    <>
+      {col.highlight ? (
+        <Wordmark alt={col.name} className="mx-auto block h-7" />
+      ) : (
+        <span className="block font-heading text-[17px] font-bold text-ink">{col.name}</span>
+      )}
+      <span className={`mt-1 block text-[12px] font-semibold ${col.highlight ? "text-strawberry-ink" : "text-muted"}`}>{col.kind}</span>
+      {col.status && (
+        <span className="mt-2 inline-block rounded-pill bg-berry px-2.5 py-0.5 text-[11px] font-bold text-white">{col.status}</span>
+      )}
     </>
   );
 }
 
 export function Comparison() {
-  const enjoyment = site.features.comparisonEnjoymentRow ? comparison.enjoymentRow : null;
-  // The enjoyment row sits before the protein row, as in the mockup.
-  const rows = comparison.rows;
-  const beforeProtein = rows.filter((r) => r.id !== "protein");
-  const protein = rows.filter((r) => r.id === "protein");
-
-  // Highlight column: tinted, bold, strawberry ink. Rounded at the top and bottom.
-  const hl = "bg-highlight font-bold text-strawberry-ink";
+  const last = comparison.rows.length - 1;
 
   return (
     <section id="compare" aria-labelledby="compare-heading" className="relative bg-cream py-section">
@@ -36,73 +45,85 @@ export function Comparison() {
       <Container>
         <SectionHeading id="compare-heading" title={comparison.heading} sub={comparison.sub} />
 
-        <div className="grid grid-cols-1 gap-grid lg:grid-cols-[7fr_5fr] lg:items-stretch">
-        <div data-reveal className="min-w-0 rounded-card border border-line bg-paper p-3 sm:p-5 lg:p-6">
-          {/* relative: keeps the absolutely positioned sr-only text inside the scroll box. */}
-          <div className="relative overflow-x-auto" tabIndex={0} aria-label={comparison.caption}>
-            <table className="w-full min-w-[480px] border-separate border-spacing-0 text-left text-[14px]">
-              <caption className="sr-only">{comparison.caption}</caption>
-              <thead>
-                <tr>
-                  <td className="sticky left-0 z-10 bg-paper" />
-                  {comparison.columns.map((col) => (
-                    <th
-                      key={col.id}
-                      scope="col"
-                      className={`px-3 pt-4 pb-3 align-bottom font-heading text-[16px] font-semibold ${col.highlight ? `${hl} rounded-t-small text-center` : "text-ink"}`}
-                    >
-                      {col.label}
-                      {col.sub && <span className="block text-[12px]">{col.sub}</span>}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {[...beforeProtein.map((r) => ({ kind: "text" as const, r })), ...(enjoyment ? [{ kind: "dots" as const, r: enjoyment }] : []), ...protein.map((r) => ({ kind: "text" as const, r }))].map(
-                  ({ kind, r }, rowIndex, all) => {
-                    const last = rowIndex === all.length - 1;
+        {/* Desktop: the full table. */}
+        <div data-reveal className="hidden rounded-card bg-white p-6 lg:block lg:p-8">
+          <table className="w-full border-separate border-spacing-0 text-left text-[14px]">
+            <caption className="sr-only">{comparison.caption}</caption>
+            <thead>
+              <tr>
+                <th scope="col" className="w-[16%] pr-4 pb-4 align-bottom type-eyebrow text-muted">
+                  {comparison.rowHeader}
+                </th>
+                {comparison.columns.map((col) => (
+                  <th
+                    key={col.id}
+                    scope="col"
+                    className={`w-[21%] px-4 pt-5 pb-4 align-bottom ${col.highlight ? "rounded-t-card bg-highlight text-center" : ""}`}
+                  >
+                    <ColumnHeader col={col} />
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {comparison.rows.map((r, ri) => (
+                <tr key={r.id} className="group/row [&>*]:border-t [&>*]:border-line">
+                  <th scope="row" className="py-3.5 pr-4 align-top font-bold text-ink">
+                    {r.label}
+                  </th>
+                  {r.cells.map((cell, c) => {
+                    const hl = comparison.columns[c].highlight;
                     return (
-                      <tr key={r.id} className="[&>*]:border-t [&>*]:border-line">
-                        <th scope="row" className="sticky left-0 z-10 bg-paper py-3 pr-3 pl-1 font-bold whitespace-nowrap text-ink">
-                          {r.label}
-                        </th>
-                        {comparison.columns.map((col, c) => (
-                          <td
-                            key={col.id}
-                            className={`px-3 py-3 ${col.highlight ? `${hl} text-center ${last ? "rounded-b-small" : ""}` : "text-ink"}`}
-                          >
-                            {kind === "dots" && "scores" in r ? (
-                              <span className={`flex ${col.highlight ? "justify-center" : ""}`}>
-                                <Dots score={r.scores[c]} outOf={r.outOf} label={r.outOfLabel} />
-                              </span>
-                            ) : (
-                              "values" in r && r.values[c]
-                            )}
-                          </td>
-                        ))}
-                      </tr>
+                      <td
+                        key={comparison.columns[c].id}
+                        className={`px-4 py-3.5 align-top transition-colors duration-200 ${
+                          hl ? `bg-highlight text-center ${ri === last ? "rounded-b-card" : ""}` : "group-hover/row:bg-cream"
+                        }`}
+                      >
+                        <CellText cell={cell} strong={hl} />
+                      </td>
                     );
-                  },
-                )}
-              </tbody>
-            </table>
-          </div>
-          <p className="mt-3 px-1 type-footnote text-muted">{comparison.footnote}</p>
+                  })}
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
 
-        <div data-reveal style={{ "--reveal-delay": "120ms" } as React.CSSProperties} className="group relative aspect-[16/10] overflow-hidden rounded-card lg:aspect-auto">
-          <Image
-            src={comparison.image.src}
-            alt={comparison.image.alt}
-            fill
-            sizes="(min-width: 1024px) 480px, 100vw"
-            className="object-cover transition-transform duration-700 motion-safe:group-hover:scale-105"
-          />
-          <HandNote rotate={-6} mark="heart" className="absolute top-5 right-5 max-w-[170px] text-right">
-            {comparison.note}
-          </HandNote>
-        </div>
-        </div>
+        {/* Phones and tablets: one card per row, YAIYA first. No sideways scrolling. */}
+        <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:hidden" aria-label={comparison.caption}>
+          {comparison.rows.map((r, ri) => (
+            <li
+              key={r.id}
+              data-reveal
+              style={{ "--reveal-delay": `${(ri % 2) * 80}ms` } as React.CSSProperties}
+              className="rounded-card bg-white p-4"
+            >
+              <p className="type-eyebrow text-eyebrow">{r.label}</p>
+              <div className="mt-2 rounded-small bg-highlight p-3">
+                <p className="text-[11px] font-bold tracking-[0.1em] text-strawberry-ink uppercase">{yaiya.name}</p>
+                <div className="mt-1">
+                  <CellText cell={r.cells[0]} strong />
+                </div>
+              </div>
+              <dl className="mt-2 divide-y divide-line">
+                {others.map((col, c) => (
+                  <div key={col.id} className="flex items-start justify-between gap-4 py-2 text-[14px]">
+                    <dt className="shrink-0 text-muted">{col.name}</dt>
+                    <dd className="text-right">
+                      <CellText cell={r.cells[c + 1]} />
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-3 text-[12px] leading-snug text-muted lg:hidden">
+          {others.map((c) => `${c.name}: ${c.kind.toLowerCase()}`).join(" · ")}
+        </p>
+
+        <p className="mt-5 max-w-[900px] type-footnote text-muted">{comparison.footnote}</p>
       </Container>
     </section>
   );

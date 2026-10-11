@@ -82,7 +82,6 @@ export const site = {
 
   features: {
     ingredientTabs: true, // Q-09
-    comparisonEnjoymentRow: true, // Q-08, C-10
     stickyMobileCta: true, // Q-13
   },
 
@@ -495,32 +494,128 @@ export const site = {
     ],
   },
 
+  /**
+   * Founder table, 11 Oct. Replaces the bar/shake mockup table and the enjoyment row (C-10).
+   * Competitor columns are single published products, unnamed.
+   * TODO(founder): keep each competitor's source page and the date checked on file (C-12).
+   * TODO(founder): confirm the calorie estimate (68–94 kcal) and the 110g pouch target.
+   * Flavor list uses "Chocolate Silk" (D-13), not "Milk Chocolate".
+   */
   comparison: {
     heading: "A better snack routine.",
     sub: "See how YAIYA compares.",
-    caption: "How YAIYA compares with protein bars and protein shakes",
-    note: "A more enjoyable way to get protein.",
+    caption: "How YAIYA compares with a meal shake, a protein bar and a konjac snack, per serving",
+    rowHeader: "Per serving",
     columns: [
-      { id: "yaiya", label: "YAIYA", sub: "Protein Jelly", highlight: true },
-      { id: "bar", label: "Protein Bar", sub: "", highlight: false },
-      { id: "shake", label: "Protein Shake", sub: "", highlight: false },
+      { id: "yaiya", name: "YAIYA", kind: "Jelly snack", status: "In development", highlight: true },
+      { id: "shake", name: "Meal shake", kind: "Published chocolate example", status: "", highlight: false },
+      { id: "bar", name: "Protein bar", kind: "Published chocolate sea salt example", status: "", highlight: false },
+      { id: "konjac", name: "Konjac snack", kind: "Published peach example", status: "", highlight: false },
     ],
     rows: [
-      { id: "texture", label: "Texture", values: ["Soft, juicy jelly", "Dense, chewy", "Liquid"] },
-      { id: "portability", label: "Portability", values: ["Pocket-sized", "Compact", "Bulky"] },
-      { id: "prep", label: "Prep needed", values: ["None", "None", "Mix or shake"] },
-      { id: "refrigeration", label: "Refrigeration", values: ["No", "No", "Often yes"] },
-      // C-12: competitor ranges are "typical"; see footnote.
-      { id: "protein", label: "Protein", values: [`${TARGETS.protein}*`, "10–20g", "15–30g"] },
+      {
+        id: "protein",
+        label: "Protein",
+        cells: [
+          { main: `${TARGETS.protein}*`, sub: "Our formulation target" },
+          { main: "20g", sub: "" },
+          { main: "12g", sub: "" },
+          { main: "Snack-focused", sub: "No high-protein claim on the product page" },
+        ],
+      },
+      {
+        id: "calories",
+        label: "Calories",
+        cells: [
+          { main: "68–94 kcal*", sub: "Estimate; depends on flavor" },
+          { main: "400 kcal", sub: "" },
+          { main: "200 kcal", sub: "" },
+          { main: "10 kcal", sub: "" },
+        ],
+      },
+      {
+        id: "sugar",
+        label: "Total sugar",
+        cells: [
+          { main: `${TARGETS.sugar}*`, sub: "Target" },
+          { main: "2g", sub: "" },
+          { main: "14g", sub: "0g added sugar" },
+          { main: "0g", sub: "" },
+        ],
+      },
+      {
+        id: "fiber",
+        label: "Fiber",
+        cells: [
+          { main: `${TARGETS.fiber}*`, sub: "Added fiber + jelly base" },
+          { main: "8g", sub: "" },
+          { main: "5g", sub: "" },
+          { main: "Konjac in the ingredients", sub: "Grams not stated on the product page" },
+        ],
+      },
+      {
+        id: "serving",
+        label: "Serving size",
+        cells: [
+          { main: "110g pouch*", sub: "Target" },
+          { main: "500ml bottle", sub: "" },
+          { main: "52g bar", sub: "" },
+          { main: "150ml pouch", sub: "" },
+        ],
+      },
+      {
+        id: "source",
+        label: "Protein source",
+        cells: [
+          { main: "Whey + bovine collagen", sub: "Protein quality testing pending" },
+          { main: "Pea protein", sub: "Plus protein from other plant ingredients" },
+          { main: "Egg whites", sub: "Also contains almonds and cashews" },
+          { main: "No high-protein positioning", sub: "" },
+        ],
+      },
+      {
+        id: "mouthfeel",
+        label: "Mouthfeel",
+        cells: [
+          { main: "Soft, ready-to-eat jelly", sub: "" },
+          { main: "Creamy liquid shake", sub: "" },
+          { main: "Chewy solid bar", sub: "" },
+          { main: "Chewy fruit jelly", sub: "" },
+        ],
+      },
+      {
+        id: "prep",
+        label: "Preparation",
+        cells: [
+          { main: "No mixing", sub: "Ready-to-eat format" },
+          { main: "No mixing", sub: "Ready-to-drink format" },
+          { main: "Unwrap and eat", sub: "" },
+          { main: "Squeeze to break up the jelly", sub: "Before opening the pouch" },
+        ],
+      },
+      {
+        id: "purpose",
+        label: "What it's made for",
+        cells: [
+          { main: "Protein, collagen, fiber & micronutrients in a jelly snack", sub: "" },
+          { main: "A complete meal", sub: "27 vitamins & minerals" },
+          { main: "A protein-containing snack", sub: "" },
+          { main: "A low-calorie jelly snack", sub: "Vitamin C and collagen-booster positioning" },
+        ],
+      },
+      {
+        id: "experience",
+        label: "The experience",
+        cells: [
+          { main: "Three signature pairings", sub: "Strawberry Peach · Chocolate Silk · Matcha Yuzu" },
+          { main: "Drink from a bottle", sub: "Chocolate example" },
+          { main: "Chew a bar", sub: "Chocolate sea salt example" },
+          { main: "Squeeze and chew", sub: "Peach example" },
+        ],
+      },
     ],
-    // C-10: shown only when features.comparisonEnjoymentRow is true.
-    enjoymentRow: { id: "enjoyment", label: "Snack enjoyment", outOf: 5, scores: [5, 1, 1], outOfLabel: "out of" },
     footnote:
-      "*Recipe target. Bar and shake figures are typical ranges; products vary. Snack enjoyment is our own rating.",
-    image: {
-      src: "/images/compare-pouch.jpg",
-      alt: "A hand holding an open Strawberry Peach pouch with jelly at the spout.",
-    },
+      "*YAIYA figures are recipe targets and estimates; YAIYA is in development. Other columns are single published products, compared from their own published information; products and recipes change.",
   },
 
   /** C-19: answers marked DRAFT need founder review before launch. */
