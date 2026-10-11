@@ -12,7 +12,7 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "images": "node scripts/prepare-images.mjs"
+    "images": "node scripts/prepare-images.mjs && node scripts/extend-hero.mjs"
   },
   "dependencies": {
     "lucide-react": "^1.55.0",

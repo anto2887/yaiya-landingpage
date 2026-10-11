@@ -1,9 +1,10 @@
 import { ChevronRight, Plus } from "lucide-react";
 import { Container } from "@/components/ui/Container";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 import { site } from "@/content/site";
 
 const { faq } = site;
-const COLUMNS = 3;
+const COLUMNS = 2;
 
 // Built from the same items as the markup so the two cannot drift.
 const jsonLd = {
@@ -17,7 +18,7 @@ const jsonLd = {
 };
 
 export function Faq() {
-  // Desktop: items fill three independent columns left to right, so an open
+  // Desktop: items fill two independent columns left to right, so an open
   // item only pushes down its own column. Mobile: the columns become
   // `display: contents` and `order` restores the original sequence.
   const columns = Array.from({ length: COLUMNS }, (_, c) =>
@@ -25,25 +26,30 @@ export function Faq() {
   );
 
   return (
-    <section id="faq" aria-labelledby="faq-heading" className="bg-cream py-section">
+    <section id="faq" aria-labelledby="faq-heading" className="bg-paper py-section">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <Container className="grid gap-6 lg:grid-cols-[18fr_82fr] lg:gap-8">
-        <h2 id="faq-heading" className="type-h2 text-ink lg:text-[30px]">
-          {faq.heading}
-        </h2>
+      <Container>
+        <SectionHeading id="faq-heading" title={faq.heading} />
 
-        <div className="flex flex-col gap-2.5 lg:grid lg:grid-cols-3 lg:items-start">
+        <div className="flex flex-col gap-3 lg:grid lg:grid-cols-2 lg:items-start lg:gap-4">
           {columns.map((col, c) => (
-            <div key={c} className="contents lg:flex lg:flex-col lg:gap-2.5">
+            <div key={c} className="contents lg:flex lg:flex-col lg:gap-4">
               {col.map(({ item, i }) => (
                 // TODO(M5): track("faq_opened", { question_id: item.id }) on open only.
-                <details key={item.id} data-faq-id={item.id} style={{ order: i }} className="group rounded-small border border-line bg-white">
-                  <summary className="flex min-h-12 cursor-pointer list-none items-center gap-2.5 rounded-small px-3.5 py-3 [&::-webkit-details-marker]:hidden">
-                    <ChevronRight aria-hidden className="size-4 shrink-0 text-ink" />
-                    <span className="flex-1 text-[14px] leading-snug font-semibold text-ink">{item.q}</span>
-                    <Plus aria-hidden className="size-4 shrink-0 text-ink motion-safe:transition-transform motion-safe:duration-200 group-open:rotate-45" />
+                <details
+                  key={item.id}
+                  data-faq-id={item.id}
+                  style={{ order: i }}
+                  className="group rounded-card border-2 border-line bg-white transition-colors duration-200 open:border-berry/40 open:bg-highlight hover:border-berry/40"
+                >
+                  <summary className="flex min-h-14 cursor-pointer list-none items-center gap-3 rounded-card px-5 py-4 [&::-webkit-details-marker]:hidden">
+                    <ChevronRight aria-hidden className="size-4 shrink-0 text-berry motion-safe:transition-transform motion-safe:duration-200 group-open:rotate-90" />
+                    <span className="flex-1 font-heading text-[17px] leading-snug font-semibold text-ink">{item.q}</span>
+                    <span aria-hidden className="flex size-8 shrink-0 items-center justify-center rounded-full bg-mango-soft text-ink transition-colors group-open:bg-berry group-open:text-white">
+                      <Plus className="size-4 motion-safe:transition-transform motion-safe:duration-300 group-open:rotate-45" />
+                    </span>
                   </summary>
-                  <p className="px-3.5 pb-4 pl-[38px] type-small text-muted">{item.a}</p>
+                  <p className="px-5 pb-5 pl-12 type-body text-ink">{item.a}</p>
                 </details>
               ))}
             </div>

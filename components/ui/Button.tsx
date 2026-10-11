@@ -5,11 +5,11 @@ type Variant = "primary" | "outline";
 type Size = "default" | "compact";
 
 const base =
-  "relative inline-flex shrink-0 items-center justify-center gap-2 rounded-pill type-button whitespace-nowrap transition-colors duration-150 ease-out disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50";
+  "group/btn relative inline-flex shrink-0 items-center justify-center gap-2 rounded-pill type-button whitespace-nowrap transition-[background-color,transform,box-shadow] duration-200 ease-out motion-safe:hover:-translate-y-0.5 motion-safe:active:translate-y-0 motion-safe:active:scale-[0.97] disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50";
 
 const variants: Record<Variant, string> = {
-  primary: "bg-ink-deep text-white hover:bg-ink-hover",
-  outline: "border border-outline bg-transparent text-ink hover:bg-paper",
+  primary: "bg-berry text-white hover:bg-berry-hover hover:shadow-[0_10px_24px_-10px_var(--color-berry)]",
+  outline: "border-2 border-outline bg-transparent text-ink hover:border-berry hover:bg-paper",
 };
 
 // The compact button is 40px tall; the ::before extends its tap area to 44px.
@@ -39,7 +39,7 @@ export function ButtonIcon({ loading = false }: { loading?: boolean }) {
   return loading ? (
     <LoaderCircle aria-hidden className="size-4 animate-spin motion-reduce:animate-none" />
   ) : (
-    <ArrowRight aria-hidden className="size-4" />
+    <ArrowRight aria-hidden className="size-4 transition-transform duration-200 motion-safe:group-hover/btn:translate-x-1" />
   );
 }
 

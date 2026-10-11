@@ -1,23 +1,29 @@
 import { Container } from "@/components/ui/Container";
-import { IconBadge } from "@/components/ui/IconBadge";
 import { BENEFIT_ICONS } from "@/components/ui/icons";
 import { site } from "@/content/site";
 
+// Each benefit gets its own candy color.
+const TINTS = ["bg-highlight text-accent", "bg-mango-soft text-ink", "bg-mint-soft text-ink", "bg-strawberry text-strawberry-ink"];
+
 export function Benefits() {
   return (
-    <section aria-label={site.a11y.benefitsLabel} className="border-y border-line bg-cream py-6">
+    <section aria-label={site.a11y.benefitsLabel} className="bg-cream pt-8 lg:pt-12">
       <Container>
-        <ul className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-0">
-          {site.benefits.map((b) => {
+        <ul className="grid grid-cols-2 gap-grid lg:grid-cols-4">
+          {site.benefits.map((b, i) => {
             const Icon = BENEFIT_ICONS[b.id];
             return (
               <li
                 key={b.id}
-                className="flex flex-col gap-3 lg:flex-row lg:items-start lg:gap-4 lg:border-l lg:border-line lg:px-6 lg:first:border-l-0 lg:first:pl-0 lg:last:pr-0"
+                data-reveal
+                style={{ "--reveal-delay": `${i * 80}ms` } as React.CSSProperties}
+                className="jelly flex flex-col gap-3 rounded-card border border-line bg-paper p-4 lg:p-5"
               >
-                <IconBadge>{Icon && <Icon strokeWidth={1.75} />}</IconBadge>
+                <span aria-hidden className={`flex size-12 items-center justify-center rounded-full ${TINTS[i % TINTS.length]}`}>
+                  {Icon && <Icon strokeWidth={1.75} className="size-6" />}
+                </span>
                 <div>
-                  <p className="type-small font-semibold text-ink">{b.title}</p>
+                  <p className="font-heading text-[17px] leading-tight font-semibold text-ink lg:text-[19px]">{b.title}</p>
                   <p className="mt-1 type-small text-muted">{b.line}</p>
                 </div>
               </li>

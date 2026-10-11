@@ -1,31 +1,39 @@
 @import "tailwindcss";
 
-/* Design tokens: guide/docs/05-design-system.md. Components use these names, never raw hex. */
+/*
+ * Design tokens. Jelly Pop palette (founder, 11 Oct): raspberry buttons, plum text,
+ * peachy-pink background, mango and mint accents. Replaces the brown palette in
+ * guide/docs/05-design-system.md. Components use these names, never raw hex.
+ */
 @theme {
   --color-*: initial;
-  --color-ink: #481208;
-  --color-ink-deep: #3e1008;
-  --color-ink-hover: #2c0a04;
-  --color-muted: #6b5148;
-  --color-eyebrow: #5a4c46;
-  --color-paper: #fffdf9;
-  --color-cream: #fcf6ee;
-  --color-line: #eadfd5;
-  --color-outline: #c0a8a0;
-  --color-strawberry: #f9ccc9;
-  --color-strawberry-ink: #b80f1a;
-  --color-chocolate: #d9ae92;
-  --color-chocolate-ink: #4a1e10;
-  --color-matcha: #e8e8be;
-  --color-matcha-ink: #3f4a12;
-  --color-accent: #d92b1e;
-  --color-highlight: #fdeee1;
-  --color-blush: #fed0ca;
+  --color-ink: #3a1440;
+  --color-muted: #6e5672;
+  --color-eyebrow: #b3174f;
+  --color-paper: #fffaf7;
+  --color-cream: #fff3ee;
+  --color-line: #f5dcd9;
+  --color-outline: #b5708a;
+  --color-berry: #d81e5b;
+  --color-berry-hover: #b8164b;
+  --color-accent: #e8336d;
+  --color-highlight: #ffe4ea;
+  --color-blush: #ffd3de;
+  --color-mango: #ffb547;
+  --color-mango-soft: #ffe7bf;
+  --color-mint: #6fd3a8;
+  --color-mint-soft: #d9f5e8;
+  --color-strawberry: #ffd3da;
+  --color-strawberry-ink: #b3123b;
+  --color-chocolate: #f2c9a8;
+  --color-chocolate-ink: #5a2a14;
+  --color-matcha: #ddf0b4;
+  --color-matcha-ink: #3d5410;
   --color-white: #ffffff;
   --color-transparent: transparent;
   --color-current: currentColor;
 
-  --font-heading: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-fredoka), ui-rounded, ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-hand: var(--font-caveat), cursive;
 
@@ -35,25 +43,107 @@
   --container-content: 1180px;
 
   --radius-pill: 999px;
-  --radius-card: 20px;
-  --radius-small: 12px;
+  --radius-card: 24px;
+  --radius-small: 14px;
+
+  --spacing-nav: 56px;
+  --spacing-nav-lg: 64px;
 
   --animate-float: float 4s ease-in-out infinite;
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-pop: pop 450ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  --animate-jelly: jelly 650ms ease-in-out;
+  --animate-wave: wave 2.4s ease-in-out infinite;
+  --animate-drift: drift 14s ease-in-out infinite;
+  --animate-burst: burst 700ms cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
+
   @keyframes float {
     0%,
     100% {
       transform: translateY(0);
     }
     50% {
-      transform: translateY(-6px);
+      transform: translateY(-8px);
     }
   }
-
-  --spacing-nav: 56px;
-  --spacing-nav-lg: 64px;
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  /* A selection pop: squash, overshoot, settle. */
+  @keyframes pop {
+    0% {
+      transform: scale(1);
+    }
+    35% {
+      transform: scale(0.94, 0.9);
+    }
+    70% {
+      transform: scale(1.04, 1.06);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  /* A jelly wobble for hover. */
+  @keyframes jelly {
+    0%,
+    100% {
+      transform: scale(1, 1);
+    }
+    30% {
+      transform: scale(1.06, 0.94);
+    }
+    50% {
+      transform: scale(0.96, 1.04);
+    }
+    70% {
+      transform: scale(1.02, 0.98);
+    }
+  }
+  @keyframes wave {
+    0%,
+    60%,
+    100% {
+      transform: rotate(0deg);
+    }
+    15% {
+      transform: rotate(-6deg);
+    }
+    30% {
+      transform: rotate(5deg);
+    }
+    45% {
+      transform: rotate(-3deg);
+    }
+  }
+  /* Confetti dots flying out from a picked flavor. --bx/--by set per dot. */
+  @keyframes burst {
+    0% {
+      transform: translate(0, 0) scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(var(--bx), var(--by)) scale(0.2);
+      opacity: 0;
+    }
+  }
+  @keyframes drift {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+    33% {
+      transform: translate(24px, -18px) scale(1.08);
+    }
+    66% {
+      transform: translate(-16px, 14px) scale(0.95);
+    }
+  }
 }
 
-/* Layout tokens that change with the breakpoint. */
+/* Layout: one rhythm for every section. */
 @utility px-gutter {
   padding-inline: 16px;
   @media (width >= 640px) {
@@ -65,16 +155,24 @@
 }
 
 @utility py-section {
-  padding-block: 40px;
+  padding-block: 64px;
   @media (width >= 1024px) {
-    padding-block: 56px;
+    padding-block: 96px;
+  }
+}
+
+/* Space between a section's heading block and its content. */
+@utility mb-heading {
+  margin-bottom: 28px;
+  @media (width >= 1024px) {
+    margin-bottom: 44px;
   }
 }
 
 @utility gap-grid {
-  gap: 12px;
+  gap: 16px;
   @media (width >= 1024px) {
-    gap: 16px;
+    gap: 24px;
   }
 }
 
@@ -82,33 +180,32 @@
 @utility type-h1 {
   font-family: var(--font-heading);
   font-weight: 700;
-  font-size: 40px;
+  font-size: 42px;
   line-height: 0.98;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
   @media (width >= 1024px) {
-    font-size: 56px;
+    font-size: 64px;
   }
 }
 
 @utility type-h2 {
   font-family: var(--font-heading);
   font-weight: 700;
-  font-size: 30px;
+  font-size: 32px;
   line-height: 1.05;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.015em;
   @media (width >= 1024px) {
-    font-size: 40px;
+    font-size: 44px;
   }
 }
 
 @utility type-h3 {
   font-family: var(--font-heading);
   font-weight: 600;
-  font-size: 20px;
+  font-size: 21px;
   line-height: 1.15;
-  letter-spacing: -0.01em;
   @media (width >= 1024px) {
-    font-size: 22px;
+    font-size: 23px;
   }
 }
 
@@ -117,13 +214,16 @@
   font-size: 17px;
   line-height: 1.3;
   @media (width >= 1024px) {
-    font-size: 18px;
+    font-size: 19px;
   }
 }
 
 @utility type-body {
   font-size: 16px;
-  line-height: 1.5;
+  line-height: 1.55;
+  @media (width >= 1024px) {
+    font-size: 17px;
+  }
 }
 
 @utility type-small {
@@ -133,9 +233,9 @@
 
 @utility type-eyebrow {
   font-weight: 700;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.2;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
@@ -148,10 +248,10 @@
 @utility type-hand {
   font-family: var(--font-hand);
   font-weight: 600;
-  font-size: 20px;
+  font-size: 22px;
   line-height: 1.1;
   @media (width >= 1024px) {
-    font-size: 24px;
+    font-size: 26px;
   }
 }
 
@@ -160,9 +260,41 @@
   line-height: 1.4;
 }
 
-@utility focus-ring {
-  outline: 2px solid var(--color-ink);
-  outline-offset: 2px;
+/* Hide the native scrollbar on horizontal scrollers; they stay touch and keyboard scrollable. */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/*
+ * Scroll reveal. Elements with data-reveal start lowered and transparent only when
+ * JavaScript runs (html.js) and motion is allowed; RevealObserver adds .is-revealed.
+ * Without JS or with reduced motion, everything is simply visible.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  html.js [data-reveal] {
+    opacity: 0;
+    transform: translateY(24px) scale(0.98);
+    transition:
+      opacity 600ms ease-out,
+      transform 700ms cubic-bezier(0.34, 1.4, 0.64, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  html.js [data-reveal].is-revealed {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Hover wobble for anything marked as jelly. */
+  .jelly:hover {
+    animation: var(--animate-jelly);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 @layer base {
@@ -187,15 +319,26 @@
   /* Anchored sections clear the sticky nav. */
   section[id],
   main[id] {
-    scroll-margin-top: calc(var(--spacing-nav) + 8px);
+    scroll-margin-top: var(--spacing-nav);
     @media (width >= 1024px) {
-      scroll-margin-top: calc(var(--spacing-nav-lg) + 8px);
+      scroll-margin-top: var(--spacing-nav-lg);
     }
   }
 
+  /* FAQ answers ease open where the browser supports it. */
   @media (prefers-reduced-motion: no-preference) {
-    html {
-      scroll-behavior: smooth;
+    :root {
+      interpolate-size: allow-keywords;
+    }
+    details::details-content {
+      height: 0;
+      overflow: clip;
+      transition:
+        height 300ms ease,
+        content-visibility 300ms allow-discrete;
+    }
+    details[open]::details-content {
+      height: auto;
     }
   }
 }

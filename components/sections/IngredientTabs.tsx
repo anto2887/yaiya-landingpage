@@ -32,14 +32,14 @@ export function IngredientTabs({ content }: IngredientTabsProps) {
   }
 
   return (
-    <div className="mt-10 rounded-card border border-line bg-paper p-4 sm:p-6 lg:mt-12">
+    <div data-reveal className="mt-10 rounded-card border border-line bg-cream p-4 sm:p-6 lg:mt-12 lg:p-8">
       <Eyebrow>{content.eyebrow}</Eyebrow>
       <h3 className="mt-2 type-h3 text-ink">{content.heading}</h3>
 
       <div
         role="tablist"
         aria-label={content.heading}
-        className="-mx-4 mt-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0 [&::-webkit-scrollbar]:hidden"
+        className="no-scrollbar -mx-4 mt-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0"
       >
         {content.tabs.map((t, i) => {
           const selected = i === active;
@@ -57,8 +57,8 @@ export function IngredientTabs({ content }: IngredientTabsProps) {
               tabIndex={selected ? 0 : -1}
               onClick={() => select(i)}
               onKeyDown={(e) => onKeyDown(e, i)}
-              className={`inline-flex min-h-11 shrink-0 items-center rounded-pill border px-4 text-[14px] font-semibold whitespace-nowrap transition-colors duration-150 ${
-                selected ? "border-ink-deep bg-ink-deep text-white" : "border-outline bg-white text-ink hover:bg-cream"
+              className={`inline-flex min-h-11 shrink-0 items-center rounded-pill border-2 px-4 text-[14px] font-semibold whitespace-nowrap transition-[background-color,border-color,transform] duration-200 motion-safe:active:scale-95 ${
+                selected ? "border-berry bg-berry text-white" : "border-line bg-white text-ink hover:border-berry"
               }`}
             >
               {t.label}
@@ -74,11 +74,12 @@ export function IngredientTabs({ content }: IngredientTabsProps) {
         tabIndex={0}
         className="mt-4 grid gap-4 rounded-small sm:grid-cols-[35fr_65fr] sm:gap-6"
       >
-        <div className="flex flex-col justify-center rounded-small bg-highlight p-5">
-          <p className="font-heading text-[40px] leading-none font-bold text-ink">{tab.value}</p>
+        {/* Keyed by tab, so the metric pops in on every switch. */}
+        <div key={tab.id} className="flex flex-col justify-center rounded-small bg-highlight p-5 motion-safe:animate-pop">
+          <p className="font-heading text-[48px] leading-none font-bold text-berry">{tab.value}</p>
           <p className="mt-2 type-small text-muted">{tab.valueLabel}</p>
         </div>
-        <div className="py-1">
+        <div key={`${tab.id}-text`} className="py-1 motion-safe:animate-[pop_400ms_ease-out]">
           <p className="type-h3 text-ink">{tab.title}</p>
           <p className="mt-2 type-body text-ink">{tab.body}</p>
           <p className="mt-3 type-footnote text-muted">{tab.note}</p>

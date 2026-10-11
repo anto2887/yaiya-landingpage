@@ -7,6 +7,7 @@ import { KonjacStory } from "@/components/sections/KonjacStory";
 import { Nutrition } from "@/components/sections/Nutrition";
 import { Occasions } from "@/components/sections/Occasions";
 import { StickyCta } from "@/components/sections/StickyCta";
+import { Ticker } from "@/components/sections/Ticker";
 import { Waitlist } from "@/components/sections/Waitlist";
 import { WhatsInside } from "@/components/sections/WhatsInside";
 import { site } from "@/content/site";
@@ -17,6 +18,7 @@ export default function Home() {
     <>
       <main id="main" tabIndex={-1} className="outline-none">
         <Hero />
+        <Ticker />
         <Benefits />
         <Flavors content={site.flavors} />
         <Nutrition />

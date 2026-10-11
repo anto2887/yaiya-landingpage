@@ -1,11 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { Caveat, Inter, Outfit } from "next/font/google";
+import { Caveat, Fredoka, Inter } from "next/font/google";
+import { RevealObserver } from "@/components/RevealObserver";
 import { Footer } from "@/components/sections/Footer";
 import { Nav } from "@/components/sections/Nav";
 import { site } from "@/content/site";
 import "./globals.css";
 
-const outfit = Outfit({ subsets: ["latin"], weight: ["600", "700"], variable: "--font-outfit", display: "swap" });
+// Fredoka: rounded, jelly-soft headings (founder asked for a more playful feel, 11 Oct).
+const fredoka = Fredoka({ subsets: ["latin"], weight: ["600", "700"], variable: "--font-fredoka", display: "swap" });
 const inter = Inter({ subsets: ["latin"], weight: ["400", "600", "700"], variable: "--font-inter", display: "swap" });
 const caveat = Caveat({ subsets: ["latin"], weight: ["600"], variable: "--font-caveat", display: "swap" });
 
@@ -26,7 +28,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#FCF6EE", // cream
+  themeColor: "#FFF3EE", // cream
 };
 
 export default function RootLayout({
@@ -35,17 +37,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${outfit.variable} ${inter.variable} ${caveat.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${fredoka.variable} ${inter.variable} ${caveat.variable}`}>
+      <head>
+        {/* Lets CSS hide scroll-reveal content only when JS will reveal it. */}
+        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+      </head>
       <body className="bg-cream text-ink antialiased">
         <a
           href="#main"
-          className="sr-only z-50 rounded-pill bg-ink-deep px-4 py-3 type-button text-white focus:not-sr-only focus:fixed focus:top-2 focus:left-2"
+          className="sr-only z-50 rounded-pill bg-berry px-4 py-3 type-button text-white focus:not-sr-only focus:fixed focus:top-2 focus:left-2"
         >
           {site.a11y.skipLink}
         </a>
         <Nav />
         {children}
         <Footer />
+        <RevealObserver />
       </body>
     </html>
   );

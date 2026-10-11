@@ -111,11 +111,23 @@ export const site = {
     secondaryCta: { label: "Explore the Flavors", href: "#flavors" },
     note: "A softer snack for brighter days.",
     image: {
-      desktop: "/images/hero-desktop.jpg",
-      mobile: "/images/hero-mobile.jpg",
+      // Extended canvases from scripts/extend-hero.mjs, so copy can sit over the photo (D-25).
+      desktop: "/images/hero-wide.jpg",
+      mobile: "/images/hero-tall.jpg",
       alt: "Three YAIYA pouches in Strawberry Peach, Chocolate Silk and Matcha Yuzu on a desk, with the jelly mascot Wobbie waving behind them.",
     },
   },
+
+  /** Scrolling flavor strip under the hero. Approved lines only (07-copy-and-claims). Decorative. */
+  ticker: [
+    "Strawberry Peach",
+    "Soft, squeezable jelly",
+    "Chocolate Silk",
+    `${TARGETS.protein} protein*`,
+    "Matcha Yuzu",
+    "No fridge, no spoon",
+    "Pocket-sized",
+  ],
 
   benefits: [
     {

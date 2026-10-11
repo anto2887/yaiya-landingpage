@@ -10,43 +10,63 @@ import { HERO_CTA_ID } from "@/lib/scroll";
 const { hero } = site;
 
 // Art direction: the browser downloads only the image for its breakpoint.
+// Both are extended canvases (scripts/extend-hero.mjs): soft blurred space for the copy,
+// the pouches sharp on the right (desktop) or at the bottom (mobile).
 function HeroPicture() {
   // getImageProps ignores `priority`, so the hero asks for high priority directly.
   const common = { alt: hero.image.alt, fetchPriority: "high", loading: "eager" } as const;
   const {
     props: { srcSet: desktopSrcSet },
-  } = getImageProps({ ...common, src: hero.image.desktop, width: 1448, height: 1086, sizes: "75vw" });
-  const { props: mobile } = getImageProps({ ...common, src: hero.image.mobile, width: 1358, height: 1086, sizes: "100vw" });
+  } = getImageProps({ ...common, src: hero.image.desktop, width: 2400, height: 1086, sizes: "100vw" });
+  const { props: mobile } = getImageProps({ ...common, src: hero.image.mobile, width: 1358, height: 2300, sizes: "100vw" });
 
   return (
     <picture>
-      <source media="(min-width: 1024px)" srcSet={desktopSrcSet} sizes="75vw" />
+      <source media="(min-width: 1024px)" srcSet={desktopSrcSet} sizes="100vw" />
       {/* eslint-disable-next-line jsx-a11y/alt-text -- alt comes from getImageProps */}
-      <img {...mobile} className="absolute inset-0 size-full object-cover lg:object-[30%_50%]" />
+      <img {...mobile} className="absolute inset-0 size-full object-cover object-bottom lg:object-[60%_50%]" />
     </picture>
+  );
+}
+
+/** Soft colored jelly bubbles drifting over the photo. Decorative. */
+function Bubbles() {
+  return (
+    <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+      <span className="absolute top-[12%] left-[46%] size-24 rounded-full bg-mango/40 blur-2xl motion-safe:animate-drift lg:size-40" />
+      <span className="absolute top-[55%] left-[6%] size-28 rounded-full bg-accent/25 blur-2xl motion-safe:animate-drift [animation-delay:-5s] lg:size-48" />
+      <span className="absolute top-[8%] right-[8%] size-20 rounded-full bg-mint/40 blur-2xl motion-safe:animate-drift [animation-delay:-9s] lg:size-36" />
+    </div>
   );
 }
 
 export function Hero() {
   return (
-    // One full-bleed photo card with the copy on top (founder, 11 Oct; replaces D-21).
-    // The scene has its pouches in the middle, so on desktop the photo starts just
-    // past the text column and its left edge fades into cream: the copy sits over
-    // the fade, never over the pouches. On mobile the photo sits under the copy and
-    // its top fades up into it.
-    <section id="top" aria-labelledby="hero-heading" className="relative overflow-hidden bg-cream">
-      <Container className="relative z-10 flex items-center lg:min-h-[520px] lg:py-14 xl:min-h-[600px]">
-        <div className="pt-5 lg:max-w-[400px] lg:pt-0 xl:max-w-[480px]">
+    // The photo fills the whole hero and the copy sits on top of it (founder, D-25).
+    <section
+      id="top"
+      aria-labelledby="hero-heading"
+      className="relative isolate overflow-hidden bg-cream lg:flex lg:aspect-[2400/1086] lg:max-h-[780px] lg:min-h-[560px] lg:w-full lg:items-center"
+    >
+      <div className="absolute inset-0 -z-10">
+        <HeroPicture />
+        {/* A light wash keeps the copy readable over the blurred part of the photo. */}
+        <div className="absolute inset-0 bg-linear-to-b from-cream/90 via-cream/60 via-45% to-transparent to-65% lg:bg-linear-to-r lg:from-cream/85 lg:via-cream/45 lg:via-35% lg:to-transparent lg:to-55%" />
+        <Bubbles />
+      </div>
+
+      <Container className="relative">
+        <div className="pt-8 lg:max-w-[440px] lg:py-12 xl:max-w-[460px]">
           <Eyebrow>{hero.eyebrow}</Eyebrow>
           <h1 id="hero-heading" className="mt-3 type-h1 text-ink">
-            {hero.headline.map((line) => (
-              <span key={line} className="block">
+            {hero.headline.map((line, i) => (
+              <span key={line} className={`block ${i === 2 ? "text-berry" : ""}`}>
                 {line}
               </span>
             ))}
           </h1>
           <p className="mt-4 type-kicker text-ink">{hero.kicker}</p>
-          <p className="mt-2 max-w-[460px] type-body text-ink">{hero.body}</p>
+          <p className="mt-2 type-body text-ink">{hero.body}</p>
 
           <div className="mt-6 flex flex-col items-stretch gap-1 lg:flex-row lg:items-center lg:gap-3">
             <WaitlistButton id={HERO_CTA_ID} href={hero.primaryCta.href} className="w-full lg:w-auto">
@@ -55,22 +75,20 @@ export function Hero() {
             {/* Mobile: a text link. Desktop: an outline button. */}
             <Link
               href={hero.secondaryCta.href}
-              className="inline-flex min-h-11 items-center justify-center self-center rounded-pill px-3 type-button text-ink underline underline-offset-4 transition-colors duration-150 hover:text-accent lg:h-12 lg:self-auto lg:border lg:border-outline lg:px-[22px] lg:no-underline lg:hover:bg-paper lg:hover:text-ink"
+              className="inline-flex min-h-11 items-center justify-center self-center rounded-pill px-3 type-button text-ink underline underline-offset-4 transition-colors duration-150 hover:text-berry lg:h-12 lg:self-auto lg:border-2 lg:border-outline lg:bg-paper/70 lg:px-[22px] lg:no-underline lg:backdrop-blur-sm lg:hover:border-berry"
             >
               {hero.secondaryCta.label}
             </Link>
           </div>
         </div>
+
+        {/* Mobile: room for the pouches at the bottom of the photo. */}
+        <div aria-hidden className="aspect-[1358/1000] lg:hidden" />
       </Container>
 
-      {/* Mobile: full width under the copy. Desktop: fills the hero from 360px into the content column to the viewport edge. */}
-      <div className="relative -mt-6 aspect-[5/4] sm:aspect-[16/10] lg:absolute lg:inset-y-0 lg:right-0 lg:left-[calc(max(0px,(100vw-1180px)/2)+34px+380px)] xl:left-[calc(max(0px,(100vw-1180px)/2)+34px+360px)] lg:mt-0 lg:aspect-auto">
-        <HeroPicture />
-        <div aria-hidden className="absolute inset-x-0 top-0 h-1/4 bg-linear-to-b from-cream to-transparent lg:inset-y-0 lg:right-auto lg:h-auto lg:w-1/4 lg:bg-linear-to-r" />
-        <HandNote rotate={6} mark="heart" className="absolute top-8 right-10 max-w-[150px] text-right">
-          {hero.note}
-        </HandNote>
-      </div>
+      <HandNote rotate={6} mark="heart" className="absolute top-8 right-10 max-w-[160px] text-right">
+        {hero.note}
+      </HandNote>
     </section>
   );
 }

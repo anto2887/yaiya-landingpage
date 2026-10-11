@@ -1,30 +1,36 @@
 import { Container } from "@/components/ui/Container";
-import { IconBadge } from "@/components/ui/IconBadge";
 import { STAT_ICONS } from "@/components/ui/icons";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 import { site } from "@/content/site";
 
 const { nutrition } = site;
 const NOTE_ID = "targets-note";
 
+// One candy color per stat card.
+const TINTS = ["bg-highlight", "bg-mint-soft", "bg-mango-soft", "bg-strawberry"];
+
 export function Nutrition() {
   return (
-    <section id="nutrition" aria-labelledby="nutrition-heading" className="bg-cream pt-2 pb-section lg:pt-4">
-      <Container className="grid gap-6 lg:grid-cols-[25fr_60fr_15fr] lg:items-center lg:gap-6">
-        <div>
-          <h2 id="nutrition-heading" className="type-h2 text-ink lg:text-[30px]">
-            {nutrition.heading}
-          </h2>
-          <p className="mt-2 type-small text-ink">{nutrition.sub}</p>
-        </div>
+    <section id="nutrition" aria-labelledby="nutrition-heading" className="bg-paper py-section">
+      <Container>
+        <SectionHeading id="nutrition-heading" title={nutrition.heading} sub={nutrition.sub} />
 
-        <dl className="grid grid-cols-2 gap-x-4 gap-y-6 lg:grid-cols-4 lg:gap-0">
-          {nutrition.stats.map((s) => {
+        <dl className="grid grid-cols-2 gap-grid lg:grid-cols-4">
+          {nutrition.stats.map((s, i) => {
             const Icon = STAT_ICONS[s.id];
             return (
-              <div key={s.id} className="flex flex-col items-center text-center lg:border-l lg:border-line lg:px-3 lg:first:border-l-0">
-                <IconBadge className="mb-3 size-14 [&>svg]:size-6">{Icon && <Icon strokeWidth={1.75} />}</IconBadge>
-                <dt aria-describedby={NOTE_ID} className="font-heading text-[20px] leading-tight font-bold text-ink lg:text-[18px] lg:whitespace-nowrap">
-                  {s.value} {s.label}
+              <div
+                key={s.id}
+                data-reveal
+                style={{ "--reveal-delay": `${i * 90}ms` } as React.CSSProperties}
+                className={`jelly flex flex-col rounded-card p-5 lg:p-6 ${TINTS[i % TINTS.length]}`}
+              >
+                <span aria-hidden className="mb-6 flex size-11 items-center justify-center rounded-full bg-white/80 text-accent lg:mb-10">
+                  {Icon && <Icon strokeWidth={1.75} className="size-[22px]" />}
+                </span>
+                <dt aria-describedby={NOTE_ID} className="font-heading text-ink">
+                  <span className="block text-[44px] leading-none font-bold lg:text-[56px]">{s.value}</span>
+                  <span className="mt-1 block text-[18px] font-semibold lg:text-[20px]">{s.label}</span>
                 </dt>
                 <dd className="mt-1 type-small text-muted">{s.line}</dd>
               </div>
@@ -32,7 +38,7 @@ export function Nutrition() {
           })}
         </dl>
 
-        <p id={NOTE_ID} className="type-footnote text-muted">
+        <p id={NOTE_ID} className="mt-5 type-footnote text-muted">
           {nutrition.footnote}
         </p>
       </Container>
