@@ -18,7 +18,7 @@ function HeroPicture() {
   const {
     props: { srcSet: desktopSrcSet },
   } = getImageProps({ ...common, src: hero.image.desktop, width: 1672, height: 941, sizes: "100vw" });
-  const { props: mobile } = getImageProps({ ...common, src: hero.image.mobile, width: 1176, height: 1992, sizes: "100vw" });
+  const { props: mobile } = getImageProps({ ...common, src: hero.image.mobile, width: 960, height: 1960, sizes: "100vw" });
 
   return (
     <picture>
@@ -46,7 +46,7 @@ export function Hero() {
     <section
       id="top"
       aria-labelledby="hero-heading"
-      className="relative isolate -mt-nav overflow-hidden bg-cream pt-nav lg:-mt-nav-lg lg:flex lg:aspect-[1672/941] lg:max-h-[860px] lg:min-h-[600px] lg:w-full lg:items-center lg:pt-nav-lg"
+      className="relative isolate -mt-nav overflow-hidden bg-cream pt-nav lg:-mt-nav-lg lg:flex lg:aspect-[1672/941] lg:max-h-[860px] lg:min-h-[600px] lg:w-full lg:items-start lg:pt-nav-lg"
     >
       <div className="absolute inset-0 -z-10">
         <HeroPicture />
@@ -54,7 +54,7 @@ export function Hero() {
       </div>
 
       <Container className="relative">
-        <div className="pt-8 lg:max-w-[460px] lg:py-12 [&>:not(:last-child)]:text-glow">
+        <div className="pt-8 lg:max-w-[420px] xl:max-w-[480px] lg:pt-[clamp(32px,5vw,72px)] [&>:not(:last-child)]:text-glow">
           <Eyebrow>{hero.eyebrow}</Eyebrow>
           <h1 id="hero-heading" className="mt-3 type-h1 text-ink">
             {hero.headline.map((line, i) => (
@@ -81,7 +81,7 @@ export function Hero() {
         </div>
 
         {/* Mobile: room for the pouches at the bottom of the photo. */}
-        <div aria-hidden className="aspect-[1176/880] lg:hidden" />
+        <div aria-hidden className="aspect-[960/820] lg:hidden" />
       </Container>
 
       <HandNote rotate={6} mark="heart" className="absolute top-24 right-10 max-w-[160px] text-right">

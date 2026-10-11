@@ -111,11 +111,11 @@ export const site = {
     secondaryCta: { label: "Explore the Flavors", href: "#flavors" },
     note: "A softer snack for brighter days.",
     image: {
-      // Desktop: the founder's scene, untouched, with the copy floating on it (D-25).
-      // Mobile: the same scene extended upward by scripts/extend-hero.mjs.
+      // Desktop: the founder's scene as supplied; the copy sits on its open wall (D-25).
+      // Mobile: a crop around the pouches with more wall above (scripts/extend-hero.mjs).
       desktop: "/images/hero-scene.jpg",
       mobile: "/images/hero-tall.jpg",
-      alt: "Three YAIYA pouches in Strawberry Peach, Chocolate Silk and Matcha Yuzu on a desk, with the jelly mascot Wobbie waving behind them.",
+      alt: "Three YAIYA pouches in Strawberry Peach, Chocolate Silk and Matcha Yuzu on a sunny desk, with the jelly mascot Wobbie peeking out of a tote bag.",
     },
   },
 
