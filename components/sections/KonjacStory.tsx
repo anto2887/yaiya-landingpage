@@ -6,6 +6,7 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 import { HandNote } from "@/components/ui/HandNote";
 import { site } from "@/content/site";
 import { WaveTop } from "@/components/ui/WaveTop";
+import { Wobbie } from "@/components/Wobbie";
 
 const { story } = site;
 
@@ -21,7 +22,10 @@ export function KonjacStory() {
       <WaveTop fill="fill-cream" />
       <Container>
         {/* One mint panel, same container width as every other section. */}
-        <div data-reveal className="relative mt-14 grid grid-cols-1 gap-6 rounded-card bg-mint-soft p-4 sm:p-6 lg:mt-16 lg:grid-cols-2 lg:items-center lg:gap-12 lg:p-10">
+        <div
+          data-reveal
+          className="relative mt-14 grid grid-cols-1 gap-6 rounded-card bg-mint-soft p-4 sm:p-6 lg:mt-16 lg:grid-cols-2 lg:items-center lg:gap-12 lg:p-10"
+        >
           <div className="relative aspect-[3/2] overflow-hidden rounded-[18px]">
             <Image src={story.image.src} alt={story.image.alt} fill sizes="(min-width: 1024px) 540px, 100vw" className="object-cover" />
           </div>
@@ -41,14 +45,14 @@ export function KonjacStory() {
             </HandNote>
           </div>
 
-          {/* Wobbie peeks over the panel's top edge and waves. */}
-          <Image
-            src={story.wobbie.src}
-            alt={story.wobbie.alt}
-            width={912}
-            height={1194}
-            sizes="(min-width: 1024px) 150px, 96px"
-            className="absolute -top-16 right-4 w-[96px] origin-bottom motion-safe:animate-wave lg:-top-24 lg:right-10 lg:w-[150px]"
+          {/* Wobbie stands on the panel's top edge: waves, holds a pouch, ponders. */}
+          <Wobbie
+            id="story"
+            poses={["wave", "hold", "think"]}
+            cheerOnTap
+            lines={site.wobbie.lines}
+            className="right-5 bottom-full h-[104px] w-[96px] lg:right-12 lg:h-[160px] lg:w-[146px]"
+            bubbleClassName="right-0"
           />
         </div>
 
@@ -93,7 +97,9 @@ export function KonjacStory() {
         >
           <div>
             <p className="type-eyebrow text-eyebrow">{story.why.kicker}</p>
-            <p className="mt-2 max-w-[720px] font-heading text-[18px] leading-snug font-semibold text-ink lg:text-[20px]">{story.why.line}</p>
+            <p className="mt-2 max-w-[720px] font-heading text-[18px] leading-snug font-semibold text-ink lg:text-[20px]">
+              {story.why.line}
+            </p>
           </div>
           <Link
             href={story.why.cta.href}

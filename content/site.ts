@@ -90,6 +90,11 @@ export const site = {
     benefitsLabel: "Why YAIYA",
   },
 
+  /** Wobbie's speech bubbles when tapped. Approved lines only (07-copy-and-claims). */
+  wobbie: {
+    lines: ["Protein is in its soft jelly era.", "Good ingredients. Good stories."],
+  },
+
   nav: {
     wordmarkAlt: "YAIYA",
     links: [
@@ -312,10 +317,6 @@ export const site = {
     image: {
       src: "/images/story-konjac-v2.jpg",
       alt: "Pieces of konjac jelly piled on a woven bamboo tray.",
-    },
-    wobbie: {
-      src: "/images/story-wobbie.png",
-      alt: "Wobbie, YAIYA's jelly mascot, waving.",
     },
     /**
      * Founder copy, 11 Oct, safe version (D-11 kept): heritage and texture only.
@@ -700,10 +701,6 @@ export const site = {
       rate_limited: "Too many tries. Please wait a few minutes and try again.",
       server: "Something went wrong on our side. Please try again.",
       network: "We couldn't reach the server. Check your connection and try again.",
-    },
-    wobbie: {
-      src: "/images/waitlist-wobbie.png",
-      alt: "Wobbie, YAIYA's jelly mascot.",
     },
   },
 

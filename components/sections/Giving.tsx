@@ -2,6 +2,7 @@ import { Eye, HandHeart, Sprout, Users } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { site } from "@/content/site";
 import { WaveTop } from "@/components/ui/WaveTop";
+import { Wobbie } from "@/components/Wobbie";
 
 const { giving } = site;
 
@@ -16,7 +17,17 @@ export function Giving() {
   return (
     <section id="giving" aria-labelledby="giving-heading" className="relative bg-cream py-section">
       <WaveTop fill="fill-mango-soft" flip />
-      <Container>
+      <Container className="relative">
+        {/* Wobbie's first appearance: peeking over the panel. */}
+        <Wobbie
+          id="giving"
+          poses={["peek-up"]}
+          enter="peek"
+          idle="none"
+          lines={site.wobbie.lines}
+          className="right-10 bottom-full h-[68px] w-[96px] sm:right-14 lg:right-24 lg:h-[106px] lg:w-[150px]"
+          bubbleClassName="right-0"
+        />
         <div data-reveal className="relative isolate overflow-hidden rounded-card bg-berry p-6 text-white sm:p-8 lg:p-12">
           {/* Soft drifting color behind the panel. */}
           <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
@@ -26,7 +37,10 @@ export function Giving() {
 
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-[5fr_7fr] lg:items-center lg:gap-12">
             <div>
-              <span aria-hidden className="mb-5 flex size-14 items-center justify-center rounded-full bg-white/15 motion-safe:animate-float">
+              <span
+                aria-hidden
+                className="mb-5 flex size-14 items-center justify-center rounded-full bg-white/15 motion-safe:animate-float"
+              >
                 <HandHeart strokeWidth={1.75} className="size-7" />
               </span>
               {/* Plain white on berry: the eyebrow color would fail contrast here. */}

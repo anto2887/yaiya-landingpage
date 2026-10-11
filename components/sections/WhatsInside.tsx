@@ -5,6 +5,7 @@ import { INSIDE_ICONS } from "@/components/ui/icons";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { site } from "@/content/site";
 import { WaveTop } from "@/components/ui/WaveTop";
+import { Wobbie } from "@/components/Wobbie";
 
 const { inside } = site;
 
@@ -85,7 +86,19 @@ export function WhatsInside() {
           </ul>
         </div>
 
-        {site.features.ingredientTabs && <IngredientTabs content={site.ingredientTabs} />}
+        {site.features.ingredientTabs && (
+          <div className="relative">
+            {/* Wobbie sits on the card's edge, legs dangling. */}
+            <Wobbie
+              id="inside"
+              poses={["sit"]}
+              lines={site.wobbie.lines}
+              className="top-10 right-5 h-[108px] w-[80px] -translate-y-[68%] lg:top-14 lg:right-10 lg:h-[162px] lg:w-[120px]"
+              bubbleClassName="right-0"
+            />
+            <IngredientTabs content={site.ingredientTabs} />
+          </div>
+        )}
       </Container>
     </section>
   );

@@ -1,9 +1,9 @@
-import Image from "next/image";
 import { WaitlistForm } from "@/components/WaitlistForm";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { site } from "@/content/site";
 import { WaveTop } from "@/components/ui/WaveTop";
+import { Wobbie } from "@/components/Wobbie";
 
 const { waitlist } = site;
 
@@ -20,7 +20,12 @@ function Waves() {
 
 export function Waitlist() {
   return (
-    <section id="waitlist" tabIndex={-1} aria-labelledby="waitlist-heading" className="relative isolate overflow-hidden bg-blush py-section outline-none">
+    <section
+      id="waitlist"
+      tabIndex={-1}
+      aria-labelledby="waitlist-heading"
+      className="relative isolate overflow-hidden bg-blush py-section outline-none"
+    >
       <WaveTop fill="fill-lilac-soft" />
       <Waves />
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
@@ -31,14 +36,19 @@ export function Waitlist() {
       {/* The finale: one centered stack. */}
       <Container className="relative flex flex-col items-center gap-8 text-center">
         <div data-reveal className="flex max-w-[640px] flex-col items-center gap-5">
-          <Image
-            src={waitlist.wobbie.src}
-            alt={waitlist.wobbie.alt}
-            width={1155}
-            height={878}
-            sizes="(min-width: 1024px) 200px, 160px"
-            className="w-[160px] shrink-0 motion-safe:animate-float lg:w-[200px]"
-          />
+          {/* Wobbie waves; cheers while the form has focus; dozes if left alone. */}
+          <div className="relative h-[150px] w-[150px] lg:h-[190px] lg:w-[190px]">
+            <Wobbie
+              id="waitlist"
+              poses={["wave", "hold"]}
+              cheerOnTap
+              cheerOnFocusWithin="waitlist"
+              sleepAfterMs={25000}
+              lines={site.wobbie.lines}
+              className="inset-0"
+              bubbleClassName="left-1/2 -translate-x-1/2"
+            />
+          </div>
           <div>
             <Eyebrow>{waitlist.eyebrow}</Eyebrow>
             <h2 id="waitlist-heading" className="mt-3 type-h2 text-ink">

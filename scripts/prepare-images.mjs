@@ -28,11 +28,9 @@ const TARGETS = [
   { file: "occasion-busy-day-v2.jpg", width: 960, height: 1200 },
   { file: "occasion-wellness-snacker-v2.jpg", width: 960, height: 1200 },
   { file: "story-konjac-v2.jpg", width: 1500, height: 1000 },
-  { file: "story-wobbie.png", width: 912, height: 1194, fit: "inside" },
   { file: "inside-konjac.png", width: 600, height: 600, fit: "inside" },
   { file: "inside-flavors.png", width: 640, height: 480, fit: "inside" },
   { file: "compare-pouch.jpg", width: 1448, height: 1086 },
-  { file: "waitlist-wobbie.png", width: 1155, height: 878, fit: "inside" },
   { file: "og.jpg", width: 1200, height: 630 },
 ];
 

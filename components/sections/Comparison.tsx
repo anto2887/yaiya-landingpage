@@ -3,6 +3,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { WaveTop } from "@/components/ui/WaveTop";
 import { Wordmark } from "@/components/ui/Wordmark";
 import { site } from "@/content/site";
+import { Wobbie } from "@/components/Wobbie";
 
 const { comparison } = site;
 const [yaiya, ...others] = comparison.columns;
@@ -12,7 +13,9 @@ type Cell = { main: string; sub: string };
 function CellText({ cell, strong = false }: { cell: Cell; strong?: boolean }) {
   return (
     <>
-      <span className={`block leading-snug ${strong ? "font-heading text-[17px] font-bold text-strawberry-ink" : "font-semibold text-ink"}`}>
+      <span
+        className={`block leading-snug ${strong ? "font-heading text-[17px] font-bold text-strawberry-ink" : "font-semibold text-ink"}`}
+      >
         {cell.main}
       </span>
       {cell.sub && <span className="mt-0.5 block text-[12px] leading-snug text-muted">{cell.sub}</span>}
@@ -46,7 +49,16 @@ export function Comparison() {
         <SectionHeading id="compare-heading" title={comparison.heading} sub={comparison.sub} />
 
         {/* Desktop: the full table. */}
-        <div data-reveal className="hidden rounded-card bg-white p-6 lg:block lg:p-8">
+        <div data-reveal className="relative hidden rounded-card bg-white p-6 lg:block lg:p-8">
+          {/* Wobbie hangs from the card's bottom edge and swings. */}
+          <Wobbie
+            id="compare"
+            poses={["hang"]}
+            idle="swing"
+            lines={site.wobbie.lines}
+            className="top-full right-14 -mt-3 h-[143px] w-[76px]"
+            bubbleClassName="right-full mr-2 bottom-auto top-1/3"
+          />
           <table className="w-full border-separate border-spacing-0 text-left text-[14px]">
             <caption className="sr-only">{comparison.caption}</caption>
             <thead>

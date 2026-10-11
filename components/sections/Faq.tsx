@@ -3,6 +3,7 @@ import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { site } from "@/content/site";
 import { WaveTop } from "@/components/ui/WaveTop";
+import { Wobbie } from "@/components/Wobbie";
 
 const { faq } = site;
 const COLUMNS = 2;
@@ -22,9 +23,7 @@ export function Faq() {
   // Desktop: items fill two independent columns left to right, so an open
   // item only pushes down its own column. Mobile: the columns become
   // `display: contents` and `order` restores the original sequence.
-  const columns = Array.from({ length: COLUMNS }, (_, c) =>
-    faq.items.map((item, i) => ({ item, i })).filter(({ i }) => i % COLUMNS === c),
-  );
+  const columns = Array.from({ length: COLUMNS }, (_, c) => faq.items.map((item, i) => ({ item, i })).filter(({ i }) => i % COLUMNS === c));
 
   return (
     <section id="faq" aria-labelledby="faq-heading" className="relative bg-lilac-soft py-section">
@@ -33,7 +32,16 @@ export function Faq() {
       <Container>
         <SectionHeading id="faq-heading" title={faq.heading} />
 
-        <div className="flex flex-col gap-3 lg:grid lg:grid-cols-2 lg:items-start lg:gap-4">
+        <div className="relative flex flex-col gap-3 lg:grid lg:grid-cols-2 lg:items-start lg:gap-4">
+          {/* Wobbie ponders the questions; shy when the cursor finds him. */}
+          <Wobbie
+            id="faq"
+            poses={["think"]}
+            shyOnHover
+            lines={site.wobbie.lines}
+            className="right-3 bottom-full h-[92px] w-[60px] lg:right-8 lg:h-[160px] lg:w-[106px]"
+            bubbleClassName="right-0"
+          />
           {columns.map((col, c) => (
             <div key={c} className="contents lg:flex lg:flex-col lg:gap-4">
               {col.map(({ item, i }) => (
@@ -45,9 +53,15 @@ export function Faq() {
                   className="group rounded-card border-2 border-line bg-white transition-colors duration-200 open:border-berry/40 open:bg-highlight hover:border-berry/40"
                 >
                   <summary className="flex min-h-14 cursor-pointer list-none items-center gap-3 rounded-card px-5 py-4 [&::-webkit-details-marker]:hidden">
-                    <ChevronRight aria-hidden className="size-4 shrink-0 text-berry motion-safe:transition-transform motion-safe:duration-200 group-open:rotate-90" />
+                    <ChevronRight
+                      aria-hidden
+                      className="size-4 shrink-0 text-berry motion-safe:transition-transform motion-safe:duration-200 group-open:rotate-90"
+                    />
                     <span className="flex-1 font-heading text-[17px] leading-snug font-semibold text-ink">{item.q}</span>
-                    <span aria-hidden className="flex size-8 shrink-0 items-center justify-center rounded-full bg-mango-soft text-ink transition-colors group-open:bg-berry group-open:text-white">
+                    <span
+                      aria-hidden
+                      className="flex size-8 shrink-0 items-center justify-center rounded-full bg-mango-soft text-ink transition-colors group-open:bg-berry group-open:text-white"
+                    >
                       <Plus className="size-4 motion-safe:transition-transform motion-safe:duration-300 group-open:rotate-45" />
                     </span>
                   </summary>
