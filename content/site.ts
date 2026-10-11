@@ -273,8 +273,8 @@ export const site = {
     body: "Konjac is a plant that has been part of Asian food culture for centuries, and the jelly made from it is a convenience-store favorite across Japan and Korea. It gives YAIYA its soft, springy bite and lets the flavor come through clean and bright.",
     note: "Good ingredients. Good stories.",
     image: {
-      src: "/images/story-konjac.jpg",
-      alt: "Konjac roots beside a bowl of clear konjac jelly cubes.",
+      src: "/images/story-konjac-v2.jpg",
+      alt: "Pieces of konjac jelly piled on a woven bamboo tray.",
     },
     wobbie: {
       src: "/images/story-wobbie.png",
