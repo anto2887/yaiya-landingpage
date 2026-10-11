@@ -99,21 +99,20 @@ export function Flavors({ content: flavors }: FlavorsProps) {
                   <span className={`mt-1.5 text-[11px] leading-tight font-semibold tracking-[0.1em] uppercase ${tone.ink}`}>
                     {f.descriptors}
                   </span>
-                  <span className="mt-auto flex items-end justify-between gap-2">
-                    {isSelected ? (
-                      <span className="rounded-pill bg-ink-deep px-3 py-1.5 text-[12px] font-bold whitespace-nowrap text-white">
-                        {flavors.selectedTag}
-                      </span>
-                    ) : (
-                      <span />
-                    )}
+                  {/* Cutout above the tag, so selecting lifts it instead of pushing it sideways. */}
+                  <span className="mt-auto flex flex-col gap-1.5">
                     <Image
                       {...CUTOUTS[f.slug]}
                       alt=""
                       aria-hidden
                       sizes="120px"
-                      className="-mr-2 -mb-2 h-14 w-auto object-contain sm:h-[72px] lg:h-[80px]"
+                      className={`-mr-2 h-12 w-auto self-end object-contain sm:h-16 lg:h-[72px] ${isSelected ? "" : "-mb-2"}`}
                     />
+                    {isSelected && (
+                      <span className="self-start rounded-pill bg-ink-deep px-3 py-1.5 text-[12px] font-bold whitespace-nowrap text-white">
+                        {flavors.selectedTag}
+                      </span>
+                    )}
                   </span>
                 </span>
                 {/* Portrait crop until wide photos arrive (D-18). */}
