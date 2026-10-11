@@ -1,12 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Instrument_Sans } from "next/font/google";
+import { Caveat, Fraunces, Instrument_Sans } from "next/font/google";
 import { RevealObserver } from "@/components/RevealObserver";
 import { Footer } from "@/components/sections/Footer";
 import { Nav } from "@/components/sections/Nav";
 import { site } from "@/content/site";
 import "./globals.css";
 
-// Fraunces (soft, slightly wonky serif) for headings and notes; Instrument Sans for body.
+// Fraunces (soft, slightly wonky serif) for headings; Instrument Sans for body.
 // Founder and cofounder, 11 Oct: Fredoka + Inter + Caveat read as AI-generated.
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -16,6 +16,8 @@ const fraunces = Fraunces({
   display: "swap",
 });
 const instrument = Instrument_Sans({ subsets: ["latin"], variable: "--font-instrument", display: "swap" });
+// Caveat for the handwritten notes (founder kept these, 11 Oct).
+const caveat = Caveat({ subsets: ["latin"], weight: ["600"], variable: "--font-caveat", display: "swap" });
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
@@ -43,7 +45,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${fraunces.variable} ${instrument.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${fraunces.variable} ${instrument.variable} ${caveat.variable}`}>
       <head>
         {/* Lets CSS hide scroll-reveal content only when JS will reveal it. */}
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />

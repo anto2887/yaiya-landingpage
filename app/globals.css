@@ -37,7 +37,7 @@
 
   --font-heading: var(--font-fraunces), ui-serif, Georgia, serif;
   --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
-  --font-hand: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-hand: var(--font-caveat), cursive;
 
   --breakpoint-sm: 640px;
   --breakpoint-lg: 1024px;
@@ -279,12 +279,11 @@
 
 @utility type-hand {
   font-family: var(--font-hand);
-  font-style: italic;
-  font-weight: 500;
-  font-size: 17px;
-  line-height: 1.2;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 1.1;
   @media (width >= 1024px) {
-    font-size: 19px;
+    font-size: 26px;
   }
 }
 
@@ -340,7 +339,7 @@
 
 @layer base {
   /* Fraunces at its softest, with the wonky letterforms on. */
-  :where(.font-heading, .type-h1, .type-h2, .type-h3, .type-hand) {
+  :where(.font-heading, .type-h1, .type-h2, .type-h3) {
     font-variation-settings:
       "SOFT" 100,
       "WONK" 1;
