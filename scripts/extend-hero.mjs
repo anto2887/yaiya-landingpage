@@ -9,18 +9,21 @@
 // This is a stand-in. A render composed with empty space on the left (like the
 // founder's reference mockups) will look better; drop it in as hero-wide.jpg.
 //
-// In:  public/images/hero-desktop.jpg (1448 x 1086), hero-mobile.jpg (1358 x 1086)
-// Out: public/images/hero-wide.jpg (2400 x 1086), hero-tall.jpg (1358 x 2300)
+// In:  assets-src/scene-desk-hero.png (1672 x 941, founder, 11 Oct)
+// Out: public/images/hero-wide.jpg (2400 x 941), hero-tall.jpg (1176 x 1992)
 // Usage: node scripts/extend-hero.mjs   (also run by npm run images)
 import path from "node:path";
 import sharp from "sharp";
 
 const DIR = "public/images";
+const SCENE = "assets-src/scene-desk-hero.png";
 // Sampled from the scene: sunlit wall and light desk wood.
-const WALL_TOP = "#f6e9de";
-const WALL = "#f0dccd";
-const DESK = "#e9cdb4";
-const DESK_DEEP = "#dfbd9f";
+const WALL_TOP = "#f7ece4";
+const WALL = "#ecdad0";
+const DESK = "#e8c6a6";
+const DESK_DEEP = "#dcb18c";
+// Phone crop: 5:4 around the pouches and Wobbie (their center is about x = 770).
+const PHONE_CROP = { left: 182, top: 0, width: 1176, height: 941 };
 
 /** Studio background: wall, desk from `deskAt` (0..1 of height), soft sunbeams. */
 function studio(width, height, deskAt) {
@@ -73,8 +76,8 @@ async function feathered(src, width, height, feather, vertical) {
 async function extendLeft(src, out, W) {
   const { width: w, height: h } = await sharp(src).metadata();
   const ext = W - w;
-  // The scene's desk edge sits at about 59% of its height.
-  const bg = await sharp(studio(W, h, 0.59)).png().toBuffer();
+  // The scene's desk edge sits at about 53% of its height on the left.
+  const bg = await sharp(studio(W, h, 0.53)).png().toBuffer();
   await sharp(bg)
     .composite([{ input: await feathered(src, w, h, 420, false), left: ext, top: 0 }])
     .jpeg({ quality: 84, mozjpeg: true })
@@ -95,5 +98,7 @@ async function extendUp(src, out, H) {
 }
 
 const outDir = process.argv[2] ?? DIR;
-await extendLeft(path.join(DIR, "hero-desktop.jpg"), path.join(outDir, "hero-wide.jpg"), 2400);
-await extendUp(path.join(DIR, "hero-mobile.jpg"), path.join(outDir, "hero-tall.jpg"), 2300);
+const scene = await sharp(SCENE).toBuffer();
+const phone = await sharp(SCENE).extract(PHONE_CROP).toBuffer();
+await extendLeft(scene, path.join(outDir, "hero-wide.jpg"), 2400);
+await extendUp(phone, path.join(outDir, "hero-tall.jpg"), 1992);
