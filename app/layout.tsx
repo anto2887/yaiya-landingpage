@@ -1,15 +1,21 @@
 import type { Metadata, Viewport } from "next";
-import { Caveat, Fredoka, Inter } from "next/font/google";
+import { Fraunces, Instrument_Sans } from "next/font/google";
 import { RevealObserver } from "@/components/RevealObserver";
 import { Footer } from "@/components/sections/Footer";
 import { Nav } from "@/components/sections/Nav";
 import { site } from "@/content/site";
 import "./globals.css";
 
-// Fredoka: rounded, jelly-soft headings (founder asked for a more playful feel, 11 Oct).
-const fredoka = Fredoka({ subsets: ["latin"], weight: ["600", "700"], variable: "--font-fredoka", display: "swap" });
-const inter = Inter({ subsets: ["latin"], weight: ["400", "600", "700"], variable: "--font-inter", display: "swap" });
-const caveat = Caveat({ subsets: ["latin"], weight: ["600"], variable: "--font-caveat", display: "swap" });
+// Fraunces (soft, slightly wonky serif) for headings and notes; Instrument Sans for body.
+// Founder and cofounder, 11 Oct: Fredoka + Inter + Caveat read as AI-generated.
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  axes: ["SOFT", "WONK", "opsz"],
+  variable: "--font-fraunces",
+  display: "swap",
+});
+const instrument = Instrument_Sans({ subsets: ["latin"], variable: "--font-instrument", display: "swap" });
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
@@ -37,7 +43,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${fredoka.variable} ${inter.variable} ${caveat.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${fraunces.variable} ${instrument.variable}`}>
       <head>
         {/* Lets CSS hide scroll-reveal content only when JS will reveal it. */}
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />

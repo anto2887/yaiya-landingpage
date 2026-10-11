@@ -84,7 +84,7 @@ export function Hero() {
         <div aria-hidden className="aspect-[960/820] lg:hidden" />
       </Container>
 
-      <HandNote rotate={6} mark="heart" className="absolute top-24 right-10 max-w-[160px] text-right">
+      <HandNote rotate={6} mark="heart" className="absolute top-24 right-10">
         {hero.note}
       </HandNote>
     </section>

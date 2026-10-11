@@ -22,7 +22,7 @@ export function SectionHeading({ eyebrow, title, sub, id, aside, tone = "light",
   const lines = typeof title === "string" ? [title] : title;
   return (
     <div data-reveal className={`mb-heading flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between lg:gap-10 ${className}`}>
-      <div className="max-w-[680px]">
+      <div className="max-w-[760px]">
         {eyebrow && (dark ? <p className="mb-3 type-eyebrow text-mango">{eyebrow}</p> : <Eyebrow className="mb-3">{eyebrow}</Eyebrow>)}
         <h2 id={id} className={`type-h2 ${dark ? "text-white" : "text-ink"}`}>
           {lines.map((line, i) => (
