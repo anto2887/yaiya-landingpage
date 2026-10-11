@@ -164,6 +164,44 @@ export const site = {
     groupLabel: "Which would you try first?",
     selectedTag: "Your pick",
     items: FLAVORS,
+    /**
+     * The breakout panel shown when a flavor is picked.
+     * TODO(founder): review the taste descriptions; they stay within the flavor names.
+     * Matcha Yuzu caffeine shown here at the founder's request (11 Oct), replacing D-20's
+     * "FAQ and Matcha tab only".
+     */
+    detail: {
+      notesLabel: "Tastes like",
+      factsLabel: "Per pouch",
+      sweetener: "Sweetened with allulose and monk fruit, never artificial sweeteners.",
+      ctaPrefix: "Be first to try",
+      sharedFacts: [
+        { id: "protein", value: TARGETS.protein, label: "protein*" },
+        { id: "fiber", value: TARGETS.fiber, label: "fiber*" },
+        { id: "sugar", value: TARGETS.sugar, label: "sugar*" },
+      ],
+      footnote: "*Recipe targets. Final nutrition confirmed before launch.",
+      flavors: {
+        "strawberry-peach": {
+          description: "Sweet strawberry and soft, juicy peach in a bright, refreshing jelly.",
+          notes: ["Strawberry", "Peach"],
+          extraFacts: [],
+          extraNote: "",
+        },
+        "chocolate-silk": {
+          description: "Smooth, rich chocolate in a silky jelly. A little treat that feels like one.",
+          notes: ["Cocoa", "Chocolate"],
+          extraFacts: [],
+          extraNote: "",
+        },
+        "matcha-yuzu": {
+          description: "Earthy matcha meets bright, citrusy yuzu in a clean, uplifting jelly.",
+          notes: ["Matcha", "Yuzu"],
+          extraFacts: [{ id: "caffeine", value: TARGETS.caffeine, label: "caffeine*" }],
+          extraNote: "The only YAIYA flavor with caffeine.",
+        },
+      },
+    },
   },
 
   nutrition: {

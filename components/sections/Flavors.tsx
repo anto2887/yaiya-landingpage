@@ -1,12 +1,13 @@
 "use client";
 
-import { Check } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import type { FlavorSlug, site } from "@/content/site";
 import { FLAVOR_STORAGE_KEY } from "@/lib/flavor";
+import { scrollToWaitlist } from "@/lib/scroll";
 import { WaveTop } from "@/components/ui/WaveTop";
 
 /**
@@ -105,6 +106,19 @@ export function Flavors({ content: flavors }: FlavorsProps) {
   // Bumped on every pick so the pop and burst replay.
   const [pickCount, setPickCount] = useState(0);
   const refs = useRef<(HTMLButtonElement | null)[]>([]);
+  const panelRef = useRef<HTMLDivElement>(null);
+
+  // After a pick (not the restored one), bring the breakout into view if it is off screen.
+  useEffect(() => {
+    if (pickCount === 0) return;
+    const el = panelRef.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    if (r.top > window.innerHeight * 0.6) {
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "nearest" });
+    }
+  }, [pickCount]);
 
   useEffect(() => {
     setSelected(readStoredFlavor(flavors.items));
@@ -231,7 +245,86 @@ export function Flavors({ content: flavors }: FlavorsProps) {
             );
           })}
         </div>
+
+        {/* The breakout: more about the picked flavor. */}
+        <div ref={panelRef} aria-live="polite" className="scroll-mb-24">
+          {selected && <FlavorDetail key={`${selected}-${pickCount}`} flavor={flavors.items.find((f) => f.slug === selected)!} detail={flavors.detail} />}
+        </div>
       </Container>
     </section>
+  );
+}
+
+type FlavorItem = (typeof site.flavors.items)[number];
+
+/** Large panel in the flavor's color: pouch, description, notes and per-pouch targets. */
+function FlavorDetail({ flavor, detail }: { flavor: FlavorItem; detail: typeof site.flavors.detail }) {
+  const tone = TONES[flavor.tone];
+  const info = detail.flavors[flavor.slug];
+  const pouch = ART[flavor.slug][0];
+  const facts = [...detail.sharedFacts, ...info.extraFacts];
+
+  return (
+    <div
+      className={`relative mt-6 grid grid-cols-1 items-center gap-6 overflow-hidden rounded-card p-6 sm:grid-cols-[minmax(160px,240px)_1fr] sm:p-8 lg:mt-8 lg:gap-12 lg:p-12 ${tone.card} motion-safe:animate-pop`}
+    >
+      <span aria-hidden className="absolute inset-0 bg-radial-[at_20%_30%] from-white/60 via-white/10 via-50% to-transparent" />
+
+      <div aria-hidden className="relative mx-auto w-[150px] sm:w-full">
+        <span className="block motion-safe:animate-float">
+          <Image
+            src={pouch.src}
+            width={pouch.width}
+            height={pouch.height}
+            alt=""
+            sizes="240px"
+            className="h-auto w-full -rotate-6 drop-shadow-[0_22px_22px_rgb(58_20_64/0.25)]"
+          />
+        </span>
+      </div>
+
+      <div className="relative">
+        <h3 className={`font-heading text-[30px] leading-tight font-bold lg:text-[40px] ${tone.ink}`}>{flavor.name}</h3>
+        <p className={`mt-1 text-[12px] font-bold tracking-[0.12em] uppercase ${tone.ink}`}>{flavor.descriptors}</p>
+        <p className="mt-4 max-w-[560px] type-body text-ink">{info.description}</p>
+
+        <p className="mt-5 type-eyebrow text-ink">{detail.notesLabel}</p>
+        <ul className="mt-2 flex flex-wrap gap-2">
+          {info.notes.map((n) => (
+            <li key={n} className="rounded-pill bg-white/80 px-3 py-1 text-[13px] font-semibold text-ink">
+              {n}
+            </li>
+          ))}
+        </ul>
+
+        <p className="mt-5 type-eyebrow text-ink">{detail.factsLabel}</p>
+        <dl className="mt-2 flex flex-wrap gap-2 sm:gap-3">
+          {facts.map((f) => (
+            <div
+              key={f.id}
+              className={`rounded-small px-4 py-2.5 text-center ${f.id === "caffeine" ? "bg-ink text-white" : "bg-white/85 text-ink"}`}
+            >
+              <dt className="sr-only">{f.label}</dt>
+              <dd className="font-heading text-[22px] leading-none font-bold">{f.value}</dd>
+              <dd aria-hidden className="mt-1 text-[12px] font-semibold">
+                {f.label}
+              </dd>
+            </div>
+          ))}
+        </dl>
+        {info.extraNote && <p className={`mt-2 text-[13px] font-semibold ${tone.ink}`}>{info.extraNote}</p>}
+        <p className="mt-3 type-small text-ink">{detail.sweetener}</p>
+
+        <button
+          type="button"
+          onClick={() => scrollToWaitlist()}
+          className="group/btn mt-6 inline-flex h-12 items-center gap-2 rounded-pill bg-berry px-[22px] type-button text-white transition-colors hover:bg-berry-hover"
+        >
+          {detail.ctaPrefix} {flavor.name}
+          <ArrowRight aria-hidden className="size-4 transition-transform motion-safe:group-hover/btn:translate-x-1" />
+        </button>
+        <p className="mt-4 type-footnote text-ink/80">{detail.footnote}</p>
+      </div>
+    </div>
   );
 }
