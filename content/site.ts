@@ -212,9 +212,8 @@ export const site = {
     body: "For people who want their food to taste good and contribute something. Here's where YAIYA fits.",
     scrollerLabel: "Ways to enjoy YAIYA",
     momentsLabel: "Great for",
-    allFlavorsLabel: "All three flavors",
     // Founder supplied lifestyle photos with people on 11 Oct (replaces D-23).
-    // `flavor` is the pouch pictured; `moments` reuse OCCASION_OPTIONS ids.
+    // `moments` reuse OCCASION_OPTIONS ids.
     personas: [
       {
         id: "protein-regular",
@@ -222,7 +221,6 @@ export const site = {
         line: "Your protein routine. A fresh plot twist.",
         image: "/images/occasion-protein-regular-v2.jpg",
         alt: "A woman in workout clothes smiling on a sunny hilltop, holding a Chocolate Silk pouch.",
-        flavor: "chocolate-silk",
         moments: ["before-workout", "after-workout", "afternoon-snack"],
       },
       {
@@ -231,7 +229,6 @@ export const site = {
         line: "Between meetings. Between everything.",
         image: "/images/occasion-busy-day-v2.jpg",
         alt: "A man at a sunny office desk with his laptop, holding up a Matcha Yuzu pouch.",
-        flavor: "matcha-yuzu",
         moments: ["between-meetings", "commute", "hungry-not-meal"],
       },
       {
@@ -240,7 +237,6 @@ export const site = {
         line: "Something sweet. Something more.",
         image: "/images/occasion-wellness-snacker-v2.jpg",
         alt: "Strawberry Peach, Chocolate Silk and Matcha Yuzu pouches packed in a beach bag with fruit and sunglasses.",
-        flavor: "all",
         moments: ["travel", "out-the-door", "afternoon-snack"],
       },
     ],

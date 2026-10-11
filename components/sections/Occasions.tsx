@@ -2,19 +2,11 @@ import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { CONVENIENCE_ICONS } from "@/components/ui/icons";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { FLAVORS, OCCASION_OPTIONS, site } from "@/content/site";
+import { OCCASION_OPTIONS, site } from "@/content/site";
 
 const { occasions } = site;
 const TINTS = ["bg-mango-soft", "bg-mint-soft", "bg-highlight"];
 
-// Flavor tag on each photo, in that flavor's colors. Full class strings for Tailwind.
-const FLAVOR_TAG: Record<string, string> = {
-  "strawberry-peach": "bg-strawberry text-strawberry-ink",
-  "chocolate-silk": "bg-chocolate text-chocolate-ink",
-  "matcha-yuzu": "bg-matcha text-matcha-ink",
-  all: "bg-white text-berry",
-};
-const flavorName = (slug: string) => FLAVORS.find((f) => f.slug === slug)?.name ?? occasions.allFlavorsLabel;
 const momentLabel = (id: string) => OCCASION_OPTIONS.find((o) => o.id === id)?.label ?? id;
 
 export function Occasions() {
@@ -46,9 +38,6 @@ export function Occasions() {
                 />
                 {/* Soft fade so the name reads over the photo's foot. */}
                 <span aria-hidden className="absolute inset-x-0 bottom-0 h-2/5 bg-linear-to-t from-ink/70 to-transparent" />
-                <span className={`absolute top-4 left-4 rounded-pill px-3 py-1.5 text-[12px] font-bold shadow-sm ${FLAVOR_TAG[p.flavor]}`}>
-                  {flavorName(p.flavor)}
-                </span>
                 <p className="absolute inset-x-5 bottom-4 type-eyebrow text-white">{p.name}</p>
               </div>
               <div className="p-5">
