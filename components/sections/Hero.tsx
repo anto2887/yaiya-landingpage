@@ -17,14 +17,14 @@ function HeroPicture() {
   const common = { alt: hero.image.alt, fetchPriority: "high", loading: "eager" } as const;
   const {
     props: { srcSet: desktopSrcSet },
-  } = getImageProps({ ...common, src: hero.image.desktop, width: 2400, height: 941, sizes: "100vw" });
+  } = getImageProps({ ...common, src: hero.image.desktop, width: 1672, height: 941, sizes: "100vw" });
   const { props: mobile } = getImageProps({ ...common, src: hero.image.mobile, width: 1176, height: 1992, sizes: "100vw" });
 
   return (
     <picture>
       <source media="(min-width: 1024px)" srcSet={desktopSrcSet} sizes="100vw" />
       {/* eslint-disable-next-line jsx-a11y/alt-text -- alt comes from getImageProps */}
-      <img {...mobile} className="absolute inset-0 size-full object-cover object-bottom lg:object-[25%_50%] xl:object-[35%_50%]" />
+      <img {...mobile} className="absolute inset-0 size-full object-cover object-bottom lg:object-center" />
     </picture>
   );
 }
@@ -46,17 +46,15 @@ export function Hero() {
     <section
       id="top"
       aria-labelledby="hero-heading"
-      className="relative isolate -mt-nav overflow-hidden bg-cream pt-nav lg:-mt-nav-lg lg:flex lg:aspect-[2400/941] lg:max-h-[820px] lg:min-h-[560px] xl:min-h-[620px] lg:w-full lg:items-center lg:pt-nav-lg"
+      className="relative isolate -mt-nav overflow-hidden bg-cream pt-nav lg:-mt-nav-lg lg:flex lg:aspect-[1672/941] lg:max-h-[860px] lg:min-h-[600px] lg:w-full lg:items-center lg:pt-nav-lg"
     >
       <div className="absolute inset-0 -z-10">
         <HeroPicture />
-        {/* A light wash keeps the copy readable over the blurred part of the photo. */}
-        <div className="absolute inset-0 bg-linear-to-b from-cream/90 via-cream/60 via-45% to-transparent to-65% lg:bg-linear-to-r lg:from-cream/85 lg:via-cream/45 lg:via-35% lg:to-transparent lg:to-55%" />
         <Bubbles />
       </div>
 
       <Container className="relative">
-        <div className="pt-8 lg:max-w-[410px] lg:py-8 xl:max-w-[460px] xl:py-12">
+        <div className="pt-8 lg:max-w-[460px] lg:py-12 [&>:not(:last-child)]:text-glow">
           <Eyebrow>{hero.eyebrow}</Eyebrow>
           <h1 id="hero-heading" className="mt-3 type-h1 text-ink">
             {hero.headline.map((line, i) => (
