@@ -211,27 +211,37 @@ export const site = {
     heading: "One pouch. Plenty of ways to make it yours.",
     body: "For people who want their food to taste good and contribute something. Here's where YAIYA fits.",
     scrollerLabel: "Ways to enjoy YAIYA",
+    momentsLabel: "Great for",
+    allFlavorsLabel: "All three flavors",
+    // Founder supplied lifestyle photos with people on 11 Oct (replaces D-23).
+    // `flavor` is the pouch pictured; `moments` reuse OCCASION_OPTIONS ids.
     personas: [
       {
         id: "protein-regular",
         name: "The Protein Regular",
         line: "Your protein routine. A fresh plot twist.",
         image: "/images/occasion-protein-regular.jpg",
-        alt: "A Strawberry Peach pouch on a kitchen counter with Wobbie leaning on it.",
+        alt: "A woman in workout clothes smiling on a sunny hilltop, holding a Chocolate Silk pouch.",
+        flavor: "chocolate-silk",
+        moments: ["before-workout", "after-workout", "afternoon-snack"],
       },
       {
         id: "busy-day",
         name: "The Busy-Day Multitasker",
         line: "Between meetings. Between everything.",
         image: "/images/occasion-busy-day.jpg",
-        alt: "YAIYA pouches beside a laptop and notebook on a desk.",
+        alt: "A man at a sunny office desk with his laptop, holding up a Matcha Yuzu pouch.",
+        flavor: "matcha-yuzu",
+        moments: ["between-meetings", "commute", "hungry-not-meal"],
       },
       {
         id: "wellness-snacker",
         name: "The Everyday Wellness Snacker",
         line: "Something sweet. Something more.",
         image: "/images/occasion-wellness-snacker.jpg",
-        alt: "Three YAIYA pouches packed in a tote bag with a water bottle and sunglasses.",
+        alt: "Strawberry Peach, Chocolate Silk and Matcha Yuzu pouches packed in a beach bag with fruit and sunglasses.",
+        flavor: "all",
+        moments: ["travel", "out-the-door", "afternoon-snack"],
       },
     ],
     conveniences: [

@@ -2,10 +2,20 @@ import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { CONVENIENCE_ICONS } from "@/components/ui/icons";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { site } from "@/content/site";
+import { FLAVORS, OCCASION_OPTIONS, site } from "@/content/site";
 
 const { occasions } = site;
 const TINTS = ["bg-mango-soft", "bg-mint-soft", "bg-highlight"];
+
+// Flavor tag on each photo, in that flavor's colors. Full class strings for Tailwind.
+const FLAVOR_TAG: Record<string, string> = {
+  "strawberry-peach": "bg-strawberry text-strawberry-ink",
+  "chocolate-silk": "bg-chocolate text-chocolate-ink",
+  "matcha-yuzu": "bg-matcha text-matcha-ink",
+  all: "bg-white text-berry",
+};
+const flavorName = (slug: string) => FLAVORS.find((f) => f.slug === slug)?.name ?? occasions.allFlavorsLabel;
+const momentLabel = (id: string) => OCCASION_OPTIONS.find((o) => o.id === id)?.label ?? id;
 
 export function Occasions() {
   return (
@@ -24,20 +34,36 @@ export function Occasions() {
               key={p.id}
               data-reveal
               style={{ "--reveal-delay": `${i * 100}ms` } as React.CSSProperties}
-              className="group w-[78vw] shrink-0 snap-start overflow-hidden rounded-card border border-line bg-paper transition-transform duration-300 motion-safe:hover:-translate-y-1.5 sm:w-auto"
+              className="group flex w-[80vw] max-w-[340px] shrink-0 snap-start flex-col overflow-hidden rounded-card border border-line bg-paper transition-[transform,box-shadow] duration-300 motion-safe:hover:-translate-y-1.5 hover:shadow-[0_20px_40px_-24px_rgb(58_20_64/0.35)] sm:w-auto sm:max-w-none"
             >
-              <div className="relative aspect-[6/5] overflow-hidden">
+              <div className="relative aspect-[4/5] overflow-hidden">
                 <Image
                   src={p.image}
                   alt={p.alt}
                   fill
                   sizes="(min-width: 1024px) 370px, (min-width: 640px) 33vw, 78vw"
-                  className="object-cover transition-transform duration-700 motion-safe:group-hover:scale-105"
+                  className="object-cover transition-transform duration-700 ease-out motion-safe:group-hover:scale-105"
                 />
+                {/* Soft fade so the name reads over the photo's foot. */}
+                <span aria-hidden className="absolute inset-x-0 bottom-0 h-2/5 bg-linear-to-t from-ink/70 to-transparent" />
+                <span className={`absolute top-4 left-4 rounded-pill px-3 py-1.5 text-[12px] font-bold shadow-sm ${FLAVOR_TAG[p.flavor]}`}>
+                  {flavorName(p.flavor)}
+                </span>
+                <p className="absolute inset-x-5 bottom-4 type-eyebrow text-white">{p.name}</p>
               </div>
               <div className="p-5">
-                <p className="type-eyebrow text-eyebrow">{p.name}</p>
-                <p className="mt-2 font-heading text-[20px] leading-snug font-semibold text-ink">{p.line}</p>
+                <p className="font-heading text-[21px] leading-snug font-semibold text-ink">{p.line}</p>
+                <p className="mt-4 type-eyebrow text-muted">{occasions.momentsLabel}</p>
+                <ul className="mt-2 flex flex-wrap gap-2">
+                  {p.moments.map((m) => (
+                    <li
+                      key={m}
+                      className="rounded-pill border border-line bg-cream px-3 py-1 text-[13px] font-semibold text-ink transition-colors duration-200 group-hover:border-berry/30 group-hover:bg-highlight"
+                    >
+                      {momentLabel(m)}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </li>
           ))}
