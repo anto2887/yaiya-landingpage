@@ -1,4 +1,4 @@
-import { Box, Cherry, Dumbbell, Leaf, Sun, type LucideProps } from "lucide-react";
+import { Backpack, Box, Cherry, CupSoda, Droplet, Dumbbell, Leaf, Sprout, Sun, type LucideProps } from "lucide-react";
 
 const stroke = { fill: "none", stroke: "currentColor", strokeWidth: 1.75, strokeLinecap: "round", strokeLinejoin: "round" } as const;
 
@@ -23,6 +23,16 @@ export function PouchIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
+/** A squeeze mark: a soft S-curve. */
+export function SqueezeIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden {...stroke} {...props}>
+      <path d="M6 19c-2-2-1-5 1.5-6s4-1.5 4.5-4-1-5 3-5.5 4 3 2.5 5" />
+      <circle cx="18.5" cy="9.5" r="1.2" />
+    </svg>
+  );
+}
+
 type IconComponent = (props: LucideProps & React.SVGProps<SVGSVGElement>) => React.ReactNode;
 
 /** Benefit icons, keyed by `site.benefits[].id`. Never a leaf for protein (C-01). */
@@ -39,4 +49,19 @@ export const STAT_ICONS: Record<string, IconComponent> = {
   fiber: Leaf,
   sugar: Box,
   "daily-value": Sun,
+};
+
+/** Convenience icons, keyed by `site.occasions.conveniences[].id`. */
+export const CONVENIENCE_ICONS: Record<string, IconComponent> = {
+  "no-fridge": Backpack,
+  pocket: CupSoda,
+  "no-spoon": SqueezeIcon,
+};
+
+/** What's inside icons, keyed by `site.inside.items[].icon`. No leaf or plant for protein or collagen (C-01). */
+export const INSIDE_ICONS: Record<string, IconComponent> = {
+  protein: Dumbbell,
+  collagen: Droplet,
+  fiber: Sprout,
+  vitamins: Sun,
 };

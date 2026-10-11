@@ -5,6 +5,7 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 import { HandNote } from "@/components/ui/HandNote";
 import { WaitlistButton } from "@/components/ui/WaitlistButton";
 import { site } from "@/content/site";
+import { HERO_CTA_ID } from "@/lib/scroll";
 
 const { hero } = site;
 
@@ -43,7 +44,7 @@ export function Hero() {
           <p className="mt-2 max-w-[460px] type-body text-ink">{hero.body}</p>
 
           <div className="mt-6 flex flex-col items-stretch gap-1 lg:flex-row lg:items-center lg:gap-3">
-            <WaitlistButton href={hero.primaryCta.href} className="w-full lg:w-auto">
+            <WaitlistButton id={HERO_CTA_ID} href={hero.primaryCta.href} className="w-full lg:w-auto">
               {hero.primaryCta.label}
             </WaitlistButton>
             {/* Mobile: a text link. Desktop: an outline button. */}

@@ -1,6 +1,9 @@
 /** id of the waitlist email input. The waitlist form (M3/M4) must use it. */
 export const WAITLIST_INPUT_ID = "waitlist-email";
 
+/** id of the hero's primary button. The mobile sticky bar hides while it is on screen. */
+export const HERO_CTA_ID = "hero-cta";
+
 /**
  * Scrolls to #waitlist and focuses the email input once it exists.
  * Returns false if the section is missing, so callers can fall back to the anchor.

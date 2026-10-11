@@ -387,7 +387,7 @@ export const site = {
       { id: "protein", label: "Protein", values: [`${TARGETS.protein}*`, "10–20g", "15–30g"] },
     ],
     // C-10: shown only when features.comparisonEnjoymentRow is true.
-    enjoymentRow: { id: "enjoyment", label: "Snack enjoyment", outOf: 5, scores: [5, 1, 1] },
+    enjoymentRow: { id: "enjoyment", label: "Snack enjoyment", outOf: 5, scores: [5, 1, 1], outOfLabel: "out of" },
     footnote:
       "*Recipe target. Bar and shake figures are typical ranges; products vary. Snack enjoyment is our own rating.",
     image: {

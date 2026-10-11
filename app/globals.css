@@ -38,6 +38,17 @@
   --radius-card: 20px;
   --radius-small: 12px;
 
+  --animate-float: float 4s ease-in-out infinite;
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-6px);
+    }
+  }
+
   --spacing-nav: 56px;
   --spacing-nav-lg: 64px;
 }
