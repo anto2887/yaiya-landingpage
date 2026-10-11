@@ -3,8 +3,10 @@
 import { useEffect } from "react";
 
 /**
- * Adds .is-revealed to every [data-reveal] element the first time it scrolls into
+ * Sets data-revealed on every [data-reveal] element the first time it scrolls into
  * view. One observer for the whole page. CSS in globals.css does the animation.
+ * An attribute, not a class: React rewrites className on re-render and would
+ * strip a class added here, hiding the element again.
  */
 export function RevealObserver() {
   useEffect(() => {
@@ -13,7 +15,7 @@ export function RevealObserver() {
       (entries) => {
         for (const e of entries) {
           if (!e.isIntersecting) continue;
-          e.target.classList.add("is-revealed");
+          e.target.setAttribute("data-revealed", "");
           io.unobserve(e.target);
         }
       },

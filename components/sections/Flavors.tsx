@@ -1,5 +1,6 @@
 "use client";
 
+import { Check } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { Container } from "@/components/ui/Container";
@@ -7,18 +8,82 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import type { FlavorSlug, site } from "@/content/site";
 import { FLAVOR_STORAGE_KEY } from "@/lib/flavor";
 
-// Decorative ingredient cutouts, one per card (optional per sections/03-flavors.md).
-const CUTOUTS: Record<FlavorSlug, { src: string; width: number; height: number }> = {
-  "strawberry-peach": { src: "/images/cutout-strawberry.png", width: 453, height: 444 },
-  "chocolate-silk": { src: "/images/cutout-cocoa.png", width: 543, height: 377 },
-  "matcha-yuzu": { src: "/images/cutout-yuzu.png", width: 573, height: 481 },
+/**
+ * Each card is an illustrated scene: the flavor's color, a translucent jelly blob,
+ * and its ingredients as floating cutouts with real shadows. No photo crops.
+ * Positions are % of the art area; `hover` is where each piece drifts on hover.
+ */
+type Piece = {
+  src: string;
+  width: number;
+  height: number;
+  style: React.CSSProperties;
+  hover: string;
+  delay: string;
+};
+
+const ART: Record<FlavorSlug, Piece[]> = {
+  "strawberry-peach": [
+    {
+      src: "/images/cutout-peach.png",
+      width: 489,
+      height: 384,
+      style: { width: "58%", right: "6%", top: "14%", rotate: "10deg" },
+      hover: "group-hover:translate-x-2 group-hover:-translate-y-1 group-hover:rotate-3",
+      delay: "0s",
+    },
+    {
+      src: "/images/cutout-strawberry.png",
+      width: 453,
+      height: 444,
+      style: { width: "44%", left: "12%", bottom: "6%", rotate: "-12deg" },
+      hover: "group-hover:-translate-x-2 group-hover:-rotate-6",
+      delay: "-1.6s",
+    },
+  ],
+  "chocolate-silk": [
+    {
+      src: "/images/cutout-konjac.png",
+      width: 443,
+      height: 421,
+      style: { width: "30%", right: "10%", top: "10%", rotate: "12deg" },
+      hover: "group-hover:translate-x-2 group-hover:-translate-y-2 group-hover:rotate-6",
+      delay: "-0.8s",
+    },
+    {
+      src: "/images/cutout-cocoa.png",
+      width: 543,
+      height: 377,
+      style: { width: "72%", left: "12%", bottom: "8%", rotate: "-4deg" },
+      hover: "group-hover:-translate-y-1 group-hover:scale-105",
+      delay: "-2.2s",
+    },
+  ],
+  "matcha-yuzu": [
+    {
+      src: "/images/cutout-matcha.png",
+      width: 505,
+      height: 446,
+      style: { width: "56%", left: "8%", top: "16%", rotate: "-6deg" },
+      hover: "group-hover:-translate-x-2 group-hover:-translate-y-1 group-hover:-rotate-3",
+      delay: "-1s",
+    },
+    {
+      src: "/images/cutout-yuzu.png",
+      width: 573,
+      height: 481,
+      style: { width: "50%", right: "8%", bottom: "6%", rotate: "8deg" },
+      hover: "group-hover:translate-x-2 group-hover:rotate-6",
+      delay: "-2.6s",
+    },
+  ],
 };
 
 // Full class strings so Tailwind can see them.
 const TONES = {
-  strawberry: { card: "bg-strawberry", ink: "text-strawberry-ink", dot: "bg-accent" },
-  chocolate: { card: "bg-chocolate", ink: "text-chocolate-ink", dot: "bg-mango" },
-  matcha: { card: "bg-matcha", ink: "text-matcha-ink", dot: "bg-mint" },
+  strawberry: { card: "bg-strawberry", ink: "text-strawberry-ink", dot: "bg-accent", blob: "fill-white/45" },
+  chocolate: { card: "bg-chocolate", ink: "text-chocolate-ink", dot: "bg-mango", blob: "fill-white/35" },
+  matcha: { card: "bg-matcha", ink: "text-matcha-ink", dot: "bg-mint", blob: "fill-white/45" },
 } as const;
 
 // Confetti directions for the pick burst.
@@ -39,6 +104,15 @@ function readStoredFlavor(items: FlavorsProps["content"]["items"]): FlavorSlug |
   } catch {
     return null;
   }
+}
+
+/** A soft jelly-shaped blob behind the ingredients. */
+function Blob({ className }: { className: string }) {
+  return (
+    <svg aria-hidden viewBox="0 0 200 200" className={`absolute inset-[6%] size-[88%] motion-safe:animate-drift ${className}`}>
+      <path d="M44 38c22-24 70-30 102-10s40 62 26 96-52 58-92 50S16 140 14 104s8-42 30-66Z" />
+    </svg>
+  );
 }
 
 type FlavorsProps = {
@@ -108,48 +182,61 @@ export function Flavors({ content: flavors }: FlavorsProps) {
                 onKeyDown={(e) => onKeyDown(e, i)}
                 data-reveal
                 style={{ "--reveal-delay": `${i * 100}ms` } as React.CSSProperties}
-                className={`group relative block rounded-card text-left transition-transform duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] motion-safe:hover:-translate-y-1.5 motion-safe:hover:-rotate-1 ${
+                className={`group relative block rounded-card text-left transition-transform duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] motion-safe:hover:-translate-y-1.5 ${
                   isSelected ? "ring-4 ring-berry ring-offset-4 ring-offset-cream" : ""
                 }`}
               >
                 <span
                   key={isSelected ? `pick-${pickCount}` : "idle"}
-                  className={`relative flex h-[220px] overflow-hidden rounded-card sm:h-[240px] lg:h-[280px] ${tone.card} ${isSelected ? "motion-safe:animate-pop" : ""}`}
+                  className={`relative flex h-[200px] overflow-hidden rounded-card sm:h-[230px] lg:aspect-[4/5] lg:h-auto lg:flex-col ${tone.card} ${
+                    isSelected ? "motion-safe:animate-pop" : ""
+                  }`}
                 >
-                  <span className="flex min-w-0 flex-1 flex-col p-5">
-                    <span className={`type-h3 ${tone.ink}`}>{f.name}</span>
-                    <span className={`mt-1.5 text-[11px] leading-tight font-bold tracking-[0.1em] uppercase ${tone.ink}`}>{f.descriptors}</span>
-                    {/* Cutout above the tag, so selecting lifts it instead of pushing it sideways. */}
-                    <span className="mt-auto flex flex-col gap-2">
-                      <Image
-                        {...CUTOUTS[f.slug]}
-                        alt=""
+                  {/* A soft light from the upper right. */}
+                  <span aria-hidden className="absolute inset-0 bg-radial-[at_75%_20%] from-white/55 via-white/10 via-45% to-transparent" />
+
+                  {/* The art: right half on phones, top of the card on desktop. */}
+                  <span aria-hidden className="relative order-2 w-[54%] shrink-0 lg:order-1 lg:h-[64%] lg:w-full">
+                    <Blob className={tone.blob} />
+                    {ART[f.slug].map((p) => (
+                      <span key={p.src} className="absolute motion-safe:animate-float" style={{ ...p.style, animationDelay: p.delay }}>
+                        <Image
+                          src={p.src}
+                          width={p.width}
+                          height={p.height}
+                          alt=""
+                          sizes="(min-width: 1024px) 220px, 160px"
+                          className={`h-auto w-full drop-shadow-[0_16px_18px_rgb(58_20_64/0.22)] transition-transform duration-500 ease-out ${p.hover}`}
+                        />
+                      </span>
+                    ))}
+                  </span>
+
+                  <span className="relative order-1 flex min-w-0 flex-1 flex-col justify-center p-5 lg:order-2 lg:justify-end lg:p-6">
+                    <span className={`font-heading text-[24px] leading-tight font-bold lg:text-[28px] ${tone.ink}`}>{f.name}</span>
+                    <span className={`mt-1.5 text-[11px] leading-snug font-bold tracking-[0.12em] uppercase ${tone.ink}`}>{f.descriptors}</span>
+                    <span className="mt-4 flex items-center gap-2">
+                      {/* The check carries the state, not color alone. */}
+                      <span
                         aria-hidden
-                        sizes="120px"
-                        className={`-mr-2 h-14 w-auto self-end object-contain transition-transform duration-500 motion-safe:group-hover:scale-110 motion-safe:group-hover:rotate-6 sm:h-16 lg:h-20 ${isSelected ? "" : "-mb-2"}`}
-                      />
+                        className={`flex size-7 items-center justify-center rounded-full border-2 transition-colors duration-200 ${
+                          isSelected ? "border-berry bg-berry" : `border-current bg-white/50 ${tone.ink}`
+                        }`}
+                      >
+                        <Check strokeWidth={3} className={`size-4 ${isSelected ? "text-white" : "text-transparent"}`} />
+                      </span>
                       {isSelected && (
-                        <span className="self-start rounded-pill bg-berry px-3 py-1.5 text-[12px] font-bold whitespace-nowrap text-white motion-safe:animate-pop">
+                        <span className="rounded-pill bg-berry px-3 py-1 text-[12px] font-bold whitespace-nowrap text-white motion-safe:animate-pop">
                           {flavors.selectedTag}
                         </span>
                       )}
                     </span>
                   </span>
-                  {/* Portrait crop until wide photos arrive (D-18). */}
-                  <span className="relative aspect-[3/4] h-full shrink-0 overflow-hidden rounded-l-card">
-                    <Image
-                      src={f.image}
-                      alt=""
-                      fill
-                      sizes="220px"
-                      className="object-cover transition-transform duration-500 motion-safe:group-hover:scale-105"
-                    />
-                  </span>
                 </span>
 
                 {/* Confetti on pick. */}
                 {isSelected && pickCount > 0 && (
-                  <span key={`burst-${pickCount}`} aria-hidden className="pointer-events-none absolute top-1/2 left-1/3 motion-reduce:hidden">
+                  <span key={`burst-${pickCount}`} aria-hidden className="pointer-events-none absolute top-1/2 left-1/2 motion-reduce:hidden">
                     {BURST.map(([x, y], d) => (
                       <span
                         key={d}
