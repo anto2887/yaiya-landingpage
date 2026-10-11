@@ -86,6 +86,10 @@ export const site = {
     stickyMobileCta: true, // Q-13
   },
 
+  a11y: {
+    skipLink: "Skip to content",
+  },
+
   nav: {
     wordmarkAlt: "YAIYA",
     links: [

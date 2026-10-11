@@ -1,3 +1,190 @@
 @import "tailwindcss";
 
-/* Design tokens arrive in M1 (guide/docs/05-design-system.md). */
+/* Design tokens: guide/docs/05-design-system.md. Components use these names, never raw hex. */
+@theme {
+  --color-*: initial;
+  --color-ink: #481208;
+  --color-ink-deep: #3e1008;
+  --color-ink-hover: #2c0a04;
+  --color-muted: #6b5148;
+  --color-eyebrow: #5a4c46;
+  --color-paper: #fffdf9;
+  --color-cream: #fcf6ee;
+  --color-line: #eadfd5;
+  --color-outline: #c0a8a0;
+  --color-strawberry: #f9ccc9;
+  --color-strawberry-ink: #b80f1a;
+  --color-chocolate: #d9ae92;
+  --color-chocolate-ink: #4a1e10;
+  --color-matcha: #e8e8be;
+  --color-matcha-ink: #3f4a12;
+  --color-accent: #d92b1e;
+  --color-highlight: #fdeee1;
+  --color-blush: #fed0ca;
+  --color-white: #ffffff;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --font-heading: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-hand: var(--font-caveat), cursive;
+
+  --breakpoint-sm: 640px;
+  --breakpoint-lg: 1024px;
+
+  --container-content: 1180px;
+
+  --radius-pill: 999px;
+  --radius-card: 20px;
+  --radius-small: 12px;
+
+  --spacing-nav: 56px;
+  --spacing-nav-lg: 64px;
+}
+
+/* Layout tokens that change with the breakpoint. */
+@utility px-gutter {
+  padding-inline: 16px;
+  @media (width >= 640px) {
+    padding-inline: 24px;
+  }
+  @media (width >= 1024px) {
+    padding-inline: 34px;
+  }
+}
+
+@utility py-section {
+  padding-block: 40px;
+  @media (width >= 1024px) {
+    padding-block: 56px;
+  }
+}
+
+@utility gap-grid {
+  gap: 12px;
+  @media (width >= 1024px) {
+    gap: 16px;
+  }
+}
+
+/* Type roles. */
+@utility type-h1 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  @media (width >= 1024px) {
+    font-size: 56px;
+  }
+}
+
+@utility type-h2 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  @media (width >= 1024px) {
+    font-size: 40px;
+  }
+}
+
+@utility type-h3 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  @media (width >= 1024px) {
+    font-size: 22px;
+  }
+}
+
+@utility type-kicker {
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 1.3;
+  @media (width >= 1024px) {
+    font-size: 18px;
+  }
+}
+
+@utility type-body {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+@utility type-small {
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+@utility type-eyebrow {
+  font-weight: 700;
+  font-size: 11px;
+  line-height: 1.2;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+@utility type-button {
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1;
+}
+
+@utility type-hand {
+  font-family: var(--font-hand);
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.1;
+  @media (width >= 1024px) {
+    font-size: 24px;
+  }
+}
+
+@utility type-footnote {
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+@utility focus-ring {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 2px;
+}
+
+@layer base {
+  html {
+    background-color: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-size: 16px;
+    line-height: 1.5;
+    overflow-x: clip;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 2px;
+  }
+
+  /* Anchored sections clear the sticky nav. */
+  section[id],
+  main[id] {
+    scroll-margin-top: calc(var(--spacing-nav) + 8px);
+    @media (width >= 1024px) {
+      scroll-margin-top: calc(var(--spacing-nav-lg) + 8px);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+}
