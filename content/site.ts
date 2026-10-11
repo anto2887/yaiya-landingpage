@@ -374,6 +374,30 @@ export const site = {
         title: "Selected vitamins & minerals.",
         body: "The current development brief includes selected vitamins and minerals at meaningful target levels.",
         note: "Final levels depend on finished-product testing.",
+        // Founder 11 Oct chose the softer, role-based wording over benefit headlines
+        // (no immune/energy/skin/bone headlines, no skin card). Roles carry an asterisk.
+        // TODO(founder): Q-06 / C-09 confirm C, D, B vitamins, zinc and magnesium are in the recipe.
+        groups: [
+          {
+            id: "c-d-zinc",
+            nutrients: "Vitamins C + D · Zinc",
+            title: "Part of the daily mix",
+            body: "These nutrients play roles in normal immune function.*",
+          },
+          {
+            id: "b-magnesium",
+            nutrients: "B vitamins + Magnesium",
+            title: "From food to fuel",
+            body: "B vitamins help your body use energy from food.*",
+          },
+          {
+            id: "d-magnesium",
+            nutrients: "Vitamin D + Magnesium",
+            title: "Everyday essentials",
+            body: "Vitamin D helps your body absorb calcium.*",
+          },
+        ],
+        groupsNote: `*Recipe targets: selected vitamins and minerals at ${TARGETS.dailyValue} daily value per pouch. Final levels confirmed by testing before launch.`,
       },
       {
         id: "magnesium",

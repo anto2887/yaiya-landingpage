@@ -84,6 +84,26 @@ export function IngredientTabs({ content }: IngredientTabsProps) {
           <p className="mt-2 type-body text-ink">{tab.body}</p>
           <p className="mt-3 type-footnote text-muted">{tab.note}</p>
         </div>
+
+        {/* Vitamins tab: the nutrient groups and the role each plays. */}
+        {"groups" in tab && (
+          <div key={`${tab.id}-groups`} className="sm:col-span-2">
+            <ul className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+              {tab.groups.map((g, i) => (
+                <li
+                  key={g.id}
+                  style={{ animationDelay: `${i * 80}ms` }}
+                  className="rounded-small border border-line bg-white p-4 motion-safe:animate-pop"
+                >
+                  <p className="text-[11px] font-bold tracking-[0.12em] text-berry uppercase">{g.nutrients}</p>
+                  <p className="mt-2 font-heading text-[18px] leading-tight font-semibold text-ink">{g.title}</p>
+                  <p className="mt-1.5 type-small text-muted">{g.body}</p>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-3 type-footnote text-muted">{tab.groupsNote}</p>
+          </div>
+        )}
       </div>
     </div>
   );
