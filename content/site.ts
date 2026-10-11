@@ -176,6 +176,11 @@ export const site = {
         value: TARGETS.protein,
         label: "protein*",
         line: "For your everyday strength", // C-15
+        // Q-01 answered 10 Oct. Approved: "11g from whey protein and 4g from collagen".
+        split: [
+          { label: "whey", value: TARGETS.whey, grams: 11 },
+          { label: "collagen", value: TARGETS.collagen, grams: 4 },
+        ],
       },
       {
         id: "fiber",
@@ -189,6 +194,7 @@ export const site = {
         value: TARGETS.sugar,
         label: "sugar*",
         line: "Our sweet spot",
+        detail: "Sweetened with allulose and monk fruit, never artificial sweeteners.", // D-12, approved
       },
       {
         id: "daily-value",
@@ -197,6 +203,7 @@ export const site = {
         line: "Selected vitamins & minerals", // C-13
       },
     ],
+    perPouch: "Recipe targets, per pouch",
     footnote: TARGETS_NOTE,
   },
 
