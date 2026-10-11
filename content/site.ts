@@ -155,8 +155,8 @@ export const site = {
 
   nutrition: {
     heading: "Good for more than your taste buds.",
-    // TODO(founder): "Real" conflicts with 07-copy-and-claims rule 3. Keep or change?
-    sub: "Feel-good flavor. Real nutritional purpose.",
+    // Founder 11 Oct: was "Real nutritional purpose." ("real" breaks 07 rule 3).
+    sub: "Feel-good flavor. Nutrition with a purpose.",
     stats: [
       {
         id: "protein",
