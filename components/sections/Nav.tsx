@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { NavScrollState } from "@/components/NavScrollState";
 import { Container } from "@/components/ui/Container";
 import { WaitlistButton } from "@/components/ui/WaitlistButton";
 import { Wordmark } from "@/components/ui/Wordmark";
@@ -8,7 +9,12 @@ const { nav } = site;
 
 export function Nav() {
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-paper/94 backdrop-blur-[12px]">
+    // Transparent over the hero at the top of the page; frosted once scrolled.
+    <header
+      id="site-header"
+      className="sticky top-0 z-40 border-b border-transparent transition-[background-color,border-color,box-shadow] duration-300 data-scrolled:border-line data-scrolled:bg-paper/90 data-scrolled:backdrop-blur-[12px]"
+    >
+      <NavScrollState />
       <Container className="flex h-nav items-center justify-between gap-4 lg:h-nav-lg">
         <Link href="#top" className="-m-2 inline-flex min-h-11 items-center rounded-small p-2">
           <Wordmark alt={nav.wordmarkAlt} className="h-6 lg:h-7" />

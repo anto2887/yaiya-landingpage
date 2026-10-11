@@ -184,6 +184,9 @@
   line-height: 0.98;
   letter-spacing: -0.02em;
   @media (width >= 1024px) {
+    font-size: 54px;
+  }
+  @media (width >= 1280px) {
     font-size: 64px;
   }
 }

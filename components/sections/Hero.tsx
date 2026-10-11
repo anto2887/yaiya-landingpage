@@ -34,7 +34,7 @@ function Bubbles() {
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
       <span className="absolute top-[12%] left-[46%] size-24 rounded-full bg-mango/40 blur-2xl motion-safe:animate-drift lg:size-40" />
-      <span className="absolute top-[55%] left-[6%] size-28 rounded-full bg-accent/25 blur-2xl motion-safe:animate-drift [animation-delay:-5s] lg:size-48" />
+      <span className="absolute bottom-[4%] left-[30%] size-24 rounded-full bg-accent/15 blur-2xl motion-safe:animate-drift [animation-delay:-5s] lg:size-36" />
       <span className="absolute top-[8%] right-[8%] size-20 rounded-full bg-mint/40 blur-2xl motion-safe:animate-drift [animation-delay:-9s] lg:size-36" />
     </div>
   );
@@ -46,7 +46,7 @@ export function Hero() {
     <section
       id="top"
       aria-labelledby="hero-heading"
-      className="relative isolate overflow-hidden bg-cream lg:flex lg:aspect-[2400/1086] lg:max-h-[780px] lg:min-h-[560px] lg:w-full lg:items-center"
+      className="relative isolate -mt-nav overflow-hidden bg-cream pt-nav lg:-mt-nav-lg lg:flex lg:aspect-[2400/1086] lg:max-h-[820px] lg:min-h-[620px] lg:w-full lg:items-center lg:pt-nav-lg"
     >
       <div className="absolute inset-0 -z-10">
         <HeroPicture />
@@ -56,7 +56,7 @@ export function Hero() {
       </div>
 
       <Container className="relative">
-        <div className="pt-8 lg:max-w-[440px] lg:py-12 xl:max-w-[460px]">
+        <div className="pt-8 lg:max-w-[410px] lg:py-12 xl:max-w-[460px]">
           <Eyebrow>{hero.eyebrow}</Eyebrow>
           <h1 id="hero-heading" className="mt-3 type-h1 text-ink">
             {hero.headline.map((line, i) => (
@@ -86,7 +86,7 @@ export function Hero() {
         <div aria-hidden className="aspect-[1358/1000] lg:hidden" />
       </Container>
 
-      <HandNote rotate={6} mark="heart" className="absolute top-8 right-10 max-w-[160px] text-right">
+      <HandNote rotate={6} mark="heart" className="absolute top-24 right-10 max-w-[160px] text-right">
         {hero.note}
       </HandNote>
     </section>

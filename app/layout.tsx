@@ -42,7 +42,9 @@ export default function RootLayout({
         {/* Lets CSS hide scroll-reveal content only when JS will reveal it. */}
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
       </head>
-      <body className="bg-cream text-ink antialiased">
+      <body className="relative bg-cream text-ink antialiased">
+        {/* Watched by NavScrollState: while it is on screen, the page is at the top. */}
+        <div id="top-sentinel" aria-hidden className="pointer-events-none absolute top-0 h-2 w-px" />
         <a
           href="#main"
           className="sr-only z-50 rounded-pill bg-berry px-4 py-3 type-button text-white focus:not-sr-only focus:fixed focus:top-2 focus:left-2"

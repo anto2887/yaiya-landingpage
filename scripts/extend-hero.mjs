@@ -2,8 +2,12 @@
 //
 // The scene has its pouches in the middle, so copy laid over the full photo would
 // cover them. This widens the canvas (desktop: to the left; mobile: upward) with a
-// mirrored, heavily blurred copy of the photo's own edge, feathered into the original.
-// The copy then sits over soft background and the pouches stay sharp.
+// calm "studio" continuation of the scene: its own wall and desk colors, a soft desk
+// edge and diagonal sunbeams. The photo fades into it over a wide band, so the copy
+// sits on clean background and the pouches stay sharp.
+//
+// This is a stand-in. A render composed with empty space on the left (like the
+// founder's reference mockups) will look better; drop it in as hero-wide.jpg.
 //
 // In:  public/images/hero-desktop.jpg (1448 x 1086), hero-mobile.jpg (1358 x 1086)
 // Out: public/images/hero-wide.jpg (2400 x 1086), hero-tall.jpg (1358 x 2300)
@@ -12,23 +16,56 @@ import path from "node:path";
 import sharp from "sharp";
 
 const DIR = "public/images";
-const FEATHER = 220;
-const BASE = "#f3e6dc"; // fallback under the blur; matches the scene's wall
+// Sampled from the scene: sunlit wall and light desk wood.
+const WALL_TOP = "#f6e9de";
+const WALL = "#f0dccd";
+const DESK = "#e9cdb4";
+const DESK_DEEP = "#dfbd9f";
 
-function featherMask(width, height, vertical) {
-  const stop = FEATHER / (vertical ? height : width);
-  const dir = vertical ? 'x1="0" y1="0" x2="0" y2="1"' : "";
+/** Studio background: wall, desk from `deskAt` (0..1 of height), soft sunbeams. */
+function studio(width, height, deskAt) {
+  const d = (deskAt * 100).toFixed(1);
+  const beams = [0.1, 0.32, 0.55]
+    .map(
+      (x, i) =>
+        `<polygon points="${width * x},0 ${width * (x + 0.12)},0 ${width * (x + 0.42)},${height} ${width * (x + 0.3)},${height}" fill="#fff" opacity="${[0.22, 0.16, 0.12][i]}"/>`,
+    )
+    .join("");
   return Buffer.from(
-    `<svg width="${width}" height="${height}"><defs><linearGradient id="g" ${dir}>` +
-      `<stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="${stop}" stop-color="#fff" stop-opacity="1"/>` +
-      `</linearGradient></defs><rect width="100%" height="100%" fill="url(#g)"/></svg>`,
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">
+      <defs>
+        <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="${WALL_TOP}"/>
+          <stop offset="${d - 6}%" stop-color="${WALL}"/>
+          <stop offset="${d}%" stop-color="${DESK}"/>
+          <stop offset="100%" stop-color="${DESK_DEEP}"/>
+        </linearGradient>
+        <filter id="soft"><feGaussianBlur stdDeviation="${Math.round(width / 40)}"/></filter>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#bg)"/>
+      <g filter="url(#soft)">${beams}</g>
+    </svg>`,
   );
 }
 
-async function feathered(src, width, height, vertical) {
+/** Alpha mask: transparent at the start edge, opaque after `feather` px, eased. */
+function featherMask(width, height, feather, vertical) {
+  const stops = [0, 0.15, 0.35, 0.6, 0.85, 1]
+    .map((t) => {
+      const eased = t * t * (3 - 2 * t); // smoothstep
+      return `<stop offset="${((t * feather) / (vertical ? height : width)).toFixed(4)}" stop-color="#fff" stop-opacity="${eased.toFixed(3)}"/>`;
+    })
+    .join("");
+  const dir = vertical ? 'x1="0" y1="0" x2="0" y2="1"' : "";
+  return Buffer.from(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}"><defs><linearGradient id="g" ${dir}>${stops}</linearGradient></defs><rect width="100%" height="100%" fill="url(#g)"/></svg>`,
+  );
+}
+
+async function feathered(src, width, height, feather, vertical) {
   return sharp(src)
     .ensureAlpha()
-    .composite([{ input: featherMask(width, height, vertical), blend: "dest-in" }])
+    .composite([{ input: featherMask(width, height, feather, vertical), blend: "dest-in" }])
     .png()
     .toBuffer();
 }
@@ -36,20 +73,10 @@ async function feathered(src, width, height, vertical) {
 async function extendLeft(src, out, W) {
   const { width: w, height: h } = await sharp(src).metadata();
   const ext = W - w;
-  const strip = Math.min(w, ext + FEATHER);
-  // Mirror the photo, so its left edge continues seamlessly outward, then blur it.
-  const fill = await sharp(src)
-    .flop()
-    .extract({ left: w - strip, top: 0, width: strip, height: h })
-    .resize(ext + FEATHER, h, { fit: "fill" })
-    .blur(32)
-    .modulate({ brightness: 1.05, saturation: 0.85 })
-    .toBuffer();
-  await sharp({ create: { width: W, height: h, channels: 3, background: BASE } })
-    .composite([
-      { input: fill, left: 0, top: 0 },
-      { input: await feathered(src, w, h, false), left: ext, top: 0 },
-    ])
+  // The scene's desk edge sits at about 59% of its height.
+  const bg = await sharp(studio(W, h, 0.59)).png().toBuffer();
+  await sharp(bg)
+    .composite([{ input: await feathered(src, w, h, 420, false), left: ext, top: 0 }])
     .jpeg({ quality: 84, mozjpeg: true })
     .toFile(out);
   console.log(`extended    ${out} (${W} x ${h})`);
@@ -58,20 +85,10 @@ async function extendLeft(src, out, W) {
 async function extendUp(src, out, H) {
   const { width: w, height: h } = await sharp(src).metadata();
   const ext = H - h;
-  // Only the top band (wall and plant), so no ghost pouches appear in the blur.
-  const band = Math.round(h * 0.28);
-  const fill = await sharp(src)
-    .extract({ left: 0, top: 0, width: w, height: band })
-    .flip()
-    .resize(w, ext + FEATHER, { fit: "fill" })
-    .blur(34)
-    .modulate({ brightness: 1.05, saturation: 0.85 })
-    .toBuffer();
-  await sharp({ create: { width: w, height: H, channels: 3, background: BASE } })
-    .composite([
-      { input: fill, left: 0, top: 0 },
-      { input: await feathered(src, w, h, true), left: 0, top: ext },
-    ])
+  // Above the photo there is only wall, so the desk starts below the canvas.
+  const bg = await sharp(studio(w, H, 1.2)).png().toBuffer();
+  await sharp(bg)
+    .composite([{ input: await feathered(src, w, h, 360, true), left: 0, top: ext }])
     .jpeg({ quality: 84, mozjpeg: true })
     .toFile(out);
   console.log(`extended    ${out} (${w} x ${H})`);
