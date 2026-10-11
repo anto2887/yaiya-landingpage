@@ -1,0 +1,23 @@
+# Project guide (local only)
+guide/
+CLAUDE.md
+
+# dependencies
+/node_modules
+
+# next.js
+/.next/
+/out/
+/build
+/coverage
+
+# env files: never commit real values
+.env*
+!.env.example
+
+# misc
+.DS_Store
+*.pem
+npm-debug.log*
+*.tsbuildinfo
+next-env.d.ts
