@@ -9,9 +9,10 @@ import type { FlavorSlug, site } from "@/content/site";
 import { FLAVOR_STORAGE_KEY } from "@/lib/flavor";
 
 /**
- * Each card is an illustrated scene: the flavor's color, a translucent jelly blob,
- * and its ingredients as floating cutouts with real shadows. No photo crops.
- * Positions are % of the art area; `hover` is where each piece drifts on hover.
+ * Each card shows its pouch floating over the flavor color and a jelly blob,
+ * with a soft shadow. Cutouts are founder-supplied (assets-src/pouch-*.png),
+ * cleaned and trimmed to public/images/pouch-*.png.
+ * Positions are % of the art area; `hover` is how the pouch moves on hover.
  */
 type Piece = {
   src: string;
@@ -22,58 +23,36 @@ type Piece = {
   delay: string;
 };
 
+const POUCH_STYLE: React.CSSProperties = { width: "54%", left: "23%", top: "6%" };
+
 const ART: Record<FlavorSlug, Piece[]> = {
   "strawberry-peach": [
     {
-      src: "/images/cutout-peach.png",
-      width: 489,
-      height: 384,
-      style: { width: "58%", right: "6%", top: "14%", rotate: "10deg" },
-      hover: "group-hover:translate-x-2 group-hover:-translate-y-1 group-hover:rotate-3",
+      src: "/images/pouch-strawberry-peach.png",
+      width: 582,
+      height: 800,
+      style: { ...POUCH_STYLE, rotate: "-6deg" },
+      hover: "group-hover:-translate-y-2 group-hover:-rotate-3 group-hover:scale-105",
       delay: "0s",
-    },
-    {
-      src: "/images/cutout-strawberry.png",
-      width: 453,
-      height: 444,
-      style: { width: "44%", left: "12%", bottom: "6%", rotate: "-12deg" },
-      hover: "group-hover:-translate-x-2 group-hover:-rotate-6",
-      delay: "-1.6s",
     },
   ],
   "chocolate-silk": [
     {
-      src: "/images/cutout-konjac.png",
-      width: 443,
-      height: 421,
-      style: { width: "30%", right: "10%", top: "10%", rotate: "12deg" },
-      hover: "group-hover:translate-x-2 group-hover:-translate-y-2 group-hover:rotate-6",
-      delay: "-0.8s",
-    },
-    {
-      src: "/images/cutout-cocoa.png",
-      width: 543,
-      height: 377,
-      style: { width: "72%", left: "12%", bottom: "8%", rotate: "-4deg" },
-      hover: "group-hover:-translate-y-1 group-hover:scale-105",
-      delay: "-2.2s",
+      src: "/images/pouch-chocolate-silk.png",
+      width: 600,
+      height: 798,
+      style: { ...POUCH_STYLE, rotate: "4deg" },
+      hover: "group-hover:-translate-y-2 group-hover:rotate-3 group-hover:scale-105",
+      delay: "-1.3s",
     },
   ],
   "matcha-yuzu": [
     {
-      src: "/images/cutout-matcha.png",
-      width: 505,
-      height: 446,
-      style: { width: "56%", left: "8%", top: "16%", rotate: "-6deg" },
-      hover: "group-hover:-translate-x-2 group-hover:-translate-y-1 group-hover:-rotate-3",
-      delay: "-1s",
-    },
-    {
-      src: "/images/cutout-yuzu.png",
-      width: 573,
-      height: 481,
-      style: { width: "50%", right: "8%", bottom: "6%", rotate: "8deg" },
-      hover: "group-hover:translate-x-2 group-hover:rotate-6",
+      src: "/images/pouch-matcha-yuzu.png",
+      width: 600,
+      height: 783,
+      style: { ...POUCH_STYLE, rotate: "-3deg" },
+      hover: "group-hover:-translate-y-2 group-hover:-rotate-2 group-hover:scale-105",
       delay: "-2.6s",
     },
   ],
