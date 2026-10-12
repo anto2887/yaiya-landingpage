@@ -142,9 +142,9 @@ export const site = {
     image: {
       // Desktop: the founder's scene as supplied; the copy sits on its open wall (D-25).
       // Mobile: photo first, a tight crop around the pouches (scripts/extend-hero.mjs, D-37).
-      desktop: "/images/hero-scene.jpg",
-      mobile: "/images/hero-phone.jpg",
-      alt: "Three YAIYA pouches in Strawberry Peach, Chocolate Silk and Matcha Yuzu on a sunny desk, with the jelly mascot Wobbie peeking out of a tote bag.",
+      desktop: "/images/hero-scene-v3.jpg",
+      mobile: "/images/hero-phone-v3.jpg",
+      alt: "Strawberry Peach, Chocolate Silk and Matcha Yuzu pouches on a marble desk with fresh fruit and chocolate, and the jelly mascot Wobbie peeking out from behind the pouches.",
     },
   },
 
