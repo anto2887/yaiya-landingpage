@@ -63,7 +63,7 @@ const ART: Record<FlavorSlug, Piece[]> = {
 // Full class strings so Tailwind can see them.
 const TONES = {
   strawberry: { card: "bg-strawberry", ink: "text-strawberry-ink", dot: "bg-accent", blob: "fill-white/45" },
-  chocolate: { card: "bg-chocolate", ink: "text-chocolate-ink", dot: "bg-mango", blob: "fill-white/35" },
+  chocolate: { card: "bg-chocolate", ink: "text-chocolate-ink", dot: "bg-sun", blob: "fill-white/35" },
   matcha: { card: "bg-matcha", ink: "text-matcha-ink", dot: "bg-butter-strong", blob: "fill-white/45" },
 } as const;
 
@@ -156,7 +156,7 @@ export function Flavors({ content: flavors }: FlavorsProps) {
           id="flavors-heading"
           eyebrow={flavors.eyebrow}
           title={flavors.heading}
-          aside={<p className="rounded-pill bg-mango-soft px-4 py-2 type-small font-semibold text-ink">{flavors.prompt}</p>}
+          aside={<p className="rounded-pill bg-sun-soft px-4 py-2 type-small font-semibold text-ink">{flavors.prompt}</p>}
         />
 
         <div role="radiogroup" aria-label={flavors.groupLabel} className="grid grid-cols-1 gap-grid lg:grid-cols-3">
@@ -178,7 +178,7 @@ export function Flavors({ content: flavors }: FlavorsProps) {
                 data-reveal
                 style={{ "--reveal-delay": `${i * 100}ms` } as React.CSSProperties}
                 className={`group relative block rounded-card text-left transition-transform duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] motion-safe:hover:-translate-y-1.5 ${
-                  isSelected ? "ring-4 ring-tangerine ring-offset-4 ring-offset-lilac-soft" : ""
+                  isSelected ? "ring-4 ring-primary ring-offset-4 ring-offset-lilac-soft" : ""
                 }`}
               >
                 <span
@@ -215,13 +215,13 @@ export function Flavors({ content: flavors }: FlavorsProps) {
                       <span
                         aria-hidden
                         className={`flex size-7 items-center justify-center rounded-full border-2 transition-colors duration-200 ${
-                          isSelected ? "border-tangerine bg-tangerine" : `border-current bg-white/50 ${tone.ink}`
+                          isSelected ? "border-primary bg-primary" : `border-current bg-white/50 ${tone.ink}`
                         }`}
                       >
                         <Check strokeWidth={3} className={`size-4 ${isSelected ? "text-white" : "text-transparent"}`} />
                       </span>
                       {isSelected && (
-                        <span className="rounded-pill bg-tangerine px-3 py-1 text-[12px] font-bold whitespace-nowrap text-white motion-safe:animate-pop">
+                        <span className="rounded-pill bg-primary px-3 py-1 text-[12px] font-bold whitespace-nowrap text-white motion-safe:animate-pop">
                           {flavors.selectedTag}
                         </span>
                       )}
@@ -236,7 +236,7 @@ export function Flavors({ content: flavors }: FlavorsProps) {
                       <span
                         key={d}
                         style={{ "--bx": `${x}px`, "--by": `${y}px` } as React.CSSProperties}
-                        className={`absolute size-2.5 rounded-full ${d % 2 ? tone.dot : "bg-tangerine"} animate-burst`}
+                        className={`absolute size-2.5 rounded-full ${d % 2 ? tone.dot : "bg-primary"} animate-burst`}
                       />
                     ))}
                   </span>
@@ -318,7 +318,7 @@ function FlavorDetail({ flavor, detail }: { flavor: FlavorItem; detail: typeof s
         <button
           type="button"
           onClick={() => scrollToWaitlist()}
-          className="group/btn mt-6 inline-flex h-12 items-center gap-2 rounded-pill bg-tangerine px-[22px] type-button text-white transition-colors hover:bg-tangerine-hover"
+          className="group/btn mt-6 inline-flex h-12 items-center gap-2 rounded-pill bg-primary px-[22px] type-button text-white transition-colors hover:bg-primary-hover"
         >
           {detail.ctaPrefix} {flavor.name}
           <ArrowRight aria-hidden className="size-4 transition-transform motion-safe:group-hover/btn:translate-x-1" />

@@ -17,12 +17,12 @@ type IconComponent = (props: LucideProps & React.SVGProps<SVGSVGElement>) => Rea
 // Each tab's icon and colors, keyed by tab id. Full class strings so Tailwind sees them.
 // Leaf is for matcha only, never protein or collagen (C-01).
 const THEME: Record<string, { Icon: IconComponent; soft: string; dot: string }> = {
-  protein: { Icon: Dumbbell, soft: "bg-apricot", dot: "bg-lilac-soft" },
+  protein: { Icon: Dumbbell, soft: "bg-periwinkle", dot: "bg-lilac-soft" },
   konjac: { Icon: JellyIcon, soft: "bg-butter", dot: "bg-butter-strong" },
   collagen: { Icon: Droplet, soft: "bg-lilac-soft", dot: "bg-lilac" },
-  vitamins: { Icon: Sun, soft: "bg-mango-soft", dot: "bg-mango" },
+  vitamins: { Icon: Sun, soft: "bg-sun-soft", dot: "bg-sun" },
   magnesium: { Icon: Sparkles, soft: "bg-lilac-soft", dot: "bg-lilac" },
-  sweeteners: { Icon: Candy, soft: "bg-apricot", dot: "bg-lilac-soft" },
+  sweeteners: { Icon: Candy, soft: "bg-periwinkle", dot: "bg-lilac-soft" },
   energy: { Icon: Leaf, soft: "bg-butter", dot: "bg-butter-strong" },
 };
 
@@ -82,13 +82,13 @@ export function IngredientTabs({ content }: IngredientTabsProps) {
                 onClick={() => select(i)}
                 onKeyDown={(e) => onKeyDown(e, i)}
                 className={`group/tab inline-flex min-h-11 items-center gap-2.5 rounded-pill border-2 py-1 pr-4 pl-1.5 text-[14px] font-semibold whitespace-nowrap transition-[background-color,border-color,transform] duration-200 motion-safe:active:scale-95 lg:min-h-14 lg:rounded-small lg:pr-3 lg:text-[15px] ${
-                  selected ? "border-tangerine bg-tangerine text-white" : "border-line bg-white text-ink hover:border-tangerine/50"
+                  selected ? "border-primary bg-primary text-white" : "border-line bg-white text-ink hover:border-primary/50"
                 }`}
               >
                 <span
                   aria-hidden
                   className={`flex size-8 shrink-0 items-center justify-center rounded-full transition-transform duration-300 motion-safe:group-hover/tab:-rotate-12 lg:size-10 ${
-                    selected ? "bg-white/20 text-white" : `${soft} text-tangerine`
+                    selected ? "bg-white/20 text-white" : `${soft} text-primary`
                   }`}
                 >
                   <Icon strokeWidth={1.75} className="size-4 lg:size-5" />
@@ -112,7 +112,7 @@ export function IngredientTabs({ content }: IngredientTabsProps) {
           <theme.Icon aria-hidden strokeWidth={1} className="absolute -right-4 -bottom-6 size-40 text-white/70" />
 
           <div className="relative flex flex-wrap items-end gap-x-4 gap-y-1">
-            <p className="font-heading text-[56px] leading-none font-bold text-tangerine lg:text-[72px]">
+            <p className="font-heading text-[56px] leading-none font-bold text-primary lg:text-[72px]">
               <CountUp value={tab.value} durationMs={800} />
             </p>
             <p className="pb-2 type-small font-semibold text-ink">{tab.valueLabel}</p>
@@ -131,7 +131,7 @@ export function IngredientTabs({ content }: IngredientTabsProps) {
                     style={{ animationDelay: `${120 + i * 80}ms` }}
                     className="rounded-small bg-white p-4 motion-safe:animate-pop"
                   >
-                    <p className="text-[11px] font-bold tracking-[0.12em] text-tangerine uppercase">{g.nutrients}</p>
+                    <p className="text-[11px] font-bold tracking-[0.12em] text-primary uppercase">{g.nutrients}</p>
                     <p className="mt-2 font-heading text-[18px] leading-tight font-semibold text-ink">{g.title}</p>
                     <p className="mt-1.5 type-small text-muted">{g.body}</p>
                   </li>

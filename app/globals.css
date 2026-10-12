@@ -1,32 +1,32 @@
 @import "tailwindcss";
 
 /*
- * Design tokens. Tangerine & plum palette (founder and cofounder, 11 Oct): tangerine
- * buttons, plum text, apricot, butter and lilac sections. No pink or green outside the
- * flavor cards. Replaces the brown palette in
- * guide/docs/05-design-system.md. Components use these names, never raw hex.
+ * Design tokens. Lilac & butter palette (founder and cofounder, 11 Oct): violet
+ * buttons, deep plum text, lilac, periwinkle and butter sections. No pink, green or
+ * orange outside the flavor cards. Tokens are named by role (primary, accent) so the
+ * palette can change without renaming. Components use these names, never raw hex.
  */
 @theme {
   --color-*: initial;
-  --color-ink: #3a1440;
-  --color-muted: #6e5672;
-  --color-eyebrow: #a8370a;
-  --color-paper: #fffaf5;
-  --color-cream: #fff6ec;
-  --color-line: #f2dfd0;
-  --color-outline: #b07a5a;
-  --color-tangerine: #c2410c;
-  --color-tangerine-hover: #9a3412;
-  --color-accent: #d9480f;
+  --color-ink: #2b1840;
+  --color-muted: #5e5272;
+  --color-eyebrow: #5a2db8;
+  --color-paper: #fdfbff;
+  --color-cream: #fbf8ff;
+  --color-line: #e8e0f5;
+  --color-outline: #8470b8;
+  --color-primary: #6b3fd4;
+  --color-primary-hover: #5530b0;
+  --color-accent: #7c4deb;
   --color-danger: #b42318;
-  --color-apricot: #ffe3cc;
-  --color-apricot-deep: #ffd2ad;
-  --color-mango: #ffb547;
-  --color-mango-soft: #ffe7bf;
-  --color-butter: #fff0c2;
-  --color-butter-strong: #ffd666;
+  --color-periwinkle: #e4e8ff;
   --color-lilac: #b79cf2;
   --color-lilac-soft: #efe7ff;
+  --color-lilac-deep: #dccfff;
+  --color-butter: #fff3c4;
+  --color-butter-strong: #ffd966;
+  --color-sun: #ffd966;
+  --color-sun-soft: #fff6d6;
   /* Flavor colors: only on the flavor cards and the flavor breakout. */
   --color-strawberry: #ffd3da;
   --color-strawberry-ink: #b3123b;
@@ -298,9 +298,9 @@
 /* A soft light halo so copy stays readable floating on a photo. */
 @utility text-glow {
   text-shadow:
-    0 0 2px rgb(255 250 245 / 0.9),
-    0 0 14px rgb(255 250 247 / 0.85),
-    0 0 32px rgb(255 250 247 / 0.7);
+    0 0 2px rgb(251 248 255 / 0.9),
+    0 0 14px rgb(251 248 255 / 0.85),
+    0 0 32px rgb(251 248 255 / 0.7);
 }
 
 /* Hide the native scrollbar on horizontal scrollers; they stay touch and keyboard scrollable. */

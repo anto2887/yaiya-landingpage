@@ -9,7 +9,7 @@ import { Wobbie } from "@/components/Wobbie";
 
 const { inside } = site;
 
-const TINTS = ["bg-apricot", "bg-mango-soft", "bg-lilac-soft", "bg-lilac-soft", "bg-mango-soft", "bg-lilac-soft"];
+const TINTS = ["bg-periwinkle", "bg-sun-soft", "bg-lilac-soft", "bg-lilac-soft", "bg-sun-soft", "bg-lilac-soft"];
 
 type Item = (typeof inside.items)[number];
 
@@ -31,7 +31,7 @@ function Ingredient({ item, index, side }: { item: Item; index: number; side: "l
       {/* Dotted connector toward the pouch (desktop only). */}
       <span
         aria-hidden
-        className={`absolute top-1/2 hidden w-10 border-t-2 border-dotted border-tangerine/40 lg:block xl:w-14 ${towardPouch ? "-right-12 xl:-right-16" : "-left-12 xl:-left-16"}`}
+        className={`absolute top-1/2 hidden w-10 border-t-2 border-dotted border-primary/40 lg:block xl:w-14 ${towardPouch ? "-right-12 xl:-right-16" : "-left-12 xl:-left-16"}`}
       />
       <span
         className={`flex size-16 shrink-0 items-center justify-center rounded-full text-accent ring-4 ring-white transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] motion-safe:group-hover:scale-110 motion-safe:group-hover:-rotate-6 lg:size-[88px] ${TINTS[index % TINTS.length]}`}
@@ -52,15 +52,15 @@ export function WhatsInside() {
 
   return (
     <section id="inside" aria-labelledby="inside-heading" className="relative overflow-x-clip bg-butter py-section">
-      <WaveTop fill="fill-apricot" flip />
+      <WaveTop fill="fill-periwinkle" flip />
       <Container>
         <SectionHeading id="inside-heading" title={inside.heading} sub={inside.sub} />
 
         <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[1fr_minmax(240px,300px)_1fr] lg:gap-16 xl:gap-20">
           {/* The pouch, center stage. Decorative: the items carry the meaning. */}
           <div aria-hidden data-reveal className="relative mx-auto w-[200px] lg:order-2 lg:w-full">
-            <span className="absolute inset-[-18%] rounded-full bg-apricot blur-2xl" />
-            <span className="absolute inset-[-4%] rounded-full border-2 border-dashed border-tangerine/20 motion-safe:animate-[spin_40s_linear_infinite]" />
+            <span className="absolute inset-[-18%] rounded-full bg-periwinkle blur-2xl" />
+            <span className="absolute inset-[-4%] rounded-full border-2 border-dashed border-primary/20 motion-safe:animate-[spin_40s_linear_infinite]" />
             <span className="relative block motion-safe:animate-float">
               <Image
                 src="/images/pouch-chocolate-silk.png"

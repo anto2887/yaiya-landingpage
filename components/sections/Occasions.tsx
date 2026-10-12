@@ -6,14 +6,14 @@ import { OCCASION_OPTIONS, site } from "@/content/site";
 import { WaveTop } from "@/components/ui/WaveTop";
 
 const { occasions } = site;
-// Icon circle tints; the cards themselves are white on the mango section.
-const TINTS = ["bg-mango-soft", "bg-butter", "bg-apricot"];
+// Icon circle tints; the cards themselves are white on the section color.
+const TINTS = ["bg-sun-soft", "bg-butter", "bg-periwinkle"];
 
 const momentLabel = (id: string) => OCCASION_OPTIONS.find((o) => o.id === id)?.label ?? id;
 
 export function Occasions() {
   return (
-    <section id="occasions" aria-labelledby="occasions-heading" className="relative bg-mango-soft py-section">
+    <section id="occasions" aria-labelledby="occasions-heading" className="relative bg-sun-soft py-section">
       <WaveTop fill="fill-ink" />
       <Container>
         <SectionHeading id="occasions-heading" title={occasions.heading} sub={occasions.body} />
@@ -49,7 +49,7 @@ export function Occasions() {
                   {p.moments.map((m) => (
                     <li
                       key={m}
-                      className="rounded-pill border border-line bg-cream px-3 py-1 text-[13px] font-semibold text-ink transition-colors duration-200 group-hover:border-tangerine/30 group-hover:bg-apricot"
+                      className="rounded-pill border border-line bg-cream px-3 py-1 text-[13px] font-semibold text-ink transition-colors duration-200 group-hover:border-primary/30 group-hover:bg-periwinkle"
                     >
                       {momentLabel(m)}
                     </li>
