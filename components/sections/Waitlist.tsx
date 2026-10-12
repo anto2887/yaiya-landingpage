@@ -44,7 +44,9 @@ export function Waitlist() {
               cheerOnTap
               cheerOnFocusWithin="waitlist"
               sleepAfterMs={25000}
-              lines={site.wobbie.lines}
+              lines={[...site.wobbie.spots.waitlist, ...site.wobbie.lines]}
+              focusLines={site.wobbie.focus}
+              sleepLines={site.wobbie.sleep}
               className="inset-0"
               bubbleClassName="left-1/2 -translate-x-1/2"
             />

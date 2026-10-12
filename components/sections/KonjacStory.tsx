@@ -50,7 +50,7 @@ export function KonjacStory() {
             id="story"
             poses={["wave", "hold", "think"]}
             cheerOnTap
-            lines={site.wobbie.lines}
+            lines={[...site.wobbie.spots.story, ...site.wobbie.lines]}
             className="right-5 bottom-full h-[104px] w-[96px] lg:right-12 lg:h-[160px] lg:w-[146px]"
             bubbleClassName="right-0"
           />

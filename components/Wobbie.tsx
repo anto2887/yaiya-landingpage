@@ -13,8 +13,12 @@ type WobbieProps = {
   enter?: "peek" | "pop";
   /** Idle motion: gentle bob, or a swing from the top (hanging). */
   idle?: "bob" | "swing" | "none";
-  /** Speech-bubble lines shown on tap (from site.wobbie). */
+  /** Speech-bubble lines (from site.wobbie): said on tap, on his first appearance, and now and then while idle. */
   lines?: readonly string[];
+  /** Said when focus enters the cheerOnFocusWithin element. */
+  focusLines?: readonly string[];
+  /** Said as he dozes off. */
+  sleepLines?: readonly string[];
   /** Standing spots: jump for joy when tapped. */
   cheerOnTap?: boolean;
   /** Desktop: cover his eyes when the cursor is on him. */
@@ -100,6 +104,8 @@ export function Wobbie({
   enter = "pop",
   idle = "bob",
   lines = [],
+  focusLines = [],
+  sleepLines = [],
   cheerOnTap = false,
   shyOnHover = false,
   cheerOnFocusWithin,
@@ -122,6 +128,22 @@ export function Wobbie({
   const [bubble, setBubble] = useState<string | null>(null);
   const [wavePlaying, setWavePlaying] = useState(true);
   const [poked, setPoked] = useState(0); // resets the sleep timer
+  const lastLine = useRef<string | null>(null);
+  const bubbleTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const greeted = useRef(false);
+
+  // Show a line from the pool, never the same one twice in a row. Longer lines stay up longer.
+  const say = useCallback((pool: readonly string[]) => {
+    const options = pool.length > 1 ? pool.filter((l) => l !== lastLine.current) : pool;
+    if (!options.length) return;
+    const line = options[Math.floor(Math.random() * options.length)];
+    lastLine.current = line;
+    setBubble(line);
+    clearTimeout(bubbleTimer.current);
+    bubbleTimer.current = setTimeout(() => setBubble(null), Math.min(4500, 1800 + line.length * 45));
+  }, []);
+
+  useEffect(() => () => clearTimeout(bubbleTimer.current), []);
 
   // Report how much of the screen this section fills.
   useEffect(() => {
@@ -154,6 +176,8 @@ export function Wobbie({
           } else {
             setBounce((b) => b + 1);
           }
+          // Now and then, say something unprompted.
+          if (lines.length && Math.random() < 0.35) setTimeout(() => say(lines), 600);
           setWavePlaying(true);
           tick();
         },
@@ -162,7 +186,7 @@ export function Wobbie({
     };
     tick();
     return () => clearTimeout(t);
-  }, [active, reduced, poses.length, enter]);
+  }, [active, reduced, poses.length, enter, lines, say]);
 
   // Each fresh appearance starts on the default pose and waves hello.
   useEffect(() => {
@@ -170,8 +194,19 @@ export function Wobbie({
       setIndex(0);
       setOverride(null);
       setWavePlaying(true);
+    } else {
+      setBubble(null);
     }
-  }, [active]);
+    // Say hello the first time he shows up in this spot.
+    // Marked only once said, so scrolling straight past doesn't use it up.
+    if (active && !greeted.current && lines.length) {
+      const t = setTimeout(() => {
+        greeted.current = true;
+        say(lines.slice(0, 1));
+      }, 900);
+      return () => clearTimeout(t);
+    }
+  }, [active, lines, say]);
 
   // Stop waving after a few seconds; the idle loop restarts it.
   useEffect(() => {
@@ -183,18 +218,23 @@ export function Wobbie({
   // Doze off when left alone.
   useEffect(() => {
     if (!active || !sleepAfterMs || reduced) return;
-    const t = setTimeout(() => setOverride((o) => o ?? "sleep"), sleepAfterMs);
+    const t = setTimeout(() => {
+      setOverride((o) => o ?? "sleep");
+      if (sleepLines.length) say(sleepLines);
+    }, sleepAfterMs);
     return () => clearTimeout(t);
-  }, [active, sleepAfterMs, reduced, poked]);
+  }, [active, sleepAfterMs, reduced, poked, sleepLines, say]);
 
   // Cheer while the visitor is typing in the form.
   useEffect(() => {
     if (!cheerOnFocusWithin) return;
     const el = document.getElementById(cheerOnFocusWithin);
     if (!el) return;
-    const onIn = () => {
+    const onIn = (e: FocusEvent) => {
       setOverride("cheer");
       setPoked((n) => n + 1);
+      // Only when focus arrives from outside, not when moving between fields.
+      if (focusLines.length && !el.contains(e.relatedTarget as Node | null)) say(focusLines);
     };
     const onOut = () => setOverride((o) => (o === "cheer" ? null : o));
     el.addEventListener("focusin", onIn);
@@ -203,7 +243,7 @@ export function Wobbie({
       el.removeEventListener("focusin", onIn);
       el.removeEventListener("focusout", onOut);
     };
-  }, [cheerOnFocusWithin]);
+  }, [cheerOnFocusWithin, focusLines, say]);
 
   const onTap = useCallback(() => {
     setPoked((n) => n + 1);
@@ -216,11 +256,8 @@ export function Wobbie({
     } else {
       setOverride((o) => (o === "sleep" ? null : o));
     }
-    if (lines.length) {
-      setBubble(lines[Math.floor(Math.random() * lines.length)]);
-      setTimeout(() => setBubble(null), 2600);
-    }
-  }, [cheerOnTap, lines]);
+    if (lines.length) say(lines);
+  }, [cheerOnTap, lines, say]);
 
   const current = override ?? poses[index];
   // Every pose this spot can show, stacked, so swaps are instant.

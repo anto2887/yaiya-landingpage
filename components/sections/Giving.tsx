@@ -24,7 +24,7 @@ export function Giving() {
           poses={["peek-up"]}
           enter="peek"
           idle="none"
-          lines={site.wobbie.lines}
+          lines={[...site.wobbie.spots.giving, ...site.wobbie.lines]}
           className="right-10 bottom-full h-[68px] w-[96px] sm:right-14 lg:right-24 lg:h-[106px] lg:w-[150px]"
           bubbleClassName="right-0"
         />

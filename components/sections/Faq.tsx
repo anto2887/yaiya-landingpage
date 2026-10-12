@@ -38,7 +38,7 @@ export function Faq() {
             id="faq"
             poses={["think"]}
             shyOnHover
-            lines={site.wobbie.lines}
+            lines={[...site.wobbie.spots.faq, ...site.wobbie.lines]}
             className="right-3 bottom-full h-[92px] w-[60px] lg:right-8 lg:h-[160px] lg:w-[106px]"
             bubbleClassName="right-0"
           />

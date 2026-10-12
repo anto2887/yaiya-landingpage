@@ -90,9 +90,34 @@ export const site = {
     benefitsLabel: "Why YAIYA",
   },
 
-  /** Wobbie's speech bubbles when tapped. Approved lines only (07-copy-and-claims). */
+  /**
+   * Wobbie's speech bubbles. Personality only: no product facts beyond lines the page
+   * already makes (07-copy-and-claims). No em dashes. The first line of each spot is
+   * his hello the first time he appears there.
+   * TODO(founder): review Wobbie's lines.
+   */
   wobbie: {
-    lines: ["Protein is in its soft jelly era.", "Good ingredients. Good stories."],
+    // Mixed into every spot.
+    lines: [
+      "Protein is in its soft jelly era.",
+      "Good ingredients. Good stories.",
+      "Yes, I'm always this wobbly.",
+      "Boop. You found me.",
+      "Squeeze gently. I'm sensitive.",
+      "No fridge, no spoon, no problem.",
+      "Pocket-sized and proud of it.",
+      "I'm not dramatic. I'm just jiggly.",
+    ],
+    spots: {
+      giving: ["Psst. Up here.", "Snacks that give back? Count me in.", "I'm not shy. Okay, a little shy."],
+      story: ["Hi, I'm Wobbie!", "Konjac is basically my whole personality.", "Old roots. Fresh wobble.", "This is my origin story."],
+      inside: ["Just sitting on the good stuff.", "Tap the tabs. I'll wait.", "My legs don't reach the floor."],
+      compare: ["Just hanging out.", "Hang in there. Almost done.", "I'd never leave you hanging."],
+      faq: ["Hmm. Good question.", "Ask me anything. Except math.", "I read these for fun."],
+      waitlist: ["Psst. Join the list.", "Be first to try us!", "The list is where the cool snacks are."],
+    },
+    focus: ["Ooh, typing! Love that for you.", "Yes! Almost there.", "I'm so excited I could wobble."],
+    sleep: ["Zzz. Wake me when you sign up.", "Just resting my jelly."],
   },
 
   nav: {

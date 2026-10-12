@@ -55,7 +55,7 @@ export function Comparison() {
             id="compare"
             poses={["hang"]}
             idle="swing"
-            lines={site.wobbie.lines}
+            lines={[...site.wobbie.spots.compare, ...site.wobbie.lines]}
             className="top-full right-14 -mt-3 h-[143px] w-[76px]"
             bubbleClassName="right-full mr-2 bottom-auto top-1/3"
           />
