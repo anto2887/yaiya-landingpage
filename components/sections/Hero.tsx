@@ -55,7 +55,7 @@ export function Hero() {
       </div>
 
       <Container className="relative">
-        <div className="pt-5 lg:max-w-[420px] lg:pt-[clamp(32px,5vw,72px)] xl:max-w-[480px] lg:[&>:not(:last-child)]:text-glow">
+        <div className="pt-5 lg:max-w-[420px] lg:-ml-3 lg:pt-[clamp(56px,8vw,128px)] xl:-ml-8 xl:max-w-[480px] lg:[&>:not(:last-child)]:text-glow">
           <Eyebrow>{hero.eyebrow}</Eyebrow>
           <h1 id="hero-heading" className="mt-3 type-h1 text-ink">
             {hero.headline.map((line, i) => (
