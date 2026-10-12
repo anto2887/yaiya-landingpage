@@ -1,30 +1,33 @@
 @import "tailwindcss";
 
 /*
- * Design tokens. Jelly Pop palette (founder, 11 Oct): raspberry buttons, plum text,
- * peachy-pink background, mango and mint accents. Replaces the brown palette in
+ * Design tokens. Tangerine & plum palette (founder and cofounder, 11 Oct): tangerine
+ * buttons, plum text, apricot, butter and lilac sections. No pink or green outside the
+ * flavor cards. Replaces the brown palette in
  * guide/docs/05-design-system.md. Components use these names, never raw hex.
  */
 @theme {
   --color-*: initial;
   --color-ink: #3a1440;
   --color-muted: #6e5672;
-  --color-eyebrow: #b3174f;
-  --color-paper: #fffaf7;
-  --color-cream: #fff3ee;
-  --color-line: #f5dcd9;
-  --color-outline: #b5708a;
-  --color-berry: #d81e5b;
-  --color-berry-hover: #b8164b;
-  --color-accent: #e8336d;
-  --color-highlight: #ffe4ea;
-  --color-blush: #ffd3de;
+  --color-eyebrow: #a8370a;
+  --color-paper: #fffaf5;
+  --color-cream: #fff6ec;
+  --color-line: #f2dfd0;
+  --color-outline: #b07a5a;
+  --color-tangerine: #c2410c;
+  --color-tangerine-hover: #9a3412;
+  --color-accent: #d9480f;
+  --color-danger: #b42318;
+  --color-apricot: #ffe3cc;
+  --color-apricot-deep: #ffd2ad;
   --color-mango: #ffb547;
   --color-mango-soft: #ffe7bf;
-  --color-mint: #6fd3a8;
-  --color-mint-soft: #d9f5e8;
+  --color-butter: #fff0c2;
+  --color-butter-strong: #ffd666;
   --color-lilac: #b79cf2;
   --color-lilac-soft: #efe7ff;
+  /* Flavor colors: only on the flavor cards and the flavor breakout. */
   --color-strawberry: #ffd3da;
   --color-strawberry-ink: #b3123b;
   --color-chocolate: #f2c9a8;
@@ -295,7 +298,7 @@
 /* A soft light halo so copy stays readable floating on a photo. */
 @utility text-glow {
   text-shadow:
-    0 0 2px rgb(255 250 247 / 0.9),
+    0 0 2px rgb(255 250 245 / 0.9),
     0 0 14px rgb(255 250 247 / 0.85),
     0 0 32px rgb(255 250 247 / 0.7);
 }

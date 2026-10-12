@@ -14,7 +14,7 @@ function CellText({ cell, strong = false }: { cell: Cell; strong?: boolean }) {
   return (
     <>
       <span
-        className={`block leading-snug ${strong ? "font-heading text-[17px] font-bold text-strawberry-ink" : "font-semibold text-ink"}`}
+        className={`block leading-snug ${strong ? "font-heading text-[17px] font-bold text-eyebrow" : "font-semibold text-ink"}`}
       >
         {cell.main}
       </span>
@@ -31,9 +31,9 @@ function ColumnHeader({ col }: { col: (typeof comparison.columns)[number] }) {
       ) : (
         <span className="block font-heading text-[17px] font-bold text-ink">{col.name}</span>
       )}
-      <span className={`mt-1 block text-[12px] font-semibold ${col.highlight ? "text-strawberry-ink" : "text-muted"}`}>{col.kind}</span>
+      <span className={`mt-1 block text-[12px] font-semibold ${col.highlight ? "text-eyebrow" : "text-muted"}`}>{col.kind}</span>
       {col.status && (
-        <span className="mt-2 inline-block rounded-pill bg-berry px-2.5 py-0.5 text-[11px] font-bold text-white">{col.status}</span>
+        <span className="mt-2 inline-block rounded-pill bg-tangerine px-2.5 py-0.5 text-[11px] font-bold text-white">{col.status}</span>
       )}
     </>
   );
@@ -44,7 +44,7 @@ export function Comparison() {
 
   return (
     <section id="compare" aria-labelledby="compare-heading" className="relative bg-cream py-section">
-      <WaveTop fill="fill-mint-soft" />
+      <WaveTop fill="fill-butter" />
       <Container>
         <SectionHeading id="compare-heading" title={comparison.heading} sub={comparison.sub} />
 
@@ -70,7 +70,7 @@ export function Comparison() {
                   <th
                     key={col.id}
                     scope="col"
-                    className={`w-[21%] px-4 pt-5 pb-4 align-bottom ${col.highlight ? "rounded-t-card bg-highlight text-center" : ""}`}
+                    className={`w-[21%] px-4 pt-5 pb-4 align-bottom ${col.highlight ? "rounded-t-card bg-apricot text-center" : ""}`}
                   >
                     <ColumnHeader col={col} />
                   </th>
@@ -89,7 +89,7 @@ export function Comparison() {
                       <td
                         key={comparison.columns[c].id}
                         className={`px-4 py-3.5 align-top transition-colors duration-200 ${
-                          hl ? `bg-highlight text-center ${ri === last ? "rounded-b-card" : ""}` : "group-hover/row:bg-cream"
+                          hl ? `bg-apricot text-center ${ri === last ? "rounded-b-card" : ""}` : "group-hover/row:bg-cream"
                         }`}
                       >
                         <CellText cell={cell} strong={hl} />
@@ -112,8 +112,8 @@ export function Comparison() {
               className="rounded-card bg-white p-4"
             >
               <p className="type-eyebrow text-eyebrow">{r.label}</p>
-              <div className="mt-2 rounded-small bg-highlight p-3">
-                <p className="text-[11px] font-bold tracking-[0.1em] text-strawberry-ink uppercase">{yaiya.name}</p>
+              <div className="mt-2 rounded-small bg-apricot p-3">
+                <p className="text-[11px] font-bold tracking-[0.1em] text-eyebrow uppercase">{yaiya.name}</p>
                 <div className="mt-1">
                   <CellText cell={r.cells[0]} strong />
                 </div>

@@ -116,9 +116,9 @@ export const site = {
     note: "A softer snack for brighter days.",
     image: {
       // Desktop: the founder's scene as supplied; the copy sits on its open wall (D-25).
-      // Mobile: a crop around the pouches with more wall above (scripts/extend-hero.mjs).
+      // Mobile: photo first, a tight crop around the pouches (scripts/extend-hero.mjs, D-37).
       desktop: "/images/hero-scene.jpg",
-      mobile: "/images/hero-tall.jpg",
+      mobile: "/images/hero-phone.jpg",
       alt: "Three YAIYA pouches in Strawberry Peach, Chocolate Silk and Matcha Yuzu on a sunny desk, with the jelly mascot Wobbie peeking out of a tote bag.",
     },
   },

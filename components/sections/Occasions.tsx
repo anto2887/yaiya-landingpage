@@ -7,7 +7,7 @@ import { WaveTop } from "@/components/ui/WaveTop";
 
 const { occasions } = site;
 // Icon circle tints; the cards themselves are white on the mango section.
-const TINTS = ["bg-mango-soft", "bg-mint-soft", "bg-highlight"];
+const TINTS = ["bg-mango-soft", "bg-butter", "bg-apricot"];
 
 const momentLabel = (id: string) => OCCASION_OPTIONS.find((o) => o.id === id)?.label ?? id;
 
@@ -49,7 +49,7 @@ export function Occasions() {
                   {p.moments.map((m) => (
                     <li
                       key={m}
-                      className="rounded-pill border border-line bg-cream px-3 py-1 text-[13px] font-semibold text-ink transition-colors duration-200 group-hover:border-berry/30 group-hover:bg-highlight"
+                      className="rounded-pill border border-line bg-cream px-3 py-1 text-[13px] font-semibold text-ink transition-colors duration-200 group-hover:border-tangerine/30 group-hover:bg-apricot"
                     >
                       {momentLabel(m)}
                     </li>

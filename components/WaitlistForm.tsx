@@ -82,7 +82,7 @@ export function WaitlistForm({ content }: WaitlistFormProps) {
       </div>
 
       <div id={errorId} role="alert">
-        {error && <p className="mt-2 px-2 type-small font-semibold text-strawberry-ink">{content.errors[error]}</p>}
+        {error && <p className="mt-2 px-2 type-small font-semibold text-danger">{content.errors[error]}</p>}
       </div>
 
       <p className="mt-3 px-2 type-small text-ink">{content.reassurance}</p>

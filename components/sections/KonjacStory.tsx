@@ -12,19 +12,19 @@ const { story } = site;
 
 // Icons and tints for the heritage cards, keyed by id.
 const HERITAGE: Record<string, { Icon: typeof Sprout; tint: string }> = {
-  roots: { Icon: Sprout, tint: "bg-mint-soft" },
+  roots: { Icon: Sprout, tint: "bg-butter" },
   favorite: { Icon: Store, tint: "bg-mango-soft" },
 };
 
 export function KonjacStory() {
   return (
-    <section id="story" aria-labelledby="story-heading" className="relative bg-highlight py-section">
+    <section id="story" aria-labelledby="story-heading" className="relative bg-apricot py-section">
       <WaveTop fill="fill-cream" />
       <Container>
         {/* One mint panel, same container width as every other section. */}
         <div
           data-reveal
-          className="relative mt-14 grid grid-cols-1 gap-6 rounded-card bg-mint-soft p-4 sm:p-6 lg:mt-16 lg:grid-cols-2 lg:items-center lg:gap-12 lg:p-10"
+          className="relative mt-14 grid grid-cols-1 gap-6 rounded-card bg-butter p-4 sm:p-6 lg:mt-16 lg:grid-cols-2 lg:items-center lg:gap-12 lg:p-10"
         >
           <div className="relative aspect-[3/2] overflow-hidden rounded-[18px]">
             <Image src={story.image.src} alt={story.image.alt} fill sizes="(min-width: 1024px) 540px, 100vw" className="object-cover" />
@@ -67,7 +67,7 @@ export function KonjacStory() {
                 style={{ "--reveal-delay": `${i * 90}ms` } as React.CSSProperties}
                 className="jelly rounded-card bg-white p-5 lg:p-6"
               >
-                <span aria-hidden className={`flex size-12 items-center justify-center rounded-full text-berry ${tint}`}>
+                <span aria-hidden className={`flex size-12 items-center justify-center rounded-full text-tangerine ${tint}`}>
                   <Icon strokeWidth={1.75} className="size-6" />
                 </span>
                 <p className="mt-4 type-eyebrow text-eyebrow">{h.kicker}</p>
@@ -81,7 +81,7 @@ export function KonjacStory() {
             style={{ "--reveal-delay": "180ms" } as React.CSSProperties}
             className="jelly relative overflow-hidden rounded-card bg-ink p-5 text-white sm:col-span-2 lg:col-span-1 lg:p-6"
           >
-            <span aria-hidden className="absolute -top-10 -right-10 size-40 rounded-full bg-berry/40 blur-2xl" />
+            <span aria-hidden className="absolute -top-10 -right-10 size-40 rounded-full bg-tangerine/40 blur-2xl" />
             <span aria-hidden className="relative flex size-12 items-center justify-center rounded-full bg-white/15 text-mango">
               <Droplets strokeWidth={1.75} className="size-6" />
             </span>
@@ -103,7 +103,7 @@ export function KonjacStory() {
           </div>
           <Link
             href={story.why.cta.href}
-            className="group/btn inline-flex h-12 shrink-0 items-center justify-center gap-2 self-start rounded-pill border-2 border-outline px-[22px] type-button text-ink transition-colors hover:border-berry hover:bg-highlight sm:self-auto"
+            className="group/btn inline-flex h-12 shrink-0 items-center justify-center gap-2 self-start rounded-pill border-2 border-outline px-[22px] type-button text-ink transition-colors hover:border-tangerine hover:bg-apricot sm:self-auto"
           >
             {story.why.cta.label}
             <ArrowRight aria-hidden className="size-4 transition-transform motion-safe:group-hover/btn:translate-x-1" />

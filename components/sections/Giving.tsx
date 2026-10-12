@@ -8,9 +8,9 @@ const { giving } = site;
 
 // Icons and tints keyed by `site.giving.points[].id`.
 const POINTS: Record<string, { Icon: typeof Eye; tint: string }> = {
-  "built-in": { Icon: Sprout, tint: "bg-mint-soft" },
+  "built-in": { Icon: Sprout, tint: "bg-butter" },
   transparent: { Icon: Eye, tint: "bg-mango-soft" },
-  together: { Icon: Users, tint: "bg-highlight" },
+  together: { Icon: Users, tint: "bg-apricot" },
 };
 
 export function Giving() {
@@ -28,10 +28,10 @@ export function Giving() {
           className="right-10 bottom-full h-[68px] w-[96px] sm:right-14 lg:right-24 lg:h-[106px] lg:w-[150px]"
           bubbleClassName="right-0"
         />
-        <div data-reveal className="relative isolate overflow-hidden rounded-card bg-berry p-6 text-white sm:p-8 lg:p-12">
+        <div data-reveal className="relative isolate overflow-hidden rounded-card bg-tangerine p-6 text-white sm:p-8 lg:p-12">
           {/* Soft drifting color behind the panel. */}
           <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-            <span className="absolute -top-16 -right-10 size-64 rounded-full bg-berry-hover blur-3xl motion-safe:animate-drift" />
+            <span className="absolute -top-16 -right-10 size-64 rounded-full bg-tangerine-hover blur-3xl motion-safe:animate-drift" />
             <span className="absolute -bottom-20 left-1/4 size-64 rounded-full bg-accent/50 blur-3xl motion-safe:animate-drift [animation-delay:-7s]" />
           </div>
 
@@ -61,7 +61,7 @@ export function Giving() {
                     style={{ "--reveal-delay": `${120 + i * 90}ms` } as React.CSSProperties}
                     className="jelly flex items-center gap-4 rounded-card bg-white p-4 text-ink lg:p-5"
                   >
-                    <span aria-hidden className={`flex size-12 shrink-0 items-center justify-center rounded-full text-berry ${tint}`}>
+                    <span aria-hidden className={`flex size-12 shrink-0 items-center justify-center rounded-full text-tangerine ${tint}`}>
                       <Icon strokeWidth={1.75} className="size-6" />
                     </span>
                     <div>
