@@ -9,14 +9,14 @@ export function Ticker() {
   // Two identical runs so the -50% loop is seamless.
   const run = [...site.ticker, ...site.ticker];
   return (
-    <div aria-hidden className="overflow-hidden bg-primary py-3.5 text-white lg:py-4">
+    <div aria-hidden className="overflow-hidden bg-honey py-3.5 text-ink lg:py-4">
       <div className="flex w-max motion-safe:animate-marquee">
         {[0, 1].map((copy) => (
           <ul key={copy} className="flex shrink-0 items-center">
             {run.map((item, i) => (
               <li key={i} className="flex items-center font-heading text-[18px] font-semibold whitespace-nowrap lg:text-[22px]">
                 <span className="px-5 lg:px-7">{item}</span>
-                <span className={`size-2.5 rounded-full ${["bg-honey", "bg-honey", "bg-white"][i % 3]}`} />
+                <span className={`size-2.5 rounded-full ${["bg-ink", "bg-white", "bg-caramel"][i % 3]}`} />
               </li>
             ))}
           </ul>

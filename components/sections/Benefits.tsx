@@ -3,7 +3,7 @@ import { BENEFIT_ICONS } from "@/components/ui/icons";
 import { site } from "@/content/site";
 
 // Each benefit gets its own candy color.
-const TINTS = ["bg-oat text-accent", "bg-ivory text-ink", "bg-linen text-ink", "bg-stone text-eyebrow"];
+const TINTS = ["bg-honey-soft text-ink", "bg-caramel-soft text-ink", "bg-honey text-ink", "bg-sand text-ink"];
 
 export function Benefits() {
   return (

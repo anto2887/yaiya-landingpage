@@ -44,7 +44,7 @@ export function Comparison() {
 
   return (
     <section id="compare" aria-labelledby="compare-heading" className="relative bg-cream py-section">
-      <WaveTop fill="fill-linen" />
+      <WaveTop fill="fill-ivory" />
       <Container>
         <SectionHeading id="compare-heading" title={comparison.heading} sub={comparison.sub} />
 

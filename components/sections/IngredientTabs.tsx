@@ -17,13 +17,13 @@ type IconComponent = (props: LucideProps & React.SVGProps<SVGSVGElement>) => Rea
 // Each tab's icon and colors, keyed by tab id. Full class strings so Tailwind sees them.
 // Leaf is for matcha only, never protein or collagen (C-01).
 const THEME: Record<string, { Icon: IconComponent; soft: string; dot: string }> = {
-  protein: { Icon: Dumbbell, soft: "bg-oat", dot: "bg-stone" },
-  konjac: { Icon: JellyIcon, soft: "bg-linen", dot: "bg-honey" },
-  collagen: { Icon: Droplet, soft: "bg-stone", dot: "bg-taupe" },
-  vitamins: { Icon: Sun, soft: "bg-ivory", dot: "bg-honey" },
-  magnesium: { Icon: Sparkles, soft: "bg-stone", dot: "bg-taupe" },
-  sweeteners: { Icon: Candy, soft: "bg-oat", dot: "bg-stone" },
-  energy: { Icon: Leaf, soft: "bg-linen", dot: "bg-honey" },
+  protein: { Icon: Dumbbell, soft: "bg-honey-soft", dot: "bg-honey" },
+  konjac: { Icon: JellyIcon, soft: "bg-caramel-soft", dot: "bg-caramel" },
+  collagen: { Icon: Droplet, soft: "bg-sand", dot: "bg-taupe" },
+  vitamins: { Icon: Sun, soft: "bg-honey", dot: "bg-white" },
+  magnesium: { Icon: Sparkles, soft: "bg-caramel-soft", dot: "bg-caramel" },
+  sweeteners: { Icon: Candy, soft: "bg-honey-soft", dot: "bg-honey" },
+  energy: { Icon: Leaf, soft: "bg-sand", dot: "bg-taupe" },
 };
 
 /** WAI-ARIA tabs pattern with automatic activation. Pills on phones, a side menu on desktop. */

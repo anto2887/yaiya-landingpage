@@ -7,13 +7,13 @@ import { WaveTop } from "@/components/ui/WaveTop";
 
 const { occasions } = site;
 // Icon circle tints; the cards themselves are white on the section color.
-const TINTS = ["bg-ivory", "bg-linen", "bg-oat"];
+const TINTS = ["bg-honey", "bg-caramel-soft", "bg-sand"];
 
 const momentLabel = (id: string) => OCCASION_OPTIONS.find((o) => o.id === id)?.label ?? id;
 
 export function Occasions() {
   return (
-    <section id="occasions" aria-labelledby="occasions-heading" className="relative bg-ivory py-section">
+    <section id="occasions" aria-labelledby="occasions-heading" className="relative bg-honey-soft py-section">
       <WaveTop fill="fill-ink" />
       <Container>
         <SectionHeading id="occasions-heading" title={occasions.heading} sub={occasions.body} />

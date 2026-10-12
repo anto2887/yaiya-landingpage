@@ -60,7 +60,7 @@ export function Faq() {
                     <span className="flex-1 font-heading text-[17px] leading-snug font-semibold text-ink">{item.q}</span>
                     <span
                       aria-hidden
-                      className="flex size-8 shrink-0 items-center justify-center rounded-full bg-ivory text-ink transition-colors group-open:bg-primary group-open:text-white"
+                      className="flex size-8 shrink-0 items-center justify-center rounded-full bg-honey text-ink transition-colors group-open:bg-primary group-open:text-white"
                     >
                       <Plus className="size-4 motion-safe:transition-transform motion-safe:duration-300 group-open:rotate-45" />
                     </span>

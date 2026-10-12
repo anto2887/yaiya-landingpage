@@ -18,13 +18,13 @@ const HERITAGE: Record<string, { Icon: typeof Sprout; tint: string }> = {
 
 export function KonjacStory() {
   return (
-    <section id="story" aria-labelledby="story-heading" className="relative bg-oat py-section">
+    <section id="story" aria-labelledby="story-heading" className="relative bg-caramel-soft py-section">
       <WaveTop fill="fill-cream" />
       <Container>
         {/* One mint panel, same container width as every other section. */}
         <div
           data-reveal
-          className="relative mt-14 grid grid-cols-1 gap-6 rounded-card bg-linen p-4 sm:p-6 lg:mt-16 lg:grid-cols-2 lg:items-center lg:gap-12 lg:p-10"
+          className="relative mt-14 grid grid-cols-1 gap-6 rounded-card bg-honey-soft p-4 sm:p-6 lg:mt-16 lg:grid-cols-2 lg:items-center lg:gap-12 lg:p-10"
         >
           <div className="relative aspect-[3/2] overflow-hidden rounded-[18px]">
             <Image src={story.image.src} alt={story.image.alt} fill sizes="(min-width: 1024px) 540px, 100vw" className="object-cover" />
@@ -81,7 +81,7 @@ export function KonjacStory() {
             style={{ "--reveal-delay": "180ms" } as React.CSSProperties}
             className="jelly relative overflow-hidden rounded-card bg-ink p-5 text-white sm:col-span-2 lg:col-span-1 lg:p-6"
           >
-            <span aria-hidden className="absolute -top-10 -right-10 size-40 rounded-full bg-primary/40 blur-2xl" />
+            <span aria-hidden className="absolute -top-10 -right-10 size-40 rounded-full bg-caramel/40 blur-2xl" />
             <span aria-hidden className="relative flex size-12 items-center justify-center rounded-full bg-white/15 text-honey">
               <Droplets strokeWidth={1.75} className="size-6" />
             </span>

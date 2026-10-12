@@ -59,8 +59,15 @@ export function Hero() {
           <Eyebrow>{hero.eyebrow}</Eyebrow>
           <h1 id="hero-heading" className="mt-3 type-h1 text-ink">
             {hero.headline.map((line, i) => (
-              <span key={line} className={`block ${i === 2 ? "italic" : ""}`}>
-                {line}
+              <span key={line} className="block">
+                {i === 2 ? (
+                  // A honey highlighter stroke behind the last line.
+                  <span className="bg-[linear-gradient(transparent_58%,var(--color-honey)_58%,var(--color-honey)_92%,transparent_92%)] box-decoration-clone px-1 italic">
+                    {line}
+                  </span>
+                ) : (
+                  line
+                )}
               </span>
             ))}
           </h1>
