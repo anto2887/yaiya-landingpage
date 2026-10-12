@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /*
- * Design tokens. Sky & butter palette (founder and cofounder, 11 Oct): cobalt
+ * Design tokens. Sky & butter palette (founder and cofounder, 11 Oct): ocean
  * buttons, deep plum text, sky, periwinkle and butter sections. No pink, green or
  * orange outside the flavor cards. Tokens are named by role (primary, accent) so the
  * palette can change without renaming. Components use these names, never raw hex.
@@ -10,14 +10,14 @@
   --color-*: initial;
   --color-ink: #2b1840;
   --color-muted: #5e5272;
-  --color-eyebrow: #1e3aaf;
+  --color-eyebrow: #1a428f;
   --color-paper: #fcfdff;
   --color-cream: #f8faff;
   --color-line: #dfe6f3;
   --color-outline: #7b8cc4;
-  --color-primary: #2747d6;
-  --color-primary-hover: #1d36a8;
-  --color-accent: #3b63f0;
+  --color-primary: #1f4fb8;
+  --color-primary-hover: #173c8c;
+  --color-accent: #3a6fe0;
   --color-danger: #b42318;
   --color-periwinkle: #e2e9ff;
   --color-sky-strong: #8db8f5;
