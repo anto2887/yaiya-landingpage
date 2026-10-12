@@ -11,10 +11,10 @@ const NOTE_ID = "targets-note";
 
 // One candy color per stat card.
 const TINTS: Record<string, string> = {
-  protein: "bg-periwinkle",
-  fiber: "bg-butter",
-  sugar: "bg-sun-soft",
-  "daily-value": "bg-sky",
+  protein: "bg-oat",
+  fiber: "bg-linen",
+  sugar: "bg-ivory",
+  "daily-value": "bg-stone",
 };
 
 // The three pouches, fanned out. Decorative: the flavor section names them.
@@ -56,12 +56,12 @@ function StatCard({ s, index }: { s: Stat; index: number }) {
           <span className="mt-4 block">
             <span aria-hidden className="flex h-3 overflow-hidden rounded-pill bg-white/70">
               <span className="h-full bg-primary" style={{ width: `${(split[0].grams / total) * 100}%` }} />
-              <span className="h-full bg-sun" style={{ width: `${(split[1].grams / total) * 100}%` }} />
+              <span className="h-full bg-honey" style={{ width: `${(split[1].grams / total) * 100}%` }} />
             </span>
             <span className="mt-2 flex justify-between text-[13px] font-semibold text-ink">
               {split.map((p, i) => (
                 <span key={p.label} className="flex items-center gap-1.5">
-                  <span aria-hidden className={`size-2.5 rounded-full ${i === 0 ? "bg-primary" : "bg-sun"}`} />
+                  <span aria-hidden className={`size-2.5 rounded-full ${i === 0 ? "bg-primary" : "bg-honey"}`} />
                   {p.value} {p.label}
                 </span>
               ))}
@@ -79,14 +79,14 @@ export function Nutrition() {
 
   return (
     <section id="nutrition" aria-labelledby="nutrition-heading" className="relative overflow-x-clip bg-ink py-section">
-      <WaveTop fill="fill-sky" flip />
+      <WaveTop fill="fill-stone" flip />
       <Container>
         <SectionHeading
           id="nutrition-heading"
           title={nutrition.heading}
           sub={nutrition.sub}
           tone="dark"
-          aside={<p className="rounded-pill bg-periwinkle px-4 py-2 type-small font-semibold text-ink">{nutrition.perPouch}*</p>}
+          aside={<p className="rounded-pill bg-oat px-4 py-2 type-small font-semibold text-ink">{nutrition.perPouch}*</p>}
         />
 
         {/* Desktop: stats on both sides of the pouch fan. Phones: fan on top, stats below. */}
@@ -94,7 +94,7 @@ export function Nutrition() {
           <div aria-hidden data-reveal className="relative mx-auto aspect-[5/4] w-full max-w-[340px] lg:order-2 lg:max-w-none">
             {/* Jelly glow behind the pouches. */}
             <span className="absolute inset-[8%] rounded-full bg-primary/50 blur-3xl" />
-            <span className="absolute inset-[18%] rounded-full bg-sun-soft/80 blur-xl motion-safe:animate-drift" />
+            <span className="absolute inset-[18%] rounded-full bg-ivory/80 blur-xl motion-safe:animate-drift" />
             {FAN.map((p) => (
               <span key={p.src} className={`absolute w-[44%] ${p.cls}`}>
                 <span className="block motion-safe:animate-float" style={{ animationDelay: p.delay }}>

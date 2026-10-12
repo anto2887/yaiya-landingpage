@@ -16,7 +16,7 @@ export function Ticker() {
             {run.map((item, i) => (
               <li key={i} className="flex items-center font-heading text-[18px] font-semibold whitespace-nowrap lg:text-[22px]">
                 <span className="px-5 lg:px-7">{item}</span>
-                <span className={`size-2.5 rounded-full ${["bg-sun", "bg-butter-strong", "bg-white"][i % 3]}`} />
+                <span className={`size-2.5 rounded-full ${["bg-honey", "bg-honey", "bg-white"][i % 3]}`} />
               </li>
             ))}
           </ul>

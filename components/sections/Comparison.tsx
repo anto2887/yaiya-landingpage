@@ -44,7 +44,7 @@ export function Comparison() {
 
   return (
     <section id="compare" aria-labelledby="compare-heading" className="relative bg-cream py-section">
-      <WaveTop fill="fill-butter" />
+      <WaveTop fill="fill-linen" />
       <Container>
         <SectionHeading id="compare-heading" title={comparison.heading} sub={comparison.sub} />
 
@@ -70,7 +70,7 @@ export function Comparison() {
                   <th
                     key={col.id}
                     scope="col"
-                    className={`w-[21%] px-4 pt-5 pb-4 align-bottom ${col.highlight ? "rounded-t-card bg-periwinkle text-center" : ""}`}
+                    className={`w-[21%] px-4 pt-5 pb-4 align-bottom ${col.highlight ? "rounded-t-card bg-oat text-center" : ""}`}
                   >
                     <ColumnHeader col={col} />
                   </th>
@@ -89,7 +89,7 @@ export function Comparison() {
                       <td
                         key={comparison.columns[c].id}
                         className={`px-4 py-3.5 align-top transition-colors duration-200 ${
-                          hl ? `bg-periwinkle text-center ${ri === last ? "rounded-b-card" : ""}` : "group-hover/row:bg-cream"
+                          hl ? `bg-oat text-center ${ri === last ? "rounded-b-card" : ""}` : "group-hover/row:bg-cream"
                         }`}
                       >
                         <CellText cell={cell} strong={hl} />
@@ -112,7 +112,7 @@ export function Comparison() {
               className="rounded-card bg-white p-4"
             >
               <p className="type-eyebrow text-eyebrow">{r.label}</p>
-              <div className="mt-2 rounded-small bg-periwinkle p-3">
+              <div className="mt-2 rounded-small bg-oat p-3">
                 <p className="text-[11px] font-bold tracking-[0.1em] text-eyebrow uppercase">{yaiya.name}</p>
                 <div className="mt-1">
                   <CellText cell={r.cells[0]} strong />

@@ -12,19 +12,19 @@ const { story } = site;
 
 // Icons and tints for the heritage cards, keyed by id.
 const HERITAGE: Record<string, { Icon: typeof Sprout; tint: string }> = {
-  roots: { Icon: Sprout, tint: "bg-butter" },
-  favorite: { Icon: Store, tint: "bg-sun-soft" },
+  roots: { Icon: Sprout, tint: "bg-linen" },
+  favorite: { Icon: Store, tint: "bg-ivory" },
 };
 
 export function KonjacStory() {
   return (
-    <section id="story" aria-labelledby="story-heading" className="relative bg-periwinkle py-section">
+    <section id="story" aria-labelledby="story-heading" className="relative bg-oat py-section">
       <WaveTop fill="fill-cream" />
       <Container>
         {/* One mint panel, same container width as every other section. */}
         <div
           data-reveal
-          className="relative mt-14 grid grid-cols-1 gap-6 rounded-card bg-butter p-4 sm:p-6 lg:mt-16 lg:grid-cols-2 lg:items-center lg:gap-12 lg:p-10"
+          className="relative mt-14 grid grid-cols-1 gap-6 rounded-card bg-linen p-4 sm:p-6 lg:mt-16 lg:grid-cols-2 lg:items-center lg:gap-12 lg:p-10"
         >
           <div className="relative aspect-[3/2] overflow-hidden rounded-[18px]">
             <Image src={story.image.src} alt={story.image.alt} fill sizes="(min-width: 1024px) 540px, 100vw" className="object-cover" />
@@ -82,10 +82,10 @@ export function KonjacStory() {
             className="jelly relative overflow-hidden rounded-card bg-ink p-5 text-white sm:col-span-2 lg:col-span-1 lg:p-6"
           >
             <span aria-hidden className="absolute -top-10 -right-10 size-40 rounded-full bg-primary/40 blur-2xl" />
-            <span aria-hidden className="relative flex size-12 items-center justify-center rounded-full bg-white/15 text-sun">
+            <span aria-hidden className="relative flex size-12 items-center justify-center rounded-full bg-white/15 text-honey">
               <Droplets strokeWidth={1.75} className="size-6" />
             </span>
-            <p className="relative mt-4 type-eyebrow text-sun">{story.fiber.kicker}</p>
+            <p className="relative mt-4 type-eyebrow text-honey">{story.fiber.kicker}</p>
             <p className="relative mt-2 font-heading text-[20px] leading-tight font-semibold">{story.fiber.title}</p>
             <p className="relative mt-2 type-small text-white/85">{story.fiber.line}</p>
           </li>
@@ -103,7 +103,7 @@ export function KonjacStory() {
           </div>
           <Link
             href={story.why.cta.href}
-            className="group/btn inline-flex h-12 shrink-0 items-center justify-center gap-2 self-start rounded-pill border-2 border-outline px-[22px] type-button text-ink transition-colors hover:border-primary hover:bg-periwinkle sm:self-auto"
+            className="group/btn inline-flex h-12 shrink-0 items-center justify-center gap-2 self-start rounded-pill border-2 border-outline px-[22px] type-button text-ink transition-colors hover:border-primary hover:bg-oat sm:self-auto"
           >
             {story.why.cta.label}
             <ArrowRight aria-hidden className="size-4 transition-transform motion-safe:group-hover/btn:translate-x-1" />

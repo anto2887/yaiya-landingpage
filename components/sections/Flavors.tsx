@@ -63,8 +63,8 @@ const ART: Record<FlavorSlug, Piece[]> = {
 // Full class strings so Tailwind can see them.
 const TONES = {
   strawberry: { card: "bg-strawberry", ink: "text-strawberry-ink", dot: "bg-accent", blob: "fill-white/45" },
-  chocolate: { card: "bg-chocolate", ink: "text-chocolate-ink", dot: "bg-sun", blob: "fill-white/35" },
-  matcha: { card: "bg-matcha", ink: "text-matcha-ink", dot: "bg-butter-strong", blob: "fill-white/45" },
+  chocolate: { card: "bg-chocolate", ink: "text-chocolate-ink", dot: "bg-honey", blob: "fill-white/35" },
+  matcha: { card: "bg-matcha", ink: "text-matcha-ink", dot: "bg-honey", blob: "fill-white/45" },
 } as const;
 
 // Confetti directions for the pick burst.
@@ -149,14 +149,14 @@ export function Flavors({ content: flavors }: FlavorsProps) {
   const focusIndex = Math.max(0, flavors.items.findIndex((f) => f.slug === selected));
 
   return (
-    <section id="flavors" aria-labelledby="flavors-heading" className="relative bg-sky py-section">
+    <section id="flavors" aria-labelledby="flavors-heading" className="relative bg-stone py-section">
       <WaveTop fill="fill-cream" />
       <Container>
         <SectionHeading
           id="flavors-heading"
           eyebrow={flavors.eyebrow}
           title={flavors.heading}
-          aside={<p className="rounded-pill bg-sun-soft px-4 py-2 type-small font-semibold text-ink">{flavors.prompt}</p>}
+          aside={<p className="rounded-pill bg-ivory px-4 py-2 type-small font-semibold text-ink">{flavors.prompt}</p>}
         />
 
         <div role="radiogroup" aria-label={flavors.groupLabel} className="grid grid-cols-1 gap-grid lg:grid-cols-3">
@@ -178,7 +178,7 @@ export function Flavors({ content: flavors }: FlavorsProps) {
                 data-reveal
                 style={{ "--reveal-delay": `${i * 100}ms` } as React.CSSProperties}
                 className={`group relative block rounded-card text-left transition-transform duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] motion-safe:hover:-translate-y-1.5 ${
-                  isSelected ? "ring-4 ring-primary ring-offset-4 ring-offset-sky" : ""
+                  isSelected ? "ring-4 ring-primary ring-offset-4 ring-offset-stone" : ""
                 }`}
               >
                 <span

@@ -9,7 +9,7 @@ import { Wobbie } from "@/components/Wobbie";
 
 const { inside } = site;
 
-const TINTS = ["bg-periwinkle", "bg-sun-soft", "bg-sky", "bg-sky", "bg-sun-soft", "bg-sky"];
+const TINTS = ["bg-oat", "bg-ivory", "bg-stone", "bg-stone", "bg-ivory", "bg-stone"];
 
 type Item = (typeof inside.items)[number];
 
@@ -51,15 +51,15 @@ export function WhatsInside() {
   const right = inside.items.slice(3);
 
   return (
-    <section id="inside" aria-labelledby="inside-heading" className="relative overflow-x-clip bg-butter py-section">
-      <WaveTop fill="fill-periwinkle" flip />
+    <section id="inside" aria-labelledby="inside-heading" className="relative overflow-x-clip bg-linen py-section">
+      <WaveTop fill="fill-oat" flip />
       <Container>
         <SectionHeading id="inside-heading" title={inside.heading} sub={inside.sub} />
 
         <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[1fr_minmax(240px,300px)_1fr] lg:gap-16 xl:gap-20">
           {/* The pouch, center stage. Decorative: the items carry the meaning. */}
           <div aria-hidden data-reveal className="relative mx-auto w-[200px] lg:order-2 lg:w-full">
-            <span className="absolute inset-[-18%] rounded-full bg-periwinkle blur-2xl" />
+            <span className="absolute inset-[-18%] rounded-full bg-oat blur-2xl" />
             <span className="absolute inset-[-4%] rounded-full border-2 border-dashed border-primary/20 motion-safe:animate-[spin_40s_linear_infinite]" />
             <span className="relative block motion-safe:animate-float">
               <Image

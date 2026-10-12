@@ -8,15 +8,15 @@ const { giving } = site;
 
 // Icons and tints keyed by `site.giving.points[].id`.
 const POINTS: Record<string, { Icon: typeof Eye; tint: string }> = {
-  "built-in": { Icon: Sprout, tint: "bg-butter" },
-  transparent: { Icon: Eye, tint: "bg-sun-soft" },
-  together: { Icon: Users, tint: "bg-periwinkle" },
+  "built-in": { Icon: Sprout, tint: "bg-linen" },
+  transparent: { Icon: Eye, tint: "bg-ivory" },
+  together: { Icon: Users, tint: "bg-oat" },
 };
 
 export function Giving() {
   return (
     <section id="giving" aria-labelledby="giving-heading" className="relative bg-cream py-section">
-      <WaveTop fill="fill-sun-soft" flip />
+      <WaveTop fill="fill-ivory" flip />
       <Container className="relative">
         {/* Wobbie's first appearance: peeking over the panel. */}
         <Wobbie

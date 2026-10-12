@@ -1,32 +1,32 @@
 @import "tailwindcss";
 
 /*
- * Design tokens. Sky & butter palette (founder and cofounder, 11 Oct): ocean
- * buttons, deep plum text, sky, periwinkle and butter sections. No pink, green or
- * orange outside the flavor cards. Tokens are named by role (primary, accent) so the
- * palette can change without renaming. Components use these names, never raw hex.
+ * Design tokens. Charcoal & stone palette (founder and cofounder, 11 Oct): an elevated
+ * neutral. Charcoal buttons and text, stone, oat, sand and linen sections, honey as the
+ * one small accent. The pouches, flavor cards and Wobbie carry the color.
+ * Tokens are named by role (primary, accent) so the palette can change without
+ * renaming. Components use these names, never raw hex.
  */
 @theme {
   --color-*: initial;
-  --color-ink: #2b1840;
-  --color-muted: #5e5272;
-  --color-eyebrow: #1a428f;
-  --color-paper: #fcfdff;
-  --color-cream: #f8faff;
-  --color-line: #dfe6f3;
-  --color-outline: #7b8cc4;
-  --color-primary: #1f4fb8;
-  --color-primary-hover: #173c8c;
-  --color-accent: #3a6fe0;
+  --color-ink: #262220;
+  --color-muted: #615a53;
+  --color-eyebrow: #6b5a48;
+  --color-paper: #fffdf9;
+  --color-cream: #faf8f4;
+  --color-line: #e6e0d7;
+  --color-outline: #8c8279;
+  --color-primary: #1f1d1b;
+  --color-primary-hover: #3a3632;
+  --color-accent: #3d3833;
   --color-danger: #b42318;
-  --color-periwinkle: #e2e9ff;
-  --color-sky-strong: #8db8f5;
-  --color-sky: #e6f0ff;
-  --color-sky-deep: #d4e4ff;
-  --color-butter: #fff3c4;
-  --color-butter-strong: #ffd966;
-  --color-sun: #ffd966;
-  --color-sun-soft: #fff6d6;
+  --color-oat: #f4efe6;
+  --color-taupe: #cfc3b0;
+  --color-stone: #efebe4;
+  --color-sand: #e8e0d3;
+  --color-linen: #f3eee5;
+  --color-honey: #f2d27a;
+  --color-ivory: #f7f3ea;
   /* Flavor colors: only on the flavor cards and the flavor breakout. */
   --color-strawberry: #ffd3da;
   --color-strawberry-ink: #b3123b;
@@ -298,9 +298,9 @@
 /* A soft light halo so copy stays readable floating on a photo. */
 @utility text-glow {
   text-shadow:
-    0 0 2px rgb(248 250 255 / 0.9),
-    0 0 14px rgb(248 250 255 / 0.85),
-    0 0 32px rgb(248 250 255 / 0.7);
+    0 0 2px rgb(250 248 244 / 0.9),
+    0 0 14px rgb(250 248 244 / 0.85),
+    0 0 32px rgb(250 248 244 / 0.7);
 }
 
 /* Hide the native scrollbar on horizontal scrollers; they stay touch and keyboard scrollable. */

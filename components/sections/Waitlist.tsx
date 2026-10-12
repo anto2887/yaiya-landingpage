@@ -24,12 +24,12 @@ export function Waitlist() {
       id="waitlist"
       tabIndex={-1}
       aria-labelledby="waitlist-heading"
-      className="relative isolate overflow-hidden bg-sky-deep py-section outline-none"
+      className="relative isolate overflow-hidden bg-sand py-section outline-none"
     >
-      <WaveTop fill="fill-sky" />
+      <WaveTop fill="fill-stone" />
       <Waves />
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        <span className="absolute -top-10 left-[10%] size-56 rounded-full bg-sun/40 blur-3xl motion-safe:animate-drift" />
+        <span className="absolute -top-10 left-[10%] size-56 rounded-full bg-honey/40 blur-3xl motion-safe:animate-drift" />
         <span className="absolute right-[5%] -bottom-16 size-64 rounded-full bg-accent/20 blur-3xl motion-safe:animate-drift [animation-delay:-6s]" />
       </div>
 
