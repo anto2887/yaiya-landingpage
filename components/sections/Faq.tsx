@@ -26,7 +26,7 @@ export function Faq() {
   const columns = Array.from({ length: COLUMNS }, (_, c) => faq.items.map((item, i) => ({ item, i })).filter(({ i }) => i % COLUMNS === c));
 
   return (
-    <section id="faq" aria-labelledby="faq-heading" className="relative bg-stone py-section">
+    <section id="faq" aria-labelledby="faq-heading" className="relative bg-lilac-soft py-section">
       <WaveTop fill="fill-cream" flip />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Container>
@@ -50,17 +50,17 @@ export function Faq() {
                   key={item.id}
                   data-faq-id={item.id}
                   style={{ order: i }}
-                  className="group rounded-card border-2 border-line bg-white transition-colors duration-200 open:border-primary/40 open:bg-oat hover:border-primary/40"
+                  className="group rounded-card border-2 border-line bg-white transition-colors duration-200 open:border-berry/40 open:bg-highlight hover:border-berry/40"
                 >
                   <summary className="flex min-h-14 cursor-pointer list-none items-center gap-3 rounded-card px-5 py-4 [&::-webkit-details-marker]:hidden">
                     <ChevronRight
                       aria-hidden
-                      className="size-4 shrink-0 text-primary motion-safe:transition-transform motion-safe:duration-200 group-open:rotate-90"
+                      className="size-4 shrink-0 text-berry motion-safe:transition-transform motion-safe:duration-200 group-open:rotate-90"
                     />
                     <span className="flex-1 font-heading text-[17px] leading-snug font-semibold text-ink">{item.q}</span>
                     <span
                       aria-hidden
-                      className="flex size-8 shrink-0 items-center justify-center rounded-full bg-ivory text-ink transition-colors group-open:bg-primary group-open:text-white"
+                      className="flex size-8 shrink-0 items-center justify-center rounded-full bg-mango-soft text-ink transition-colors group-open:bg-berry group-open:text-white"
                     >
                       <Plus className="size-4 motion-safe:transition-transform motion-safe:duration-300 group-open:rotate-45" />
                     </span>

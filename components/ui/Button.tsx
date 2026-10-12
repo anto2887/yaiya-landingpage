@@ -8,8 +8,8 @@ const base =
   "group/btn relative inline-flex shrink-0 items-center justify-center gap-2 rounded-pill type-button whitespace-nowrap transition-[background-color,transform,box-shadow] duration-200 ease-out motion-safe:hover:-translate-y-0.5 motion-safe:active:translate-y-0 motion-safe:active:scale-[0.97] disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50";
 
 const variants: Record<Variant, string> = {
-  primary: "bg-primary text-white hover:bg-primary-hover hover:shadow-[0_10px_24px_-10px_var(--color-primary)]",
-  outline: "border-2 border-outline bg-transparent text-ink hover:border-primary hover:bg-paper",
+  primary: "bg-berry text-white hover:bg-berry-hover hover:shadow-[0_10px_24px_-10px_var(--color-berry)]",
+  outline: "border-2 border-outline bg-transparent text-ink hover:border-berry hover:bg-paper",
 };
 
 // The compact button is 40px tall; the ::before extends its tap area to 44px.

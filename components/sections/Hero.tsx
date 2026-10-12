@@ -33,9 +33,9 @@ function HeroPicture() {
 function Bubbles() {
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-      <span className="absolute top-[12%] left-[46%] size-24 rounded-full bg-honey/40 blur-2xl motion-safe:animate-drift lg:size-40" />
+      <span className="absolute top-[12%] left-[46%] size-24 rounded-full bg-mango/40 blur-2xl motion-safe:animate-drift lg:size-40" />
       <span className="absolute bottom-[4%] left-[30%] size-24 rounded-full bg-accent/15 blur-2xl motion-safe:animate-drift [animation-delay:-5s] lg:size-36" />
-      <span className="absolute top-[8%] right-[8%] size-20 rounded-full bg-honey/40 blur-2xl motion-safe:animate-drift [animation-delay:-9s] lg:size-36" />
+      <span className="absolute top-[8%] right-[8%] size-20 rounded-full bg-mint/40 blur-2xl motion-safe:animate-drift [animation-delay:-9s] lg:size-36" />
     </div>
   );
 }
@@ -74,7 +74,7 @@ export function Hero() {
             {/* Mobile: a text link. Desktop: an outline button. */}
             <Link
               href={hero.secondaryCta.href}
-              className="inline-flex min-h-11 items-center justify-center self-center rounded-pill px-3 type-button text-ink underline underline-offset-4 transition-colors duration-150 hover:text-primary lg:h-12 lg:self-auto lg:border-2 lg:border-outline lg:bg-paper/70 lg:px-[22px] lg:no-underline lg:backdrop-blur-sm lg:hover:border-primary"
+              className="inline-flex min-h-11 items-center justify-center self-center rounded-pill px-3 type-button text-ink underline underline-offset-4 transition-colors duration-150 hover:text-berry lg:h-12 lg:self-auto lg:border-2 lg:border-outline lg:bg-paper/70 lg:px-[22px] lg:no-underline lg:backdrop-blur-sm lg:hover:border-berry"
             >
               {hero.secondaryCta.label}
             </Link>

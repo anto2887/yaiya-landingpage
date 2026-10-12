@@ -36,7 +36,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#FAF8F4", // cream
+  themeColor: "#FFF3EE", // cream
 };
 
 export default function RootLayout({
@@ -55,7 +55,7 @@ export default function RootLayout({
         <div id="top-sentinel" aria-hidden className="pointer-events-none absolute top-0 h-2 w-px" />
         <a
           href="#main"
-          className="sr-only z-50 rounded-pill bg-primary px-4 py-3 type-button text-white focus:not-sr-only focus:fixed focus:top-2 focus:left-2"
+          className="sr-only z-50 rounded-pill bg-berry px-4 py-3 type-button text-white focus:not-sr-only focus:fixed focus:top-2 focus:left-2"
         >
           {site.a11y.skipLink}
         </a>

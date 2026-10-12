@@ -1,39 +1,31 @@
 @import "tailwindcss";
 
 /*
- * Design tokens. Charcoal & stone palette (founder and cofounder, 11 Oct): an elevated
- * neutral. Charcoal buttons and text, stone, oat, sand and linen sections, honey as the
- * one small accent. The pouches, flavor cards and Wobbie carry the color.
- * Tokens are named by role (primary, accent) so the palette can change without
- * renaming. Components use these names, never raw hex.
+ * Design tokens. Jelly Pop palette with charcoal (founder, 11 Oct): pink, mango,
+ * mint and lilac sections and cards; charcoal buttons, banner, text and logo. The
+ * `berry` token now holds charcoal. Components use these names, never raw hex.
  */
 @theme {
   --color-*: initial;
   --color-ink: #262220;
-  --color-muted: #615a53;
-  --color-eyebrow: #6b5a48;
-  --color-paper: #fffdf9;
-  --color-cream: #faf8f4;
-  --color-line: #e6e0d7;
-  --color-outline: #8c8279;
-  --color-primary: #1f1d1b;
-  --color-primary-hover: #3a3632;
-  --color-accent: #3d3833;
+  --color-muted: #5c5550;
+  --color-eyebrow: #b3174f;
+  --color-paper: #fffaf7;
+  --color-cream: #fff3ee;
+  --color-line: #f5dcd9;
+  --color-outline: #b5708a;
+  --color-berry: #1f1d1b;
+  --color-berry-hover: #3a3632;
   --color-danger: #b42318;
-  --color-oat: #f4efe6;
-  --color-taupe: #cfc3b0;
-  --color-stone: #efebe4;
-  --color-sand: #e8e0d3;
-  --color-linen: #f3eee5;
-  --color-honey: #f2d27a;
-  /* Bold card colors (founder, 11 Oct): each card gets its own. Text on them is ink. */
-  --color-mustard: #e9c46a;
-  --color-terracotta: #d99a7e;
-  --color-olive: #b9be8f;
-  --color-cocoa: #c9a58a;
-  --color-slate: #b8bfc6;
-  --color-ivory: #f7f3ea;
-  /* Flavor colors: only on the flavor cards and the flavor breakout. */
+  --color-accent: #e8336d;
+  --color-highlight: #ffe4ea;
+  --color-blush: #ffd3de;
+  --color-mango: #ffb547;
+  --color-mango-soft: #ffe7bf;
+  --color-mint: #6fd3a8;
+  --color-mint-soft: #d9f5e8;
+  --color-lilac: #b79cf2;
+  --color-lilac-soft: #efe7ff;
   --color-strawberry: #ffd3da;
   --color-strawberry-ink: #b3123b;
   --color-chocolate: #f2c9a8;
@@ -304,9 +296,9 @@
 /* A soft light halo so copy stays readable floating on a photo. */
 @utility text-glow {
   text-shadow:
-    0 0 2px rgb(250 248 244 / 0.9),
-    0 0 14px rgb(250 248 244 / 0.85),
-    0 0 32px rgb(250 248 244 / 0.7);
+    0 0 2px rgb(255 250 247 / 0.9),
+    0 0 14px rgb(255 250 247 / 0.85),
+    0 0 32px rgb(255 250 247 / 0.7);
 }
 
 /* Hide the native scrollbar on horizontal scrollers; they stay touch and keyboard scrollable. */

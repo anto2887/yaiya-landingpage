@@ -11,10 +11,10 @@ const NOTE_ID = "targets-note";
 
 // One candy color per stat card.
 const TINTS: Record<string, string> = {
-  protein: "bg-mustard",
-  fiber: "bg-olive",
-  sugar: "bg-terracotta",
-  "daily-value": "bg-slate",
+  protein: "bg-highlight",
+  fiber: "bg-mint-soft",
+  sugar: "bg-mango-soft",
+  "daily-value": "bg-strawberry",
 };
 
 // The three pouches, fanned out. Decorative: the flavor section names them.
@@ -45,23 +45,23 @@ function StatCard({ s, index }: { s: Stat; index: number }) {
           </span>
           <span className="mt-1 block text-[18px] font-semibold lg:text-[20px]">{s.label}</span>
         </dt>
-        <span aria-hidden className="flex size-11 shrink-0 items-center justify-center rounded-full bg-white/60 text-ink">
+        <span aria-hidden className="flex size-11 shrink-0 items-center justify-center rounded-full bg-white/80 text-accent">
           {Icon && <Icon strokeWidth={1.75} className="size-[22px]" />}
         </span>
       </div>
-      <dd className="mt-2 type-small text-ink">
+      <dd className="mt-2 type-small text-muted">
         {s.line}
         {split && (
           // Protein split: proportional bar plus the two numbers as text.
           <span className="mt-4 block">
             <span aria-hidden className="flex h-3 overflow-hidden rounded-pill bg-white/70">
-              <span className="h-full bg-primary" style={{ width: `${(split[0].grams / total) * 100}%` }} />
-              <span className="h-full bg-honey" style={{ width: `${(split[1].grams / total) * 100}%` }} />
+              <span className="h-full bg-berry" style={{ width: `${(split[0].grams / total) * 100}%` }} />
+              <span className="h-full bg-mango" style={{ width: `${(split[1].grams / total) * 100}%` }} />
             </span>
             <span className="mt-2 flex justify-between text-[13px] font-semibold text-ink">
               {split.map((p, i) => (
                 <span key={p.label} className="flex items-center gap-1.5">
-                  <span aria-hidden className={`size-2.5 rounded-full ${i === 0 ? "bg-primary" : "bg-honey"}`} />
+                  <span aria-hidden className={`size-2.5 rounded-full ${i === 0 ? "bg-berry" : "bg-mango"}`} />
                   {p.value} {p.label}
                 </span>
               ))}
@@ -79,22 +79,22 @@ export function Nutrition() {
 
   return (
     <section id="nutrition" aria-labelledby="nutrition-heading" className="relative overflow-x-clip bg-ink py-section">
-      <WaveTop fill="fill-stone" flip />
+      <WaveTop fill="fill-lilac-soft" flip />
       <Container>
         <SectionHeading
           id="nutrition-heading"
           title={nutrition.heading}
           sub={nutrition.sub}
           tone="dark"
-          aside={<p className="rounded-pill bg-oat px-4 py-2 type-small font-semibold text-ink">{nutrition.perPouch}*</p>}
+          aside={<p className="rounded-pill bg-highlight px-4 py-2 type-small font-semibold text-ink">{nutrition.perPouch}*</p>}
         />
 
         {/* Desktop: stats on both sides of the pouch fan. Phones: fan on top, stats below. */}
         <div className="grid grid-cols-1 items-center gap-grid lg:grid-cols-[1fr_minmax(300px,380px)_1fr]">
           <div aria-hidden data-reveal className="relative mx-auto aspect-[5/4] w-full max-w-[340px] lg:order-2 lg:max-w-none">
             {/* Jelly glow behind the pouches. */}
-            <span className="absolute inset-[8%] rounded-full bg-primary/50 blur-3xl" />
-            <span className="absolute inset-[18%] rounded-full bg-ivory/80 blur-xl motion-safe:animate-drift" />
+            <span className="absolute inset-[8%] rounded-full bg-berry/50 blur-3xl" />
+            <span className="absolute inset-[18%] rounded-full bg-mango-soft/80 blur-xl motion-safe:animate-drift" />
             {FAN.map((p) => (
               <span key={p.src} className={`absolute w-[44%] ${p.cls}`}>
                 <span className="block motion-safe:animate-float" style={{ animationDelay: p.delay }}>

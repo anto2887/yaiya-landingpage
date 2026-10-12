@@ -17,13 +17,13 @@ type IconComponent = (props: LucideProps & React.SVGProps<SVGSVGElement>) => Rea
 // Each tab's icon and colors, keyed by tab id. Full class strings so Tailwind sees them.
 // Leaf is for matcha only, never protein or collagen (C-01).
 const THEME: Record<string, { Icon: IconComponent; soft: string; dot: string }> = {
-  protein: { Icon: Dumbbell, soft: "bg-mustard", dot: "bg-white" },
-  konjac: { Icon: JellyIcon, soft: "bg-terracotta", dot: "bg-white" },
-  collagen: { Icon: Droplet, soft: "bg-slate", dot: "bg-white" },
-  vitamins: { Icon: Sun, soft: "bg-mustard", dot: "bg-white" },
-  magnesium: { Icon: Sparkles, soft: "bg-cocoa", dot: "bg-white" },
-  sweeteners: { Icon: Candy, soft: "bg-terracotta", dot: "bg-white" },
-  energy: { Icon: Leaf, soft: "bg-olive", dot: "bg-white" },
+  protein: { Icon: Dumbbell, soft: "bg-highlight", dot: "bg-strawberry" },
+  konjac: { Icon: JellyIcon, soft: "bg-mint-soft", dot: "bg-mint" },
+  collagen: { Icon: Droplet, soft: "bg-lilac-soft", dot: "bg-lilac" },
+  vitamins: { Icon: Sun, soft: "bg-mango-soft", dot: "bg-mango" },
+  magnesium: { Icon: Sparkles, soft: "bg-lilac-soft", dot: "bg-lilac" },
+  sweeteners: { Icon: Candy, soft: "bg-highlight", dot: "bg-strawberry" },
+  energy: { Icon: Leaf, soft: "bg-matcha", dot: "bg-mint" },
 };
 
 /** WAI-ARIA tabs pattern with automatic activation. Pills on phones, a side menu on desktop. */
@@ -82,13 +82,13 @@ export function IngredientTabs({ content }: IngredientTabsProps) {
                 onClick={() => select(i)}
                 onKeyDown={(e) => onKeyDown(e, i)}
                 className={`group/tab inline-flex min-h-11 items-center gap-2.5 rounded-pill border-2 py-1 pr-4 pl-1.5 text-[14px] font-semibold whitespace-nowrap transition-[background-color,border-color,transform] duration-200 motion-safe:active:scale-95 lg:min-h-14 lg:rounded-small lg:pr-3 lg:text-[15px] ${
-                  selected ? "border-primary bg-primary text-white" : "border-line bg-white text-ink hover:border-primary/50"
+                  selected ? "border-berry bg-berry text-white" : "border-line bg-white text-ink hover:border-berry/50"
                 }`}
               >
                 <span
                   aria-hidden
                   className={`flex size-8 shrink-0 items-center justify-center rounded-full transition-transform duration-300 motion-safe:group-hover/tab:-rotate-12 lg:size-10 ${
-                    selected ? "bg-white/20 text-white" : `${soft} text-primary`
+                    selected ? "bg-white/20 text-white" : `${soft} text-berry`
                   }`}
                 >
                   <Icon strokeWidth={1.75} className="size-4 lg:size-5" />
@@ -112,14 +112,14 @@ export function IngredientTabs({ content }: IngredientTabsProps) {
           <theme.Icon aria-hidden strokeWidth={1} className="absolute -right-4 -bottom-6 size-40 text-white/70" />
 
           <div className="relative flex flex-wrap items-end gap-x-4 gap-y-1">
-            <p className="font-heading text-[56px] leading-none font-bold text-primary lg:text-[72px]">
+            <p className="font-heading text-[56px] leading-none font-bold text-berry lg:text-[72px]">
               <CountUp value={tab.value} durationMs={800} />
             </p>
             <p className="pb-2 type-small font-semibold text-ink">{tab.valueLabel}</p>
           </div>
           <p className="relative mt-5 font-heading text-[24px] leading-tight font-bold text-ink lg:text-[28px]">{tab.title}</p>
           <p className="relative mt-2 max-w-[620px] type-body text-ink">{tab.body}</p>
-          <p className="relative mt-3 max-w-[620px] type-footnote text-ink">{tab.note}</p>
+          <p className="relative mt-3 max-w-[620px] type-footnote text-muted">{tab.note}</p>
 
           {/* Vitamins tab: the nutrient groups and the role each plays. */}
           {"groups" in tab && (
@@ -131,13 +131,13 @@ export function IngredientTabs({ content }: IngredientTabsProps) {
                     style={{ animationDelay: `${120 + i * 80}ms` }}
                     className="rounded-small bg-white p-4 motion-safe:animate-pop"
                   >
-                    <p className="text-[11px] font-bold tracking-[0.12em] text-primary uppercase">{g.nutrients}</p>
+                    <p className="text-[11px] font-bold tracking-[0.12em] text-berry uppercase">{g.nutrients}</p>
                     <p className="mt-2 font-heading text-[18px] leading-tight font-semibold text-ink">{g.title}</p>
                     <p className="mt-1.5 type-small text-muted">{g.body}</p>
                   </li>
                 ))}
               </ul>
-              <p className="mt-3 type-footnote text-ink">{tab.groupsNote}</p>
+              <p className="mt-3 type-footnote text-muted">{tab.groupsNote}</p>
             </div>
           )}
         </div>
