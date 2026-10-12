@@ -12,7 +12,11 @@ export function Footer() {
         <div className="flex shrink-0 items-center gap-4 type-footnote text-muted">
           <span>{footer.copyright}</span>
           {footer.links.map((link) => (
-            <Link key={link.href} href={link.href} className="inline-flex min-h-11 items-center underline underline-offset-2 hover:text-ink">
+            <Link
+              key={link.href}
+              href={link.href}
+              className="inline-flex min-h-11 items-center underline underline-offset-2 hover:text-ink"
+            >
               {link.label}
             </Link>
           ))}

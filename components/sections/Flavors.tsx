@@ -146,7 +146,10 @@ export function Flavors({ content: flavors }: FlavorsProps) {
     select(flavors.items[next].slug);
   }
 
-  const focusIndex = Math.max(0, flavors.items.findIndex((f) => f.slug === selected));
+  const focusIndex = Math.max(
+    0,
+    flavors.items.findIndex((f) => f.slug === selected),
+  );
 
   return (
     <section id="flavors" aria-labelledby="flavors-heading" className="relative bg-stone py-section">
@@ -209,7 +212,9 @@ export function Flavors({ content: flavors }: FlavorsProps) {
 
                   <span className="relative order-1 flex min-w-0 flex-1 flex-col justify-center p-5 lg:order-2 lg:justify-end lg:p-6">
                     <span className={`font-heading text-[24px] leading-tight font-bold lg:text-[28px] ${tone.ink}`}>{f.name}</span>
-                    <span className={`mt-1.5 text-[11px] leading-snug font-bold tracking-[0.12em] uppercase ${tone.ink}`}>{f.descriptors}</span>
+                    <span className={`mt-1.5 text-[11px] leading-snug font-bold tracking-[0.12em] uppercase ${tone.ink}`}>
+                      {f.descriptors}
+                    </span>
                     <span className="mt-4 flex items-center gap-2">
                       {/* The check carries the state, not color alone. */}
                       <span
@@ -231,7 +236,11 @@ export function Flavors({ content: flavors }: FlavorsProps) {
 
                 {/* Confetti on pick. */}
                 {isSelected && pickCount > 0 && (
-                  <span key={`burst-${pickCount}`} aria-hidden className="pointer-events-none absolute top-1/2 left-1/2 motion-reduce:hidden">
+                  <span
+                    key={`burst-${pickCount}`}
+                    aria-hidden
+                    className="pointer-events-none absolute top-1/2 left-1/2 motion-reduce:hidden"
+                  >
                     {BURST.map(([x, y], d) => (
                       <span
                         key={d}
@@ -248,7 +257,13 @@ export function Flavors({ content: flavors }: FlavorsProps) {
 
         {/* The breakout: more about the picked flavor. */}
         <div ref={panelRef} aria-live="polite" className="scroll-mb-24">
-          {selected && <FlavorDetail key={`${selected}-${pickCount}`} flavor={flavors.items.find((f) => f.slug === selected)!} detail={flavors.detail} />}
+          {selected && (
+            <FlavorDetail
+              key={`${selected}-${pickCount}`}
+              flavor={flavors.items.find((f) => f.slug === selected)!}
+              detail={flavors.detail}
+            />
+          )}
         </div>
       </Container>
     </section>

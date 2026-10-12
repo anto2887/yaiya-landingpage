@@ -13,9 +13,7 @@ type Cell = { main: string; sub: string };
 function CellText({ cell, strong = false }: { cell: Cell; strong?: boolean }) {
   return (
     <>
-      <span
-        className={`block leading-snug ${strong ? "font-heading text-[17px] font-bold text-eyebrow" : "font-semibold text-ink"}`}
-      >
+      <span className={`block leading-snug ${strong ? "font-heading text-[17px] font-bold text-eyebrow" : "font-semibold text-ink"}`}>
         {cell.main}
       </span>
       {cell.sub && <span className="mt-0.5 block text-[12px] leading-snug text-muted">{cell.sub}</span>}
@@ -44,7 +42,7 @@ export function Comparison() {
 
   return (
     <section id="compare" aria-labelledby="compare-heading" className="relative bg-cream py-section">
-      <WaveTop fill="fill-ivory" />
+      <WaveTop fill="fill-linen" />
       <Container>
         <SectionHeading id="compare-heading" title={comparison.heading} sub={comparison.sub} />
 

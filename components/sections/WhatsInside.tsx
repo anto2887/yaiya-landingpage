@@ -9,7 +9,7 @@ import { Wobbie } from "@/components/Wobbie";
 
 const { inside } = site;
 
-const TINTS = ["bg-honey-soft", "bg-caramel-soft", "bg-honey", "bg-sand", "bg-honey-soft", "bg-caramel-soft"];
+const TINTS = ["bg-mustard", "bg-terracotta", "bg-olive", "bg-slate", "bg-cocoa", "bg-mustard"];
 
 type Item = (typeof inside.items)[number];
 
@@ -51,8 +51,8 @@ export function WhatsInside() {
   const right = inside.items.slice(3);
 
   return (
-    <section id="inside" aria-labelledby="inside-heading" className="relative overflow-x-clip bg-ivory py-section">
-      <WaveTop fill="fill-caramel-soft" flip />
+    <section id="inside" aria-labelledby="inside-heading" className="relative overflow-x-clip bg-linen py-section">
+      <WaveTop fill="fill-oat" flip />
       <Container>
         <SectionHeading id="inside-heading" title={inside.heading} sub={inside.sub} />
 

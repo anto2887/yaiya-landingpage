@@ -26,9 +26,12 @@
   --color-sand: #e8e0d3;
   --color-linen: #f3eee5;
   --color-honey: #f2d27a;
-  --color-honey-soft: #fbebb8;
-  --color-caramel: #d9a86c;
-  --color-caramel-soft: #f3e2cb;
+  /* Bold card colors (founder, 11 Oct): each card gets its own. Text on them is ink. */
+  --color-mustard: #e9c46a;
+  --color-terracotta: #d99a7e;
+  --color-olive: #b9be8f;
+  --color-cocoa: #c9a58a;
+  --color-slate: #b8bfc6;
   --color-ivory: #f7f3ea;
   /* Flavor colors: only on the flavor cards and the flavor breakout. */
   --color-strawberry: #ffd3da;

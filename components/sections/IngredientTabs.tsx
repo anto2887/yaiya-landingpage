@@ -17,13 +17,13 @@ type IconComponent = (props: LucideProps & React.SVGProps<SVGSVGElement>) => Rea
 // Each tab's icon and colors, keyed by tab id. Full class strings so Tailwind sees them.
 // Leaf is for matcha only, never protein or collagen (C-01).
 const THEME: Record<string, { Icon: IconComponent; soft: string; dot: string }> = {
-  protein: { Icon: Dumbbell, soft: "bg-honey-soft", dot: "bg-honey" },
-  konjac: { Icon: JellyIcon, soft: "bg-caramel-soft", dot: "bg-caramel" },
-  collagen: { Icon: Droplet, soft: "bg-sand", dot: "bg-taupe" },
-  vitamins: { Icon: Sun, soft: "bg-honey", dot: "bg-white" },
-  magnesium: { Icon: Sparkles, soft: "bg-caramel-soft", dot: "bg-caramel" },
-  sweeteners: { Icon: Candy, soft: "bg-honey-soft", dot: "bg-honey" },
-  energy: { Icon: Leaf, soft: "bg-sand", dot: "bg-taupe" },
+  protein: { Icon: Dumbbell, soft: "bg-mustard", dot: "bg-white" },
+  konjac: { Icon: JellyIcon, soft: "bg-terracotta", dot: "bg-white" },
+  collagen: { Icon: Droplet, soft: "bg-slate", dot: "bg-white" },
+  vitamins: { Icon: Sun, soft: "bg-mustard", dot: "bg-white" },
+  magnesium: { Icon: Sparkles, soft: "bg-cocoa", dot: "bg-white" },
+  sweeteners: { Icon: Candy, soft: "bg-terracotta", dot: "bg-white" },
+  energy: { Icon: Leaf, soft: "bg-olive", dot: "bg-white" },
 };
 
 /** WAI-ARIA tabs pattern with automatic activation. Pills on phones, a side menu on desktop. */
@@ -119,7 +119,7 @@ export function IngredientTabs({ content }: IngredientTabsProps) {
           </div>
           <p className="relative mt-5 font-heading text-[24px] leading-tight font-bold text-ink lg:text-[28px]">{tab.title}</p>
           <p className="relative mt-2 max-w-[620px] type-body text-ink">{tab.body}</p>
-          <p className="relative mt-3 max-w-[620px] type-footnote text-muted">{tab.note}</p>
+          <p className="relative mt-3 max-w-[620px] type-footnote text-ink">{tab.note}</p>
 
           {/* Vitamins tab: the nutrient groups and the role each plays. */}
           {"groups" in tab && (
@@ -137,7 +137,7 @@ export function IngredientTabs({ content }: IngredientTabsProps) {
                   </li>
                 ))}
               </ul>
-              <p className="mt-3 type-footnote text-muted">{tab.groupsNote}</p>
+              <p className="mt-3 type-footnote text-ink">{tab.groupsNote}</p>
             </div>
           )}
         </div>

@@ -24,7 +24,7 @@ export function Waitlist() {
       id="waitlist"
       tabIndex={-1}
       aria-labelledby="waitlist-heading"
-      className="relative isolate overflow-hidden bg-honey-soft py-section outline-none"
+      className="relative isolate overflow-hidden bg-sand py-section outline-none"
     >
       <WaveTop fill="fill-stone" />
       <Waves />

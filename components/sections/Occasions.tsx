@@ -7,28 +7,26 @@ import { WaveTop } from "@/components/ui/WaveTop";
 
 const { occasions } = site;
 // Icon circle tints; the cards themselves are white on the section color.
-const TINTS = ["bg-honey", "bg-caramel-soft", "bg-sand"];
+const TINTS = ["bg-mustard", "bg-terracotta", "bg-olive"];
+const PERSONA = ["bg-cocoa", "bg-slate", "bg-mustard"];
 
 const momentLabel = (id: string) => OCCASION_OPTIONS.find((o) => o.id === id)?.label ?? id;
 
 export function Occasions() {
   return (
-    <section id="occasions" aria-labelledby="occasions-heading" className="relative bg-honey-soft py-section">
+    <section id="occasions" aria-labelledby="occasions-heading" className="relative bg-ivory py-section">
       <WaveTop fill="fill-ink" />
       <Container>
         <SectionHeading id="occasions-heading" title={occasions.heading} sub={occasions.body} />
 
         {/* Mobile: stacked. Tablet and up: three columns. */}
-        <ul
-          aria-label={occasions.scrollerLabel}
-          className="grid grid-cols-1 gap-grid sm:grid-cols-3"
-        >
+        <ul aria-label={occasions.scrollerLabel} className="grid grid-cols-1 gap-grid sm:grid-cols-3">
           {occasions.personas.map((p, i) => (
             <li
               key={p.id}
               data-reveal
               style={{ "--reveal-delay": `${i * 100}ms` } as React.CSSProperties}
-              className="group flex flex-col overflow-hidden rounded-card border border-line bg-paper transition-[transform,box-shadow] duration-300 motion-safe:hover:-translate-y-1.5 hover:shadow-[0_20px_40px_-24px_rgb(58_20_64/0.35)]"
+              className={`group flex flex-col overflow-hidden rounded-card ${PERSONA[i % PERSONA.length]} transition-[transform,box-shadow] duration-300 motion-safe:hover:-translate-y-1.5 hover:shadow-[0_20px_40px_-24px_rgb(58_20_64/0.35)]`}
             >
               <div className="relative aspect-[4/5] overflow-hidden">
                 <Image
@@ -44,12 +42,12 @@ export function Occasions() {
               </div>
               <div className="p-5">
                 <p className="font-heading text-[21px] leading-snug font-semibold text-ink">{p.line}</p>
-                <p className="mt-4 type-eyebrow text-muted">{occasions.momentsLabel}</p>
+                <p className="mt-4 type-eyebrow text-ink">{occasions.momentsLabel}</p>
                 <ul className="mt-2 flex flex-wrap gap-2">
                   {p.moments.map((m) => (
                     <li
                       key={m}
-                      className="rounded-pill border border-line bg-cream px-3 py-1 text-[13px] font-semibold text-ink transition-colors duration-200 group-hover:border-primary/30 group-hover:bg-oat"
+                      className="rounded-pill bg-white/60 px-3 py-1 text-[13px] font-semibold text-ink transition-colors duration-200 group-hover:border-primary/30 group-hover:bg-oat"
                     >
                       {momentLabel(m)}
                     </li>
@@ -68,14 +66,14 @@ export function Occasions() {
                 key={c.id}
                 data-reveal
                 style={{ "--reveal-delay": `${i * 80}ms` } as React.CSSProperties}
-                className="jelly flex items-center gap-4 rounded-card bg-white p-4 lg:p-5"
+                className={`jelly flex items-center gap-4 rounded-card p-4 lg:p-5 ${TINTS[i % TINTS.length]}`}
               >
-                <span aria-hidden className={`flex size-12 shrink-0 items-center justify-center rounded-full text-accent ${TINTS[i % TINTS.length]}`}>
+                <span aria-hidden className="flex size-12 shrink-0 items-center justify-center rounded-full bg-white/60 text-ink">
                   {Icon && <Icon strokeWidth={1.75} className="size-6" />}
                 </span>
                 <div>
                   <p className="font-heading text-[18px] font-semibold text-ink">{c.title}</p>
-                  <p className="type-small text-muted">{c.line}</p>
+                  <p className="type-small text-ink">{c.line}</p>
                 </div>
               </li>
             );
