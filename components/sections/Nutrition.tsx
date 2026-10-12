@@ -14,7 +14,7 @@ const TINTS: Record<string, string> = {
   protein: "bg-periwinkle",
   fiber: "bg-butter",
   sugar: "bg-sun-soft",
-  "daily-value": "bg-lilac-soft",
+  "daily-value": "bg-sky",
 };
 
 // The three pouches, fanned out. Decorative: the flavor section names them.
@@ -79,7 +79,7 @@ export function Nutrition() {
 
   return (
     <section id="nutrition" aria-labelledby="nutrition-heading" className="relative overflow-x-clip bg-ink py-section">
-      <WaveTop fill="fill-lilac-soft" flip />
+      <WaveTop fill="fill-sky" flip />
       <Container>
         <SectionHeading
           id="nutrition-heading"

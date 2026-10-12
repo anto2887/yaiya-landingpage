@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 /*
- * Design tokens. Lilac & butter palette (founder and cofounder, 11 Oct): violet
- * buttons, deep plum text, lilac, periwinkle and butter sections. No pink, green or
+ * Design tokens. Sky & butter palette (founder and cofounder, 11 Oct): violet
+ * buttons, deep plum text, sky, periwinkle and butter sections. No pink, green or
  * orange outside the flavor cards. Tokens are named by role (primary, accent) so the
  * palette can change without renaming. Components use these names, never raw hex.
  */
@@ -11,18 +11,18 @@
   --color-ink: #2b1840;
   --color-muted: #5e5272;
   --color-eyebrow: #5a2db8;
-  --color-paper: #fdfbff;
-  --color-cream: #fbf8ff;
-  --color-line: #e8e0f5;
+  --color-paper: #fcfdff;
+  --color-cream: #f8faff;
+  --color-line: #dfe6f3;
   --color-outline: #8470b8;
   --color-primary: #6b3fd4;
   --color-primary-hover: #5530b0;
   --color-accent: #7c4deb;
   --color-danger: #b42318;
-  --color-periwinkle: #e4e8ff;
-  --color-lilac: #b79cf2;
-  --color-lilac-soft: #efe7ff;
-  --color-lilac-deep: #dccfff;
+  --color-periwinkle: #e2e9ff;
+  --color-sky-strong: #8db8f5;
+  --color-sky: #e6f0ff;
+  --color-sky-deep: #d4e4ff;
   --color-butter: #fff3c4;
   --color-butter-strong: #ffd966;
   --color-sun: #ffd966;
@@ -298,9 +298,9 @@
 /* A soft light halo so copy stays readable floating on a photo. */
 @utility text-glow {
   text-shadow:
-    0 0 2px rgb(251 248 255 / 0.9),
-    0 0 14px rgb(251 248 255 / 0.85),
-    0 0 32px rgb(251 248 255 / 0.7);
+    0 0 2px rgb(248 250 255 / 0.9),
+    0 0 14px rgb(248 250 255 / 0.85),
+    0 0 32px rgb(248 250 255 / 0.7);
 }
 
 /* Hide the native scrollbar on horizontal scrollers; they stay touch and keyboard scrollable. */

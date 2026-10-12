@@ -9,7 +9,7 @@ import { Wobbie } from "@/components/Wobbie";
 
 const { inside } = site;
 
-const TINTS = ["bg-periwinkle", "bg-sun-soft", "bg-lilac-soft", "bg-lilac-soft", "bg-sun-soft", "bg-lilac-soft"];
+const TINTS = ["bg-periwinkle", "bg-sun-soft", "bg-sky", "bg-sky", "bg-sun-soft", "bg-sky"];
 
 type Item = (typeof inside.items)[number];
 

@@ -26,7 +26,7 @@ export function Faq() {
   const columns = Array.from({ length: COLUMNS }, (_, c) => faq.items.map((item, i) => ({ item, i })).filter(({ i }) => i % COLUMNS === c));
 
   return (
-    <section id="faq" aria-labelledby="faq-heading" className="relative bg-lilac-soft py-section">
+    <section id="faq" aria-labelledby="faq-heading" className="relative bg-sky py-section">
       <WaveTop fill="fill-cream" flip />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Container>
