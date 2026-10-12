@@ -279,23 +279,23 @@ export const site = {
     body: "For people who want their food to taste good and contribute something. Here's where YAIYA fits.",
     scrollerLabel: "Ways to enjoy YAIYA",
     momentsLabel: "Great for",
-    // Founder supplied lifestyle photos with people on 11 Oct (replaces D-23).
+    // Founder supplied lifestyle product scenes on 11 Oct.
     // `moments` reuse OCCASION_OPTIONS ids.
     personas: [
       {
         id: "protein-regular",
         name: "The Protein Regular",
         line: "Your protein routine. A fresh plot twist.",
-        image: "/images/occasion-protein-regular-v2.jpg",
-        alt: "A woman in workout clothes smiling on a sunny hilltop, holding a Chocolate Silk pouch.",
+        image: "/images/occasion-protein-regular-v3.jpg",
+        alt: "A Strawberry Peach pouch on sunny gym steps beside a gym bag, towel, water bottle, headphones and sneakers.",
         moments: ["before-workout", "after-workout", "afternoon-snack"],
       },
       {
         id: "busy-day",
         name: "The Busy-Day Multitasker",
         line: "Between meetings. Between everything.",
-        image: "/images/occasion-busy-day-v2.jpg",
-        alt: "A man at a sunny office desk with his laptop, holding up a Matcha Yuzu pouch.",
+        image: "/images/occasion-busy-day-v3.jpg",
+        alt: "A Matcha Yuzu pouch on a sunny desk with a laptop, tablet, notebook, coffee mug and earbuds.",
         moments: ["between-meetings", "commute", "hungry-not-meal"],
       },
       {
