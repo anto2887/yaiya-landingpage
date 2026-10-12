@@ -1,25 +1,26 @@
 @import "tailwindcss";
 
 /*
- * Design tokens. Jelly Pop palette with charcoal (founder, 11 Oct): pink, mango,
- * mint and lilac sections and cards; charcoal buttons, banner, text and logo. The
- * `berry` token now holds charcoal. Components use these names, never raw hex.
+ * Design tokens (founder, 11 Oct): the Jelly Pop layout with charcoal in place of
+ * pink. Charcoal buttons, banner, labels, icons, text and logo; stone and sand where
+ * the pink backgrounds were; mango, mint and lilac kept. Pink stays only on the
+ * Strawberry Peach flavor card. Components use these names, never raw hex.
  */
 @theme {
   --color-*: initial;
   --color-ink: #262220;
   --color-muted: #5c5550;
-  --color-eyebrow: #b3174f;
-  --color-paper: #fffaf7;
-  --color-cream: #fff3ee;
-  --color-line: #f5dcd9;
-  --color-outline: #b5708a;
+  --color-eyebrow: #262220;
+  --color-paper: #fffdf9;
+  --color-cream: #faf8f4;
+  --color-line: #e6e0d7;
+  --color-outline: #8c8279;
   --color-berry: #1f1d1b;
   --color-berry-hover: #3a3632;
   --color-danger: #b42318;
-  --color-accent: #e8336d;
-  --color-highlight: #ffe4ea;
-  --color-blush: #ffd3de;
+  --color-accent: #3d3833;
+  --color-highlight: #efebe4;
+  --color-blush: #e8e0d3;
   --color-mango: #ffb547;
   --color-mango-soft: #ffe7bf;
   --color-mint: #6fd3a8;
@@ -296,9 +297,9 @@
 /* A soft light halo so copy stays readable floating on a photo. */
 @utility text-glow {
   text-shadow:
-    0 0 2px rgb(255 250 247 / 0.9),
-    0 0 14px rgb(255 250 247 / 0.85),
-    0 0 32px rgb(255 250 247 / 0.7);
+    0 0 2px rgb(250 248 244 / 0.9),
+    0 0 14px rgb(250 248 244 / 0.85),
+    0 0 32px rgb(250 248 244 / 0.7);
 }
 
 /* Hide the native scrollbar on horizontal scrollers; they stay touch and keyboard scrollable. */

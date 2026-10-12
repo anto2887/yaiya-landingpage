@@ -17,12 +17,12 @@ type IconComponent = (props: LucideProps & React.SVGProps<SVGSVGElement>) => Rea
 // Each tab's icon and colors, keyed by tab id. Full class strings so Tailwind sees them.
 // Leaf is for matcha only, never protein or collagen (C-01).
 const THEME: Record<string, { Icon: IconComponent; soft: string; dot: string }> = {
-  protein: { Icon: Dumbbell, soft: "bg-highlight", dot: "bg-strawberry" },
+  protein: { Icon: Dumbbell, soft: "bg-highlight", dot: "bg-blush" },
   konjac: { Icon: JellyIcon, soft: "bg-mint-soft", dot: "bg-mint" },
   collagen: { Icon: Droplet, soft: "bg-lilac-soft", dot: "bg-lilac" },
   vitamins: { Icon: Sun, soft: "bg-mango-soft", dot: "bg-mango" },
   magnesium: { Icon: Sparkles, soft: "bg-lilac-soft", dot: "bg-lilac" },
-  sweeteners: { Icon: Candy, soft: "bg-highlight", dot: "bg-strawberry" },
+  sweeteners: { Icon: Candy, soft: "bg-highlight", dot: "bg-blush" },
   energy: { Icon: Leaf, soft: "bg-matcha", dot: "bg-mint" },
 };
 

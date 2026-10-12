@@ -14,7 +14,7 @@ const TINTS: Record<string, string> = {
   protein: "bg-highlight",
   fiber: "bg-mint-soft",
   sugar: "bg-mango-soft",
-  "daily-value": "bg-strawberry",
+  "daily-value": "bg-blush",
 };
 
 // The three pouches, fanned out. Decorative: the flavor section names them.
