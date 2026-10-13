@@ -100,6 +100,9 @@ export function KonjacStory() {
             <Image src={story.between.image.src} alt={story.between.image.alt} fill sizes="(min-width: 1024px) 470px, (min-width: 640px) 40vw, 100vw" className="object-cover object-[50%_60%]" />
           </div>
           <div className="relative p-5 sm:p-7 lg:p-9">
+            <HandNote rotate={5} className="absolute top-6 right-6 max-w-[180px] text-right lg:top-8 lg:right-9">
+              {story.between.note}
+            </HandNote>
             <span aria-hidden className="flex size-12 items-center justify-center rounded-full bg-white text-berry">
               <Clock3 strokeWidth={1.75} className="size-6" />
             </span>

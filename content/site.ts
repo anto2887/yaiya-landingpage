@@ -367,15 +367,18 @@ export const site = {
       line: "Glucomannan holds water and forms a gel, the quality behind konjac's distinctive texture.",
     },
     /**
-     * C-27 (founder, 13 Oct): highlight konjac between meals. Safe version: when it fits, not what
-     * it does. The founder's "helps you feel full between meals" waits on written approval and a
-     * confirmed glucomannan amount per pouch (rule 2, C-02).
+     * C-27 (founder, 13 Oct): konjac between meals. Founder chose the softened version in writing:
+     * "hunger", "substantial" and "staying power" carry the filling idea through the eating
+     * experience. Not used: expands in the stomach, instant, slows digestion, energy crashes.
+     * Compliance review before ads (an implied satiety claim).
      */
     between: {
       kicker: "Between meals",
       title: "Made for the in-between.",
-      line: `That 3 PM gap when you're hungry but not ready for a meal. Konjac jelly is a convenience-store favorite across Japan and Korea. Ours brings ${TARGETS.protein} protein* and ${TARGETS.fiber} fiber* to that moment, in a pocket-sized pouch.`,
-      chips: [`${TARGETS.protein} protein*`, `${TARGETS.fiber} fiber*`, "No fridge, no spoon"],
+      line: `That 3 PM gap when you're hungry but not ready for a meal. Konjac jelly is an Asian convenience-store staple, and its fiber soaks up water to make a soft, substantial bite you actually chew, not a sip that's gone in a second. Our pocket-sized pouch pairs it with ${TARGETS.protein} protein* and ${TARGETS.fiber} fiber* for an afternoon snack with real staying power.`,
+      chips: ["Hearty, chewy bite", `${TARGETS.protein} protein*`, `${TARGETS.fiber} fiber*`],
+      note: "a snack that feels like a snack",
+      // TODO(founder): new photo for this card (the desk scene is used in Occasions).
       image: {
         src: "/images/occasion-busy-day-v4.jpg",
         alt: "A Matcha Yuzu pouch on a sunny desk beside a coffee mug, laptop, notebook and earbuds.",
