@@ -28,6 +28,8 @@ const FRAMES = [
   { id: "lineup", file: "hero-08-lineup.png", square: { left: 790, top: 50, size: 882 } },
 ];
 
+const JPEG = { quality: 95, chromaSubsampling: "4:4:4", mozjpeg: true };
+
 const outDir = process.argv[2] ?? DIR;
 
 for (const f of FRAMES) {
