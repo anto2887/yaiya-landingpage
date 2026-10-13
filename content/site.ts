@@ -77,7 +77,7 @@ export const site = {
     title: "YAIYA | A new kind of protein jelly snack",
     description:
       "Soft, squeezable jelly with protein, collagen, fiber and vitamins. Join the waitlist for early access.",
-    ogImage: "/images/og.jpg",
+    ogImage: "/images/og-v3.jpg",
   },
 
   features: {
@@ -142,8 +142,8 @@ export const site = {
     image: {
       // Desktop: the founder's scene as supplied; the copy sits on its open wall (D-25).
       // Mobile: photo first, a tight crop around the pouches (scripts/extend-hero.mjs, D-37).
-      desktop: "/images/hero-scene-v3.jpg",
-      mobile: "/images/hero-phone-v3.jpg",
+      desktop: "/images/hero-scene-v4.jpg",
+      mobile: "/images/hero-phone-v4.jpg",
       alt: "Strawberry Peach, Chocolate Silk and Matcha Yuzu pouches on a marble desk with fresh fruit and chocolate, and the jelly mascot Wobbie peeking out from behind the pouches.",
     },
   },
@@ -294,7 +294,7 @@ export const site = {
         id: "busy-day",
         name: "The Busy-Day Multitasker",
         line: "Between meetings. Between everything.",
-        image: "/images/occasion-busy-day-v3.jpg",
+        image: "/images/occasion-busy-day-v4.jpg",
         alt: "A Matcha Yuzu pouch on a sunny desk with a laptop, tablet, notebook, coffee mug and earbuds.",
         moments: ["between-meetings", "commute", "hungry-not-meal"],
       },
@@ -302,8 +302,8 @@ export const site = {
         id: "wellness-snacker",
         name: "The Everyday Wellness Snacker",
         line: "Something sweet. Something more.",
-        image: "/images/occasion-wellness-snacker-v2.jpg",
-        alt: "Strawberry Peach, Chocolate Silk and Matcha Yuzu pouches packed in a beach bag with fruit and sunglasses.",
+        image: "/images/occasion-wellness-snacker-v3.jpg",
+        alt: "Strawberry Peach, Chocolate Silk and Matcha Yuzu pouches in an open beach bag with sunglasses, a book, strawberries, a peach slice, chocolate and a lemon.",
         moments: ["travel", "out-the-door", "afternoon-snack"],
       },
     ],
