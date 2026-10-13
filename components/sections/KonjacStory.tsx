@@ -97,7 +97,7 @@ export function KonjacStory() {
           className="jelly mt-6 grid grid-cols-1 overflow-hidden rounded-card bg-mango-soft sm:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]"
         >
           <div className="relative aspect-[4/3] sm:aspect-auto sm:min-h-[260px]">
-            <Image src={story.between.image.src} alt={story.between.image.alt} fill sizes="(min-width: 1024px) 470px, (min-width: 640px) 40vw, 100vw" className="object-cover object-[50%_60%]" />
+            <Image src={story.between.image.src} alt={story.between.image.alt} fill sizes="(min-width: 1024px) 470px, (min-width: 640px) 40vw, 100vw" className="object-cover object-[100%_45%]" />
           </div>
           <div className="relative p-5 sm:p-7 lg:p-9">
             <HandNote rotate={5} className="absolute top-6 right-6 max-w-[180px] text-right lg:top-8 lg:right-9">

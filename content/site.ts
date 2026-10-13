@@ -400,10 +400,10 @@ export const site = {
       line: `That 3 PM gap when you're hungry but not ready for a meal. Konjac jelly is an Asian convenience-store staple, and its fiber soaks up water to make a soft, substantial bite you actually chew, not a sip that's gone in a second. Our pocket-sized pouch pairs it with ${TARGETS.protein} protein* and ${TARGETS.fiber} fiber* for an afternoon snack with real staying power.`,
       chips: ["Hearty, chewy bite", `${TARGETS.protein} protein*`, `${TARGETS.fiber} fiber*`],
       note: "a snack that feels like a snack",
-      // TODO(founder): new photo for this card (the desk scene is used in Occasions).
+      // Founder photo, 13 Oct: lunch is done, the pouch is in hand.
       image: {
-        src: "/images/occasion-busy-day-v4.jpg",
-        alt: "A Matcha Yuzu pouch on a sunny desk beside a coffee mug, laptop, notebook and earbuds.",
+        src: "/images/story-between-meals.jpg",
+        alt: "A hand holding a Strawberry Peach pouch at a sunny table, beside a finished lunch bowl, a fork and a glass of water.",
       },
     },
     why: {
