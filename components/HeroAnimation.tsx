@@ -31,9 +31,9 @@ const STAGE: Record<string, { focus: string; note: { left: string; top: string; 
   desk: { focus: "70% 55%", note: { left: "45%", top: "17%", rotate: -4, arrow: "down" } },
   reach: { focus: "68% 50%", note: { left: "44%", top: "19%", rotate: -6, arrow: "down" } },
   jelly: { focus: "80% 40%", note: { left: "50%", top: "15%", rotate: -4, arrow: "down" } },
-  "strawberry-peach": { focus: "70% 50%", note: { left: "44%", top: "26%", rotate: -5, arrow: "down", width: "6.2em" } },
+  "strawberry-peach": { focus: "70% 50%", note: { left: "44%", top: "24%", rotate: -5, arrow: "down", width: "7.4em" } },
   "chocolate-silk": { focus: "70% 55%", note: { left: "44%", top: "16%", rotate: -5, arrow: "down" } },
-  "matcha-yuzu": { focus: "70% 55%", note: { left: "44%", top: "16%", rotate: -4, arrow: "down" } },
+  "matcha-yuzu": { focus: "70% 55%", note: { left: "44%", top: "16%", rotate: -4, arrow: "down", width: "8.6em" } },
   "to-go": { focus: "72% 40%", note: { left: "45%", top: "21%", rotate: -5, arrow: "down" } },
 };
 

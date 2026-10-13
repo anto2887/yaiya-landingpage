@@ -161,10 +161,13 @@ export const site = {
         { id: "lineup", note: "three flavors, one wobble", ms: 2900 },
         { id: "desk", note: "3 PM. the slump is real.", ms: 2000 },
         { id: "reach", note: "snack o'clock", ms: 1800 },
-        { id: "jelly", note: "soft. glossy. a little jiggly.", ms: 2000 },
-        { id: "strawberry-peach", note: "juicy strawberry, ripe peach", ms: 1900 },
+        // TODO(founder): C-28. Probiotics are being added (founder, 13 Oct). Confirm the strain and the
+        // count at end of shelf life before this reaches main. Ingredient only; never a gut benefit.
+        { id: "jelly", note: "packed with probiotics", ms: 2000 },
+        { id: "strawberry-peach", note: "juicy strawberry, delicious collagen", ms: 1900 },
         { id: "chocolate-silk", note: "this is the guilty part", ms: 2000 },
-        { id: "matcha-yuzu", note: "bright matcha, zesty yuzu", ms: 1900 },
+        // Approved: "never artificial sweeteners".
+        { id: "matcha-yuzu", note: "zero artificial sweeteners, all the sweet", ms: 1900 },
         { id: "to-go", note: "pocket-sized. no fridge.", ms: 2000 },
       ],
     },
