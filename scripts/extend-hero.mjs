@@ -1,37 +1,39 @@
 // Builds the photo frames for the animated hero (components/HeroAnimation.tsx).
 //
-// Desktop frames are wide (1672 x 941) with the copy floating on their left side.
-// Phones show the film first, as its own square block, so each frame gets a square crop
-// around the pouches. The flavor and jelly moments are built in the page, not here.
+// Desktop frames are the founder's photos at their native size, with the copy floating on their
+// calm left side. Phones show the film first, as its own square block, so each frame also gets a
+// square crop around the pouch. Nothing is upscaled, and the JPEGs are near-lossless (q95, full
+// color resolution) so the image server's own compression is the only visible step.
 //
-// In:  assets-src/scene-desk-hero-v4.png (1672 x 941, founder, 12 Oct, new pack)
-//      assets-src/occasion-busy-day-desk-v2.png (1122 x 1402, founder, 12 Oct)
-//      assets-src/occasion-wellness-snacker-bag-v3.png (1122 x 1402, founder, 12 Oct)
-// Out: public/images/hero-{lineup,desk}-wide.jpg, hero-{lineup,desk,bag}-square.jpg
+// In:  assets-src/hero/hero-0N-<id>.png (1672 x 941, founder, 13 Oct; 08 is the 12 Oct lineup)
+// Out: public/images/hero-<id>.jpg (1672 x 941) and hero-<id>-square.jpg (941 x 941 or smaller)
 // Usage: node scripts/extend-hero.mjs   (also run by npm run images)
 import path from "node:path";
 import sharp from "sharp";
 
 const DIR = "public/images";
-const WIDE = { width: 1672, height: 941 };
-const SQUARE = { width: 1000, height: 1000 };
+const SRC = "assets-src/hero";
+const JPEG = { quality: 95, chromaSubsampling: "4:4:4", mozjpeg: true };
 
+// `square` is the phone crop: its left edge and size, in source pixels.
 const FRAMES = [
-  // The lineup is used as supplied; its left side is open wall and marble.
-  { out: "hero-lineup-wide.jpg", src: "assets-src/scene-desk-hero-v4.png", size: WIDE },
-  { out: "hero-lineup-square.jpg", src: "assets-src/scene-desk-hero-v4.png", crop: { left: 790, top: 50, width: 882, height: 882 }, size: SQUARE },
-  // Desk: a wide band through the mug, laptop and pouch. The pouch lands just right of center.
-  { out: "hero-desk-wide.jpg", src: "assets-src/occasion-busy-day-desk-v2.png", crop: { left: 0, top: 300, width: 1122, height: 631 }, size: WIDE },
-  { out: "hero-desk-square.jpg", src: "assets-src/occasion-busy-day-desk-v2.png", crop: { left: 0, top: 160, width: 1122, height: 1122 }, size: SQUARE },
-  // Bag: phones only. On desktop the copy would cover a pouch label.
-  { out: "hero-bag-square.jpg", src: "assets-src/occasion-wellness-snacker-bag-v3.png", crop: { left: 0, top: 170, width: 1122, height: 1122 }, size: SQUARE },
+  { id: "desk", file: "hero-01-desk.png", square: { left: 700, top: 0, size: 941 } },
+  { id: "reach", file: "hero-02-reach.png", square: { left: 731, top: 0, size: 941 } },
+  { id: "jelly", file: "hero-03-jelly.png", square: { left: 700, top: 0, size: 941 } },
+  { id: "strawberry-peach", file: "hero-04-strawberry-peach.png", square: { left: 731, top: 0, size: 941 } },
+  { id: "chocolate-silk", file: "hero-05-chocolate-silk.png", square: { left: 700, top: 0, size: 941 } },
+  { id: "matcha-yuzu", file: "hero-06-matcha-yuzu.png", square: { left: 731, top: 0, size: 941 } },
+  { id: "to-go", file: "hero-07-to-go.png", square: { left: 731, top: 0, size: 941 } },
+  // The lineup is tighter so the pouches and Wobbie fill the square.
+  { id: "lineup", file: "hero-08-lineup.png", square: { left: 790, top: 50, size: 882 } },
 ];
 
 const outDir = process.argv[2] ?? DIR;
 
 for (const f of FRAMES) {
-  let img = sharp(f.src);
-  if (f.crop) img = img.extract(f.crop);
-  await img.resize(f.size.width, f.size.height).jpeg({ quality: 84, mozjpeg: true }).toFile(path.join(outDir, f.out));
-  console.log(`wrote       ${path.join(outDir, f.out)}`);
+  const src = path.join(SRC, f.file);
+  await sharp(src).jpeg(JPEG).toFile(path.join(outDir, `hero-${f.id}.jpg`));
+  const { left, top, size } = f.square;
+  await sharp(src).extract({ left, top, width: size, height: size }).jpeg(JPEG).toFile(path.join(outDir, `hero-${f.id}-square.jpg`));
+  console.log(`wrote       hero-${f.id}.jpg, hero-${f.id}-square.jpg`);
 }

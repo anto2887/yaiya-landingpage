@@ -18,7 +18,8 @@ const MARKER_ICONS: Record<string, IconComponent> = {
 
 export function Hero() {
   return (
-    // Desktop: the film fills the hero and the copy floats on its left side (D-25, D-49).
+    // Desktop: the film fills the hero and the copy sits on the calm left side of every frame,
+    // with no glow behind it (D-25, D-49).
     // Phones: the film comes first as a square block under the nav, then the copy (D-37).
     <section
       id="top"
@@ -30,7 +31,7 @@ export function Hero() {
       </div>
 
       <Container className="relative">
-        <div className="pt-5 lg:max-w-[440px] lg:-ml-3 lg:pt-[clamp(48px,7vw,112px)] xl:-ml-8 xl:max-w-[500px] lg:[&>:not(:last-child)]:text-glow">
+        <div className="pt-5 lg:max-w-[440px] lg:-ml-3 lg:pt-[clamp(48px,7vw,112px)] xl:-ml-8 xl:max-w-[500px]">
           <Eyebrow>{hero.eyebrow}</Eyebrow>
           <h1 id="hero-heading" className="mt-3 type-h1 text-ink">
             {hero.headline.lead}{" "}

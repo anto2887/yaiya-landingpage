@@ -144,47 +144,26 @@ export const site = {
     primaryCta: { label: "Get Early Access", href: "#waitlist" },
     secondaryCta: { label: "Explore the Flavors", href: "#flavors" },
     /**
-     * The looping film behind the copy (components/HeroAnimation.tsx): about 8 seconds on desktop, 9 on phones.
+     * The looping film behind the copy (components/HeroAnimation.tsx), about 9 seconds.
      * It opens on the lineup, which is also the still frame for reduced motion, then plays
-     * from the desk. `ms` is how long each frame holds. `phoneOnly` frames are skipped on desktop.
-     * Photo frames come from scripts/extend-hero.mjs; the jelly and flavor frames are built in the page.
-     * TODO(founder): the hand reaching, a jelly close-up photo, the flavor food shots and a hand
-     * packing a tote replace these frames when the photos arrive (D-49).
+     * the founder's storyboard from the desk. `ms` is how long each frame holds.
+     * Frames come from assets-src/hero via scripts/extend-hero.mjs: `hero-<id>.jpg` for desktop,
+     * `hero-<id>-square.jpg` for phones.
      */
     film: {
       label:
-        "A short looping film: a Matcha Yuzu pouch on a sunny desk, a glossy cube of konjac jelly, each flavor with its fruit or chocolate, the pouches packed in a beach bag, and all three pouches with the jelly mascot Wobbie.",
+        "A short looping film: a Matcha Yuzu pouch on a sunny desk, a hand picking it up, soft peach jelly on a spoon, each flavor with its fruit or chocolate, the pouch slipped into a tote bag, and all three pouches with the jelly mascot Wobbie.",
       pause: "Pause the hero animation",
       play: "Play the hero animation",
       scenes: [
-        {
-          id: "lineup",
-          kind: "photo",
-          caption: "Three flavors. One wobble.",
-          ms: 2200,
-          desktop: "/images/hero-lineup-wide.jpg",
-          mobile: "/images/hero-lineup-square.jpg",
-        },
-        {
-          id: "desk",
-          kind: "photo",
-          caption: "3 PM, somewhere.",
-          ms: 1400,
-          desktop: "/images/hero-desk-wide.jpg",
-          mobile: "/images/hero-desk-square.jpg",
-        },
-        { id: "jelly", kind: "jelly", caption: "Soft konjac jelly.", ms: 1200 },
-        { id: "strawberry-peach", kind: "flavor", caption: "Strawberry Peach", ms: 1100 },
-        { id: "chocolate-silk", kind: "flavor", caption: "Chocolate Silk", ms: 1200 },
-        { id: "matcha-yuzu", kind: "flavor", caption: "Matcha Yuzu", ms: 1100 },
-        {
-          id: "bag",
-          kind: "photo",
-          caption: "Made to go.",
-          ms: 1100,
-          phoneOnly: true,
-          mobile: "/images/hero-bag-square.jpg",
-        },
+        { id: "lineup", caption: "Three flavors. One wobble.", ms: 2200 },
+        { id: "desk", caption: "3 PM, somewhere.", ms: 1200 },
+        { id: "reach", caption: "Snack o'clock.", ms: 1000 },
+        { id: "jelly", caption: "Soft konjac jelly.", ms: 1200 },
+        { id: "strawberry-peach", caption: "Strawberry Peach", ms: 1000 },
+        { id: "chocolate-silk", caption: "Chocolate Silk", ms: 1100 },
+        { id: "matcha-yuzu", caption: "Matcha Yuzu", ms: 1000 },
+        { id: "to-go", caption: "Made to go.", ms: 1100 },
       ],
     },
   },
