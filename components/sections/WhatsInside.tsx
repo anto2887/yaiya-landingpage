@@ -93,7 +93,7 @@ export function WhatsInside() {
               id="inside"
               poses={["sit"]}
               lines={[...site.wobbie.spots.inside, ...site.wobbie.lines]}
-              className="top-10 right-5 h-[108px] w-[80px] -translate-y-[68%] lg:top-14 lg:right-10 lg:h-[162px] lg:w-[120px]"
+              className="top-10 right-5 h-[108px] w-[80px] -translate-y-[84%] lg:top-14 lg:-translate-y-[68%] lg:right-10 lg:h-[162px] lg:w-[120px]"
               bubbleClassName="right-0"
             />
             <IngredientTabs content={site.ingredientTabs} />

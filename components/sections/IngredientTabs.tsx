@@ -59,7 +59,9 @@ export function IngredientTabs({ content }: IngredientTabsProps) {
 
   return (
     <div data-reveal className="mt-10 rounded-card bg-white p-4 sm:p-6 lg:mt-14 lg:p-8">
-      <Eyebrow>{content.eyebrow}</Eyebrow>
+      {/* Phones: Wobbie sits on the card's top-right corner (WhatsInside.tsx), so the eyebrow
+          wraps before it rather than running under his legs. */}
+      <Eyebrow className="pr-[76px] sm:pr-0">{content.eyebrow}</Eyebrow>
       <h3 className="mt-2 type-h2 text-ink lg:text-[34px]">{content.heading}</h3>
 
       <div className="mt-6 grid grid-cols-1 gap-5 lg:grid-cols-[250px_1fr] lg:gap-8">
