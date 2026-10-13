@@ -20,6 +20,8 @@
   --color-danger: #b42318;
   /* Deep burgundy for the hero's "soo guilty." only (D-49). */
   --color-indulge: #8d2145;
+  /* hero-fx test: shows as about #8d2145 when blended with "difference" over the cream wall. */
+  --color-indulge-inverse: #6dd4a9;
   --color-accent: #3d3833;
   --color-highlight: #efebe4;
   --color-blush: #e8e0d3;
@@ -368,6 +370,7 @@
 }
 .film[data-paused] [data-anim],
 .film[data-paused] .film-frame,
+.film[data-paused] .film-arrow path,
 .film[data-paused] .film-bar-fill {
   animation-play-state: paused !important;
 }
@@ -400,13 +403,14 @@
   .film-note {
     animation: film-note var(--ms, 2s) ease-out both;
   }
-  .film-arrow path {
+  /* Keywords inside a frame arrive with its sweep; their arrow draws in once the edge has passed. */
+  .film-frame:is([data-state="on"], [data-state="off"]) .film-arrow path {
     stroke-dasharray: 1;
     stroke-dashoffset: 1;
-    animation: film-draw 500ms 450ms ease-out forwards;
+    animation: film-draw 500ms 900ms ease-out forwards;
   }
-  .film-arrow path + path {
-    animation-delay: 900ms;
+  .film-frame:is([data-state="on"], [data-state="off"]) .film-arrow path + path {
+    animation-delay: 1350ms;
     animation-duration: 200ms;
   }
   .film-bar-fill {
@@ -416,6 +420,43 @@
     stroke-dasharray: 1;
     stroke-dashoffset: 1;
     animation: film-draw 900ms 500ms ease-out forwards;
+  }
+  /* "soo guilty." on each cut: wiped away right to left with the sweep, then written in left to
+     right like a pen, then the swoosh draws under it again. */
+  .hero-script.is-writing {
+    animation: film-write 1700ms cubic-bezier(0.45, 0, 0.3, 1) both;
+  }
+  .hero-script.is-writing .film-swoosh path {
+    animation: film-redraw 1700ms ease-out both;
+  }
+}
+
+@keyframes film-write {
+  0% {
+    clip-path: inset(-30% -5% -45% -5%);
+  }
+  22% {
+    clip-path: inset(-30% 105% -45% -5%);
+  }
+  32% {
+    clip-path: inset(-30% 105% -45% -5%);
+  }
+  100% {
+    clip-path: inset(-30% -5% -45% -5%);
+  }
+}
+/* The swoosh leaves with the words (the clip erases it), comes back empty, then draws. */
+@keyframes film-redraw {
+  0%,
+  22% {
+    stroke-dashoffset: 0;
+  }
+  23%,
+  78% {
+    stroke-dashoffset: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
   }
 }
 .film-note {

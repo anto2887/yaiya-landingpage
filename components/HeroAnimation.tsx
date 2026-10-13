@@ -74,6 +74,32 @@ function Frame({ scene, first }: { scene: Scene; first: boolean }) {
 }
 
 /**
+ * Wide screens: the frame's handwritten keyword, inside the frame itself. The sweep that brings
+ * the photo in reveals the words with the same edge, speed and direction, so the wipe looks
+ * like it is drawing them; the next sweep wipes them away. The arrow draws in after.
+ */
+function FrameNote({ scene }: { scene: Scene }) {
+  const note = STAGE[scene.id].note;
+  return (
+    <p
+      aria-hidden
+      className="film-frame-note pointer-events-none absolute hidden font-hand text-[36px] leading-none font-semibold whitespace-nowrap text-ink xl:block"
+      style={
+        {
+          left: note.left,
+          top: note.top,
+          rotate: `${note.rotate}deg`,
+          ...(note.width && { maxWidth: note.width, whiteSpace: "normal" }),
+        } as React.CSSProperties
+      }
+    >
+      {scene.note}
+      <NoteArrow dir={note.arrow} />
+    </p>
+  );
+}
+
+/**
  * The hero film: the founder's photos crossfade on a loop behind the copy. It opens on the
  * lineup, which is also the still frame for reduced motion and before JavaScript. The other
  * frames mount after the page has loaded, so they never compete with the first paint. It pauses
@@ -117,6 +143,19 @@ export function HeroAnimation({ film }: HeroAnimationProps) {
       io.disconnect();
     };
   }, []);
+
+  // On every other cut, "soo guilty." in the headline is erased with the sweep and written in again.
+  const cuts = useRef(0);
+  useEffect(() => {
+    if (prev === null) return;
+    cuts.current += 1;
+    if (cuts.current % 2 === 1) return;
+    const script = document.getElementById("hero-script");
+    if (!script) return;
+    script.classList.remove("is-writing");
+    void script.offsetWidth; // restart the animation
+    script.classList.add("is-writing");
+  }, [active, prev]);
 
   useEffect(() => {
     if (!run) return;
@@ -171,34 +210,13 @@ export function HeroAnimation({ film }: HeroAnimationProps) {
             style={{ "--ms": `${s.ms + FADE_MS}ms` } as React.CSSProperties}
           >
             <Frame scene={s} first={i === 0} />
+            <FrameNote scene={s} />
           </div>
         );
       })}
 
       {/* A warm streak of sunlight crossing each cut. Keyed so it replays every time. */}
       {prev !== null && <span key={`leak-${active}`} aria-hidden data-anim className="film-leak pointer-events-none absolute inset-0 z-[4]" />}
-
-      {/* Wide screens: the frame's note writes in beside the product. */}
-      {ready && (
-        <p
-          key={`note-${active}`}
-          aria-hidden
-          data-anim
-          className="film-note pointer-events-none absolute z-[6] hidden font-hand text-[32px] leading-none font-semibold whitespace-nowrap text-ink xl:block"
-          style={
-            {
-              left: STAGE[scene.id].note.left,
-              top: STAGE[scene.id].note.top,
-              ...(STAGE[scene.id].note.width && { maxWidth: STAGE[scene.id].note.width, whiteSpace: "normal" }),
-              "--r": `${STAGE[scene.id].note.rotate}deg`,
-              "--ms": `${scene.ms}ms`,
-            } as React.CSSProperties
-          }
-        >
-          {scene.note}
-          <NoteArrow dir={STAGE[scene.id].note.arrow} />
-        </p>
-      )}
 
       {/* Keeps the logo and nav readable over busy frames. */}
       <span aria-hidden className="absolute inset-x-0 top-0 z-[5] h-24 bg-gradient-to-b from-cream/60 to-transparent lg:h-28" />
