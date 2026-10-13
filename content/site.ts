@@ -144,7 +144,7 @@ export const site = {
     primaryCta: { label: "Get Early Access", href: "#waitlist" },
     secondaryCta: { label: "Explore the Flavors", href: "#flavors" },
     /**
-     * The looping film behind the copy (components/HeroAnimation.tsx), about 9 seconds.
+     * The looping film behind the copy (components/HeroAnimation.tsx), about 13 seconds.
      * It opens on the lineup, which is also the still frame for reduced motion, then plays
      * the founder's storyboard from the desk. `ms` is how long each frame holds.
      * Frames come from assets-src/hero via scripts/extend-hero.mjs: `hero-<id>.jpg` for desktop,
@@ -155,15 +155,17 @@ export const site = {
         "A short looping film: a Matcha Yuzu pouch on a sunny desk, a hand picking it up, soft peach jelly on a spoon, each flavor with its fruit or chocolate, the pouch slipped into a tote bag, and all three pouches with the jelly mascot Wobbie.",
       pause: "Pause the hero animation",
       play: "Play the hero animation",
+      // `note` is the handwritten line that writes in beside the product. Personality only:
+      // no product facts beyond lines the page already makes (07-copy-and-claims).
       scenes: [
-        { id: "lineup", caption: "Three flavors. One wobble.", ms: 2200 },
-        { id: "desk", caption: "3 PM, somewhere.", ms: 1200 },
-        { id: "reach", caption: "Snack o'clock.", ms: 1000 },
-        { id: "jelly", caption: "Soft konjac jelly.", ms: 1200 },
-        { id: "strawberry-peach", caption: "Strawberry Peach", ms: 1000 },
-        { id: "chocolate-silk", caption: "Chocolate Silk", ms: 1100 },
-        { id: "matcha-yuzu", caption: "Matcha Yuzu", ms: 1000 },
-        { id: "to-go", caption: "Made to go.", ms: 1100 },
+        { id: "lineup", note: "three flavors, one wobble", ms: 2400 },
+        { id: "desk", note: "3 PM. the slump is real.", ms: 1500 },
+        { id: "reach", note: "snack o'clock", ms: 1300 },
+        { id: "jelly", note: "soft. glossy. a little jiggly.", ms: 1500 },
+        { id: "strawberry-peach", note: "juicy strawberry, ripe peach", ms: 1400 },
+        { id: "chocolate-silk", note: "this is the guilty part", ms: 1500 },
+        { id: "matcha-yuzu", note: "bright matcha, zesty yuzu", ms: 1400 },
+        { id: "to-go", note: "pocket-sized. no fridge.", ms: 1500 },
       ],
     },
   },

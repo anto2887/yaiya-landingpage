@@ -342,34 +342,72 @@
 }
 
 /*
- * Hero film (components/HeroAnimation.tsx). The showing frame ("on") fades in over the one
- * before ("off"), which stays opaque underneath so nothing dips. The drift runs only on those
- * two and restarts each time a frame comes back; it stops while the film is paused.
+ * Hero film (components/HeroAnimation.tsx).
+ * - "still": the opening frame before the first cut. Not animated, so the first paint is calm.
+ * - "on": sweeps in from the product side with a soft edge, over the frame before.
+ * - "off": the frame before. Stays opaque underneath and pushes gently forward as it is covered.
+ * - "idle": hidden; its motion resets so it starts fresh next time.
+ * Inside each frame the photo pulls back from the product and settles at full size, so it is
+ * at its sharpest just before the next cut. Everything stops while the film is paused.
+ * With reduced motion (only if the viewer presses play) frames simply crossfade.
  */
 .film-frame {
   opacity: 0;
 }
-.film-frame[data-state="on"] {
-  opacity: 1;
-  z-index: 2;
-  transition: opacity 900ms ease-in-out;
-}
+.film-frame[data-state="still"],
 .film-frame[data-state="off"] {
   opacity: 1;
   z-index: 1;
+}
+.film-frame[data-state="on"] {
+  opacity: 1;
+  z-index: 2;
 }
 .film-frame[data-state="idle"] [data-anim] {
   animation: none !important;
 }
 .film[data-paused] [data-anim],
+.film[data-paused] .film-frame,
 .film[data-paused] .film-bar-fill {
   animation-play-state: paused !important;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .film-frame[data-state="on"] {
+    animation: film-fade 900ms ease-in-out both;
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
-  /* A barely-there drift so the stills breathe without visibly enlarging them. */
-  .film-drift {
-    animation: film-drift var(--ms, 3s) linear both;
+  .film-frame[data-state="on"] {
+    -webkit-mask-image: linear-gradient(100deg, transparent 0%, transparent 46%, #000 54%, #000 100%);
+    mask-image: linear-gradient(100deg, transparent 0%, transparent 46%, #000 54%, #000 100%);
+    -webkit-mask-size: 300% 100%;
+    mask-size: 300% 100%;
+    animation: film-wipe 1100ms cubic-bezier(0.65, 0, 0.25, 1) both;
+  }
+  .film-frame[data-state="on"] .film-drift {
+    animation: film-pull var(--ms, 3s) cubic-bezier(0.2, 0.6, 0.35, 1) both;
+  }
+  .film-frame[data-state="off"] .film-drift {
+    animation: film-push 1100ms cubic-bezier(0.5, 0, 0.75, 0) both;
+  }
+  .film-leak {
+    background: radial-gradient(60% 120% at 50% 50%, rgb(255 222 180 / 0.55), rgb(255 200 150 / 0.15) 45%, transparent 70%);
+    mix-blend-mode: screen;
+    animation: film-leak 1300ms ease-out both;
+  }
+  .film-note {
+    animation: film-note var(--ms, 2s) ease-out both;
+  }
+  .film-arrow path {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: film-draw 500ms 450ms ease-out forwards;
+  }
+  .film-arrow path + path {
+    animation-delay: 900ms;
+    animation-duration: 200ms;
   }
   .film-bar-fill {
     animation: film-bar var(--ms, 2s) linear both;
@@ -377,16 +415,80 @@
   .film-swoosh path {
     stroke-dasharray: 1;
     stroke-dashoffset: 1;
-    animation: film-swoosh 900ms 500ms ease-out forwards;
+    animation: film-draw 900ms 500ms ease-out forwards;
   }
 }
+.film-note {
+  rotate: var(--r, 0deg);
+}
+.film-leak {
+  opacity: 0;
+}
 
-@keyframes film-drift {
+@keyframes film-fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes film-wipe {
+  from {
+    -webkit-mask-position: 0% 0;
+    mask-position: 0% 0;
+  }
+  to {
+    -webkit-mask-position: 100% 0;
+    mask-position: 100% 0;
+  }
+}
+@keyframes film-pull {
+  from {
+    transform: scale(1.06);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+@keyframes film-push {
   from {
     transform: scale(1);
   }
   to {
-    transform: scale(1.02) translateX(-0.4%);
+    transform: scale(1.05);
+  }
+}
+@keyframes film-leak {
+  0% {
+    opacity: 0;
+    transform: translateX(45%);
+  }
+  35% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-45%);
+  }
+}
+@keyframes film-note {
+  0% {
+    opacity: 0;
+    translate: 0 12px;
+  }
+  10% {
+    opacity: 0;
+    translate: 0 12px;
+  }
+  28% {
+    opacity: 1;
+    translate: 0 0;
+  }
+  86% {
+    opacity: 1;
+    translate: 0 0;
+  }
+  100% {
+    opacity: 0;
+    translate: 0 -6px;
   }
 }
 @keyframes film-bar {
@@ -397,7 +499,7 @@
     transform: scaleX(1);
   }
 }
-@keyframes film-swoosh {
+@keyframes film-draw {
   to {
     stroke-dashoffset: 0;
   }

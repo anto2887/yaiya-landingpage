@@ -20,6 +20,32 @@ const DECODE_CAP_MS = 2500;
 /** Above the default 75: these photos are the brand's first impression. */
 const QUALITY = 88;
 
+/**
+ * Per frame: where the camera pulls back from (`focus`, the product in the desktop photo) and,
+ * on wide screens (xl), where the handwritten note sits and which way its arrow points.
+ * Notes stay right of the copy and off the pouch labels. Positions are % of the hero.
+ */
+const STAGE: Record<string, { focus: string; note: { left: string; top: string; rotate: number; arrow: "down" | "up" } }> = {
+  lineup: { focus: "68% 50%", note: { left: "45%", top: "21%", rotate: -5, arrow: "down" } },
+  desk: { focus: "70% 55%", note: { left: "45%", top: "17%", rotate: -4, arrow: "down" } },
+  reach: { focus: "68% 50%", note: { left: "44%", top: "19%", rotate: -6, arrow: "down" } },
+  jelly: { focus: "80% 40%", note: { left: "50%", top: "15%", rotate: -4, arrow: "down" } },
+  "strawberry-peach": { focus: "70% 50%", note: { left: "40%", top: "80%", rotate: -3, arrow: "up" } },
+  "chocolate-silk": { focus: "70% 55%", note: { left: "44%", top: "16%", rotate: -5, arrow: "down" } },
+  "matcha-yuzu": { focus: "70% 55%", note: { left: "44%", top: "16%", rotate: -4, arrow: "down" } },
+  "to-go": { focus: "72% 40%", note: { left: "45%", top: "21%", rotate: -5, arrow: "down" } },
+};
+
+/** A hand-drawn arrow that draws itself in, pointing at the product. */
+function NoteArrow({ dir }: { dir: "down" | "up" }) {
+  return (
+    <svg aria-hidden viewBox="0 0 64 44" className={`film-arrow ml-1 inline-block h-9 w-14 align-top ${dir === "up" ? "-scale-y-100" : ""}`} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path pathLength={1} d="M4 8 C 22 4, 44 10, 54 34" />
+      <path pathLength={1} d="M54 34 l-9 -4 M54 34 l2 -10" />
+    </svg>
+  );
+}
+
 /** One frame: the wide photo on desktop, its square crop on phones (scripts/extend-hero.mjs). */
 function Frame({ scene, first }: { scene: Scene; first: boolean }) {
   const common = {
@@ -36,7 +62,12 @@ function Frame({ scene, first }: { scene: Scene; first: boolean }) {
     <picture>
       <source media="(min-width: 1024px)" srcSet={desktop.srcSet} sizes="100vw" />
       {/* eslint-disable-next-line jsx-a11y/alt-text -- decorative; the film has one label */}
-      <img {...mobile} data-anim className="film-drift absolute inset-0 size-full object-cover lg:object-[75%_50%]" />
+      <img
+        {...mobile}
+        data-anim
+        style={{ transformOrigin: STAGE[scene.id]?.focus }}
+        className="film-drift absolute inset-0 size-full object-cover lg:object-[75%_50%]"
+      />
     </picture>
   );
 }
@@ -60,6 +91,7 @@ export function HeroAnimation({ film }: HeroAnimationProps) {
   // Time left on the current frame, so a pause resumes where it stopped.
   const remaining = useRef<number>(scenes[0].ms);
   const run = ready && playing && onScreen && tabVisible;
+  const scene = scenes[active];
 
   // Mount the other frames once the page has loaded.
   useEffect(() => {
@@ -124,7 +156,8 @@ export function HeroAnimation({ film }: HeroAnimationProps) {
       {scenes.map((s, i) => {
         // Before load only the opening frame exists.
         if (!ready && i !== 0) return null;
-        const state = i === active ? "on" : i === prev ? "off" : "idle";
+        // The opening frame is "still" until the first cut, so the first paint is not animated.
+        const state = i === active ? (prev === null ? "still" : "on") : i === prev ? "off" : "idle";
         return (
           <div
             key={s.id}
@@ -141,13 +174,44 @@ export function HeroAnimation({ film }: HeroAnimationProps) {
         );
       })}
 
+      {/* A warm streak of sunlight crossing each cut. Keyed so it replays every time. */}
+      {prev !== null && <span key={`leak-${active}`} aria-hidden data-anim className="film-leak pointer-events-none absolute inset-0 z-[4]" />}
+
+      {/* Wide screens: the frame's note writes in beside the product. */}
+      {ready && (
+        <p
+          key={`note-${active}`}
+          aria-hidden
+          data-anim
+          className="film-note pointer-events-none absolute z-[6] hidden font-hand text-[32px] leading-none font-semibold whitespace-nowrap text-ink xl:block"
+          style={
+            {
+              left: STAGE[scene.id].note.left,
+              top: STAGE[scene.id].note.top,
+              "--r": `${STAGE[scene.id].note.rotate}deg`,
+              "--ms": `${scene.ms}ms`,
+            } as React.CSSProperties
+          }
+        >
+          {scene.note}
+          <NoteArrow dir={STAGE[scene.id].note.arrow} />
+        </p>
+      )}
+
       {/* Keeps the logo and nav readable over busy frames. */}
       <span aria-hidden className="absolute inset-x-0 top-0 z-[5] h-24 bg-gradient-to-b from-cream/60 to-transparent lg:h-28" />
 
       {ready && (
         <div className="absolute right-3 bottom-3 z-10 flex items-center gap-2.5 lg:right-8 lg:bottom-7">
-          <p aria-hidden className="rounded-pill bg-paper/85 px-3 py-1.5 type-small font-semibold text-ink backdrop-blur-sm">
-            {scenes[active].caption}
+          {/* Narrower screens: the same note as a sticker beside the controls. */}
+          <p
+            key={`sticker-${active}`}
+            aria-hidden
+            data-anim
+            className="film-note rounded-pill bg-paper/90 px-3.5 pt-1 pb-1.5 font-hand text-[20px] leading-none font-semibold text-ink backdrop-blur-sm xl:hidden"
+            style={{ "--r": "-2deg", "--ms": `${scene.ms}ms` } as React.CSSProperties}
+          >
+            {scene.note}
           </p>
           <div aria-hidden className="hidden items-center gap-1 rounded-pill bg-paper/85 px-2.5 py-2.5 backdrop-blur-sm sm:flex">
             {scenes.map((s, i) => (

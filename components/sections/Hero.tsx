@@ -1,7 +1,6 @@
 import { Backpack, Dumbbell } from "lucide-react";
 import Link from "next/link";
 import { HeroAnimation } from "@/components/HeroAnimation";
-import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { JellyIcon, type IconComponent } from "@/components/ui/icons";
 import { WaitlistButton } from "@/components/ui/WaitlistButton";
@@ -30,8 +29,10 @@ export function Hero() {
         <HeroAnimation film={hero.film} />
       </div>
 
-      <Container className="relative">
-        <div className="pt-5 lg:max-w-[440px] lg:-ml-3 lg:pt-[clamp(48px,7vw,112px)] xl:-ml-8 xl:max-w-[500px]">
+      {/* Desktop: pinned to the left edge, not the centered page container, so wide screens
+          do not leave a band of empty photo before the copy. Phones use the usual gutters. */}
+      <div className="relative w-full px-4 sm:px-6 lg:px-[clamp(24px,6vw,96px)]">
+        <div className="pt-5 lg:max-w-[440px] lg:pt-[clamp(48px,7vw,112px)] xl:max-w-[500px]">
           <Eyebrow>{hero.eyebrow}</Eyebrow>
           <h1 id="hero-heading" className="mt-3 type-h1 text-ink">
             {hero.headline.lead}{" "}
@@ -71,7 +72,7 @@ export function Hero() {
             </Link>
           </div>
         </div>
-      </Container>
+      </div>
     </section>
   );
 }
