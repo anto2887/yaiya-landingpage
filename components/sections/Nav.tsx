@@ -17,7 +17,7 @@ export function Nav() {
       <NavScrollState />
       <Container className="flex h-nav items-center justify-between gap-4 lg:h-nav-lg">
         <Link href="#top" className="-m-2 inline-flex min-h-11 items-center rounded-small p-2">
-          <Wordmark alt={nav.wordmarkAlt} className="h-[26.4px] lg:h-[30.8px]" />
+          <Wordmark alt={nav.wordmarkAlt} className="h-[34px] lg:h-[42px]" />
         </Link>
 
         <nav aria-label="Main" className="hidden lg:block">
