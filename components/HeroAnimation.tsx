@@ -25,12 +25,13 @@ const QUALITY = 88;
  * on wide screens (xl), where the handwritten note sits and which way its arrow points.
  * Notes stay right of the copy and off the pouch labels. Positions are % of the hero.
  */
-const STAGE: Record<string, { focus: string; note: { left: string; top: string; rotate: number; arrow: "down" | "up" } }> = {
+// `width` wraps a long note onto two lines where one would run into the pouch.
+const STAGE: Record<string, { focus: string; note: { left: string; top: string; rotate: number; arrow: "down" | "up"; width?: string } }> = {
   lineup: { focus: "68% 50%", note: { left: "45%", top: "21%", rotate: -5, arrow: "down" } },
   desk: { focus: "70% 55%", note: { left: "45%", top: "17%", rotate: -4, arrow: "down" } },
   reach: { focus: "68% 50%", note: { left: "44%", top: "19%", rotate: -6, arrow: "down" } },
   jelly: { focus: "80% 40%", note: { left: "50%", top: "15%", rotate: -4, arrow: "down" } },
-  "strawberry-peach": { focus: "70% 50%", note: { left: "40%", top: "80%", rotate: -3, arrow: "up" } },
+  "strawberry-peach": { focus: "70% 50%", note: { left: "44%", top: "26%", rotate: -5, arrow: "down", width: "6.2em" } },
   "chocolate-silk": { focus: "70% 55%", note: { left: "44%", top: "16%", rotate: -5, arrow: "down" } },
   "matcha-yuzu": { focus: "70% 55%", note: { left: "44%", top: "16%", rotate: -4, arrow: "down" } },
   "to-go": { focus: "72% 40%", note: { left: "45%", top: "21%", rotate: -5, arrow: "down" } },
@@ -188,6 +189,7 @@ export function HeroAnimation({ film }: HeroAnimationProps) {
             {
               left: STAGE[scene.id].note.left,
               top: STAGE[scene.id].note.top,
+              ...(STAGE[scene.id].note.width && { maxWidth: STAGE[scene.id].note.width, whiteSpace: "normal" }),
               "--r": `${STAGE[scene.id].note.rotate}deg`,
               "--ms": `${scene.ms}ms`,
             } as React.CSSProperties
