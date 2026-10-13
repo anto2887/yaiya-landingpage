@@ -1,4 +1,4 @@
-import { ArrowRight, Droplets, Sprout, Store } from "lucide-react";
+import { ArrowRight, Clock3, Droplets, Sprout, Store } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
@@ -90,6 +90,31 @@ export function KonjacStory() {
             <p className="relative mt-2 type-small text-white/85">{story.fiber.line}</p>
           </li>
         </ul>
+
+        {/* Between meals: the moment konjac jelly is made for (C-27). */}
+        <div
+          data-reveal
+          className="jelly mt-6 grid grid-cols-1 overflow-hidden rounded-card bg-mango-soft sm:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]"
+        >
+          <div className="relative aspect-[4/3] sm:aspect-auto sm:min-h-[260px]">
+            <Image src={story.between.image.src} alt={story.between.image.alt} fill sizes="(min-width: 1024px) 470px, (min-width: 640px) 40vw, 100vw" className="object-cover object-[50%_60%]" />
+          </div>
+          <div className="relative p-5 sm:p-7 lg:p-9">
+            <span aria-hidden className="flex size-12 items-center justify-center rounded-full bg-white text-berry">
+              <Clock3 strokeWidth={1.75} className="size-6" />
+            </span>
+            <p className="mt-4 type-eyebrow text-eyebrow">{story.between.kicker}</p>
+            <p className="mt-2 font-heading text-[24px] leading-tight font-semibold text-ink lg:text-[30px]">{story.between.title}</p>
+            <p className="mt-3 max-w-[560px] type-body text-ink">{story.between.line}</p>
+            <ul className="mt-5 flex flex-wrap gap-2">
+              {story.between.chips.map((c) => (
+                <li key={c} className="rounded-pill bg-white px-3.5 py-1.5 type-small font-semibold text-ink">
+                  {c}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
 
         <div
           data-reveal
