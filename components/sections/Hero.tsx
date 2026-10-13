@@ -14,11 +14,12 @@ const { hero } = site;
 // the pouches sharp on the right (desktop) or at the bottom (mobile).
 function HeroPicture() {
   // getImageProps ignores `priority`, so the hero asks for high priority directly.
-  const common = { alt: hero.image.alt, fetchPriority: "high", loading: "eager" } as const;
+  // Quality above the default 75: this photo is the first impression.
+  const common = { alt: hero.image.alt, fetchPriority: "high", loading: "eager", quality: 88 } as const;
   const {
     props: { srcSet: desktopSrcSet },
   } = getImageProps({ ...common, src: hero.image.desktop, width: 1672, height: 941, sizes: "100vw" });
-  const { props: mobile } = getImageProps({ ...common, src: hero.image.mobile, width: 1000, height: 741, sizes: "100vw" });
+  const { props: mobile } = getImageProps({ ...common, src: hero.image.mobile, width: 912, height: 676, sizes: "100vw" });
 
   return (
     <picture>
@@ -55,7 +56,7 @@ export function Hero() {
       </div>
 
       <Container className="relative">
-        <div className="pt-5 lg:max-w-[420px] lg:-ml-3 lg:pt-[clamp(56px,8vw,128px)] xl:-ml-8 xl:max-w-[480px] lg:[&>:not(:last-child)]:text-glow">
+        <div className="pt-5 lg:max-w-[420px] lg:-ml-3 lg:pt-[clamp(56px,8vw,128px)] xl:-ml-8 xl:max-w-[480px]">
           <Eyebrow>{hero.eyebrow}</Eyebrow>
           <h1 id="hero-heading" className="mt-3 type-h1 text-ink">
             {hero.headline.map((line, i) => (
