@@ -1,73 +1,63 @@
-import { getImageProps } from "next/image";
+import { Backpack, Dumbbell } from "lucide-react";
 import Link from "next/link";
+import { HeroAnimation } from "@/components/HeroAnimation";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
-import { HandNote } from "@/components/ui/HandNote";
+import { JellyIcon, type IconComponent } from "@/components/ui/icons";
 import { WaitlistButton } from "@/components/ui/WaitlistButton";
 import { site } from "@/content/site";
 import { HERO_CTA_ID } from "@/lib/scroll";
 
 const { hero } = site;
 
-// Art direction: the browser downloads only the image for its breakpoint.
-// Both are extended canvases (scripts/extend-hero.mjs): soft blurred space for the copy,
-// the pouches sharp on the right (desktop) or at the bottom (mobile).
-function HeroPicture() {
-  // getImageProps ignores `priority`, so the hero asks for high priority directly.
-  const common = { alt: hero.image.alt, fetchPriority: "high", loading: "eager" } as const;
-  const {
-    props: { srcSet: desktopSrcSet },
-  } = getImageProps({ ...common, src: hero.image.desktop, width: 1672, height: 941, sizes: "100vw" });
-  const { props: mobile } = getImageProps({ ...common, src: hero.image.mobile, width: 1000, height: 741, sizes: "100vw" });
-
-  return (
-    <picture>
-      <source media="(min-width: 1024px)" srcSet={desktopSrcSet} sizes="100vw" />
-      {/* eslint-disable-next-line jsx-a11y/alt-text -- alt comes from getImageProps */}
-      <img {...mobile} className="absolute inset-0 size-full object-cover lg:object-center" />
-    </picture>
-  );
-}
-
-/** Soft colored jelly bubbles drifting over the photo. Decorative. */
-function Bubbles() {
-  return (
-    <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-      <span className="absolute top-[12%] left-[46%] size-24 rounded-full bg-mango/40 blur-2xl motion-safe:animate-drift lg:size-40" />
-      <span className="absolute bottom-[4%] left-[30%] size-24 rounded-full bg-accent/15 blur-2xl motion-safe:animate-drift [animation-delay:-5s] lg:size-36" />
-      <span className="absolute top-[8%] right-[8%] size-20 rounded-full bg-mint/40 blur-2xl motion-safe:animate-drift [animation-delay:-9s] lg:size-36" />
-    </div>
-  );
-}
+const MARKER_ICONS: Record<string, IconComponent> = {
+  konjac: JellyIcon,
+  protein: Dumbbell,
+  "to-go": Backpack,
+};
 
 export function Hero() {
   return (
-    // Desktop: the photo fills the hero and the copy floats on it (D-25).
-    // Phones: the photo comes first, full width under the nav, then the copy (D-37).
+    // Desktop: the film fills the hero and the copy floats on its left side (D-25, D-49).
+    // Phones: the film comes first as a square block under the nav, then the copy (D-37).
     <section
       id="top"
       aria-labelledby="hero-heading"
-      className="relative isolate -mt-nav overflow-hidden bg-cream pb-8 lg:-mt-nav-lg lg:flex lg:aspect-[1672/941] lg:max-h-[860px] lg:min-h-[600px] lg:w-full lg:items-start lg:pt-nav-lg lg:pb-0"
+      className="relative isolate -mt-nav overflow-hidden bg-cream pb-8 lg:-mt-nav-lg lg:flex lg:aspect-[1672/941] lg:max-h-[850px] lg:min-h-[700px] lg:w-full lg:items-start lg:pt-nav-lg lg:pb-0"
     >
-      <div className="relative aspect-[1000/741] w-full lg:absolute lg:inset-0 lg:-z-10 lg:aspect-auto">
-        <HeroPicture />
-        <Bubbles />
+      <div className="relative aspect-square w-full lg:absolute lg:inset-0 lg:-z-10 lg:aspect-auto">
+        <HeroAnimation film={hero.film} />
       </div>
 
       <Container className="relative">
-        <div className="pt-5 lg:max-w-[420px] lg:-ml-3 lg:pt-[clamp(56px,8vw,128px)] xl:-ml-8 xl:max-w-[480px] lg:[&>:not(:last-child)]:text-glow">
+        <div className="pt-5 lg:max-w-[440px] lg:-ml-3 lg:pt-[clamp(48px,7vw,112px)] xl:-ml-8 xl:max-w-[500px] lg:[&>:not(:last-child)]:text-glow">
           <Eyebrow>{hero.eyebrow}</Eyebrow>
           <h1 id="hero-heading" className="mt-3 type-h1 text-ink">
-            {hero.headline.map((line, i) => (
-              <span key={line} className={`block ${i === 2 ? "italic" : ""}`}>
-                {line}
-              </span>
-            ))}
+            {hero.headline.lead}{" "}
+            <span className="relative inline-block font-hand text-[1.3em] leading-[0.8] font-semibold whitespace-nowrap text-indulge">
+              {hero.headline.script}
+              {/* A hand-drawn swoosh under the script. */}
+              <svg aria-hidden viewBox="0 0 200 16" preserveAspectRatio="none" className="film-swoosh absolute -bottom-[0.12em] left-[2%] h-[0.22em] w-[92%] overflow-visible">
+                <path d="M3 11 C 45 3, 120 2, 197 7" pathLength={1} fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" />
+              </svg>
+            </span>
           </h1>
-          <p className="mt-3 type-kicker text-ink lg:mt-4">{hero.kicker}</p>
-          <p className="mt-2 type-body text-ink">{hero.body}</p>
 
-          <div className="mt-5 flex flex-col items-stretch gap-1 lg:mt-6 lg:flex-row lg:items-center lg:gap-3">
+          <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-2 lg:mt-5">
+            {hero.markers.map((m) => {
+              const Icon = MARKER_ICONS[m.id];
+              return (
+                <li key={m.id} className="flex items-center gap-1.5 type-small font-semibold text-ink">
+                  <span aria-hidden className="flex size-7 items-center justify-center rounded-full bg-paper/80 text-ink">
+                    <Icon strokeWidth={1.75} className="size-4" />
+                  </span>
+                  {m.label}
+                </li>
+              );
+            })}
+          </ul>
+
+          <div className="mt-5 flex flex-col items-stretch gap-1 lg:mt-7 lg:flex-row lg:items-center lg:gap-3">
             <WaitlistButton id={HERO_CTA_ID} href={hero.primaryCta.href} className="w-full lg:w-auto">
               {hero.primaryCta.label}
             </WaitlistButton>
@@ -81,10 +71,6 @@ export function Hero() {
           </div>
         </div>
       </Container>
-
-      <HandNote rotate={6} mark="heart" className="absolute top-24 right-10 max-w-[160px] text-right">
-        {hero.note}
-      </HandNote>
     </section>
   );
 }

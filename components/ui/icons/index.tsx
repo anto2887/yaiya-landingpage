@@ -33,7 +33,7 @@ export function SqueezeIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-type IconComponent = (props: LucideProps & React.SVGProps<SVGSVGElement>) => React.ReactNode;
+export type IconComponent = (props: LucideProps & React.SVGProps<SVGSVGElement>) => React.ReactNode;
 
 /** Benefit icons, keyed by `site.benefits[].id`. Never a leaf for protein (C-01). */
 export const BENEFIT_ICONS: Record<string, IconComponent> = {

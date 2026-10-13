@@ -133,18 +133,59 @@ export const site = {
 
   hero: {
     eyebrow: "A new kind of protein jelly snack.",
-    headline: ["Your cravings.", "Meet your", "good intentions."],
-    kicker: "Big on flavor. Built for more.",
-    body: `Soft, squeezable jelly with ${TARGETS.protein} protein*, collagen, fiber, and vitamins. For people who want their snack to taste good and do a little more.`,
-    primaryCta: { label: "Join the Waitlist", href: "#waitlist" },
+    // C-26: founder's line was "A guilt-free snack that tastes soo guilty." ("guilt-free" is on the never-say list).
+    headline: { lead: "A protein snack that tastes", script: "soo guilty." },
+    // Every nutrition number carries an asterisk (hard rule 5).
+    markers: [
+      { id: "konjac", label: "Soft Konjac Jelly" },
+      { id: "protein", label: `${TARGETS.protein} Protein*` },
+      { id: "to-go", label: "Made to Go" },
+    ],
+    primaryCta: { label: "Get Early Access", href: "#waitlist" },
     secondaryCta: { label: "Explore the Flavors", href: "#flavors" },
-    note: "A softer snack for brighter days.",
-    image: {
-      // Desktop: the founder's scene as supplied; the copy sits on its open wall (D-25).
-      // Mobile: photo first, a tight crop around the pouches (scripts/extend-hero.mjs, D-37).
-      desktop: "/images/hero-scene-v4.jpg",
-      mobile: "/images/hero-phone-v4.jpg",
-      alt: "Strawberry Peach, Chocolate Silk and Matcha Yuzu pouches on a marble desk with fresh fruit and chocolate, and the jelly mascot Wobbie peeking out from behind the pouches.",
+    /**
+     * The looping film behind the copy (components/HeroAnimation.tsx): about 8 seconds on desktop, 9 on phones.
+     * It opens on the lineup, which is also the still frame for reduced motion, then plays
+     * from the desk. `ms` is how long each frame holds. `phoneOnly` frames are skipped on desktop.
+     * Photo frames come from scripts/extend-hero.mjs; the jelly and flavor frames are built in the page.
+     * TODO(founder): the hand reaching, a jelly close-up photo, the flavor food shots and a hand
+     * packing a tote replace these frames when the photos arrive (D-49).
+     */
+    film: {
+      label:
+        "A short looping film: a Matcha Yuzu pouch on a sunny desk, a glossy cube of konjac jelly, each flavor with its fruit or chocolate, the pouches packed in a beach bag, and all three pouches with the jelly mascot Wobbie.",
+      pause: "Pause the hero animation",
+      play: "Play the hero animation",
+      scenes: [
+        {
+          id: "lineup",
+          kind: "photo",
+          caption: "Three flavors. One wobble.",
+          ms: 2200,
+          desktop: "/images/hero-lineup-wide.jpg",
+          mobile: "/images/hero-lineup-square.jpg",
+        },
+        {
+          id: "desk",
+          kind: "photo",
+          caption: "3 PM, somewhere.",
+          ms: 1400,
+          desktop: "/images/hero-desk-wide.jpg",
+          mobile: "/images/hero-desk-square.jpg",
+        },
+        { id: "jelly", kind: "jelly", caption: "Soft konjac jelly.", ms: 1200 },
+        { id: "strawberry-peach", kind: "flavor", caption: "Strawberry Peach", ms: 1100 },
+        { id: "chocolate-silk", kind: "flavor", caption: "Chocolate Silk", ms: 1200 },
+        { id: "matcha-yuzu", kind: "flavor", caption: "Matcha Yuzu", ms: 1100 },
+        {
+          id: "bag",
+          kind: "photo",
+          caption: "Made to go.",
+          ms: 1100,
+          phoneOnly: true,
+          mobile: "/images/hero-bag-square.jpg",
+        },
+      ],
     },
   },
 
