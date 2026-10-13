@@ -16,8 +16,9 @@ export function Nav() {
     >
       <NavScrollState />
       <Container className="flex h-nav items-center justify-between gap-4 lg:h-nav-lg">
-        <Link href="#top" className="-m-2 inline-flex min-h-11 items-center rounded-small p-2">
-          <Wordmark alt={nav.wordmarkAlt} className="h-[34px] lg:h-[42px]" />
+        {/* On desktop the logo steps left to line up with the hero copy (Hero.tsx: lg:-ml-3 xl:-ml-8). */}
+        <Link href="#top" className="-m-2 inline-flex min-h-11 items-center rounded-small p-2 lg:-ml-5 xl:-ml-10">
+          <Wordmark alt={nav.wordmarkAlt} className="h-[37px] lg:h-[46px]" />
         </Link>
 
         <nav aria-label="Main" className="hidden lg:block">
