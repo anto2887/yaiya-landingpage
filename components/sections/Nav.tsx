@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { NavScrollState } from "@/components/NavScrollState";
-import { Container } from "@/components/ui/Container";
 import { WaitlistButton } from "@/components/ui/WaitlistButton";
 import { Wordmark } from "@/components/ui/Wordmark";
 import { site } from "@/content/site";
@@ -15,9 +14,9 @@ export function Nav() {
       className="sticky top-0 z-40 border-b border-transparent transition-[background-color,border-color,box-shadow] duration-300 data-scrolled:border-line data-scrolled:bg-paper/90 data-scrolled:backdrop-blur-[12px]"
     >
       <NavScrollState />
-      <Container className="flex h-nav items-center justify-between gap-4 lg:h-nav-lg">
-        {/* On desktop the logo steps left to line up with the hero copy (Hero.tsx: lg:-ml-3 xl:-ml-8). */}
-        <Link href="#top" className="-m-2 inline-flex min-h-11 items-center rounded-small p-2 lg:-ml-5 xl:-ml-10">
+      {/* Same edges as the hero copy (Hero.tsx), so the logo lines up with it on every width. */}
+      <div className="flex h-nav w-full items-center justify-between gap-4 px-4 sm:px-6 lg:h-nav-lg lg:px-[clamp(24px,6vw,96px)]">
+        <Link href="#top" className="-m-2 inline-flex min-h-11 items-center rounded-small p-2">
           <Wordmark alt={nav.wordmarkAlt} className="h-[37px] lg:h-[46px]" />
         </Link>
 
@@ -39,7 +38,7 @@ export function Nav() {
         <WaitlistButton href={nav.cta.href} size="compact" className="lg:h-12 lg:px-[22px] lg:text-[15px]">
           {nav.cta.label}
         </WaitlistButton>
-      </Container>
+      </div>
     </header>
   );
 }
