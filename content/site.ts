@@ -144,7 +144,7 @@ export const site = {
     primaryCta: { label: "Get Early Access", href: "#waitlist" },
     secondaryCta: { label: "Explore the Flavors", href: "#flavors" },
     /**
-     * The looping film behind the copy (components/HeroAnimation.tsx), about 13 seconds.
+     * The looping film behind the copy (components/HeroAnimation.tsx), about 16 seconds.
      * It opens on the lineup, which is also the still frame for reduced motion, then plays
      * the founder's storyboard from the desk. `ms` is how long each frame holds.
      * Frames come from assets-src/hero via scripts/extend-hero.mjs: `hero-<id>.jpg` for desktop,
@@ -158,14 +158,14 @@ export const site = {
       // `note` is the handwritten line that writes in beside the product. Personality only:
       // no product facts beyond lines the page already makes (07-copy-and-claims).
       scenes: [
-        { id: "lineup", note: "three flavors, one wobble", ms: 2400 },
-        { id: "desk", note: "3 PM. the slump is real.", ms: 1500 },
-        { id: "reach", note: "snack o'clock", ms: 1300 },
-        { id: "jelly", note: "soft. glossy. a little jiggly.", ms: 1500 },
-        { id: "strawberry-peach", note: "juicy strawberry, ripe peach", ms: 1400 },
-        { id: "chocolate-silk", note: "this is the guilty part", ms: 1500 },
-        { id: "matcha-yuzu", note: "bright matcha, zesty yuzu", ms: 1400 },
-        { id: "to-go", note: "pocket-sized. no fridge.", ms: 1500 },
+        { id: "lineup", note: "three flavors, one wobble", ms: 2900 },
+        { id: "desk", note: "3 PM. the slump is real.", ms: 2000 },
+        { id: "reach", note: "snack o'clock", ms: 1800 },
+        { id: "jelly", note: "soft. glossy. a little jiggly.", ms: 2000 },
+        { id: "strawberry-peach", note: "juicy strawberry, ripe peach", ms: 1900 },
+        { id: "chocolate-silk", note: "this is the guilty part", ms: 2000 },
+        { id: "matcha-yuzu", note: "bright matcha, zesty yuzu", ms: 1900 },
+        { id: "to-go", note: "pocket-sized. no fridge.", ms: 2000 },
       ],
     },
   },

@@ -13,8 +13,8 @@ type HeroAnimationProps = {
   film: Film;
 };
 
-/** How long a frame takes to fade in over the one before. Matches .film-frame in globals.css. */
-const FADE_MS = 900;
+/** How long a frame takes to sweep in over the one before. Matches film-wipe in globals.css. */
+const FADE_MS = 1600;
 /** Never wait longer than this for the next frame's image before cutting to it anyway. */
 const DECODE_CAP_MS = 2500;
 /** Above the default 75: these photos are the brand's first impression. */
