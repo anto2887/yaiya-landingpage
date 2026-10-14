@@ -83,7 +83,7 @@ export function Hero() {
         </div>
       </Container>
 
-      <HandNote rotate={6} mark="heart" className="absolute top-24 right-10 max-w-[160px] text-right">
+      <HandNote rotate={6} mark="heart" className="absolute top-36 right-10 max-w-[160px] text-right">
         {hero.note}
       </HandNote>
     </section>
