@@ -78,15 +78,6 @@ const BURST = [
   [50, 70],
 ] as const;
 
-function readStoredFlavor(items: FlavorsProps["content"]["items"]): FlavorSlug | null {
-  try {
-    const v = sessionStorage.getItem(FLAVOR_STORAGE_KEY);
-    return items.find((f) => f.slug === v)?.slug ?? null;
-  } catch {
-    return null;
-  }
-}
-
 /** A soft jelly-shaped blob behind the ingredients. */
 function Blob({ className }: { className: string }) {
   return (
@@ -108,7 +99,7 @@ export function Flavors({ content: flavors }: FlavorsProps) {
   const refs = useRef<(HTMLButtonElement | null)[]>([]);
   const panelRef = useRef<HTMLDivElement>(null);
 
-  // After a pick (not the restored one), bring the breakout into view if it is off screen.
+  // After a pick, bring the breakout into view if it is off screen.
   useEffect(() => {
     if (pickCount === 0) return;
     const el = panelRef.current;
@@ -120,14 +111,12 @@ export function Flavors({ content: flavors }: FlavorsProps) {
     }
   }, [pickCount]);
 
-  useEffect(() => {
-    setSelected(readStoredFlavor(flavors.items));
-  }, [flavors.items]);
-
   function select(slug: FlavorSlug) {
     if (slug === selected) return;
     setSelected(slug);
     setPickCount((n) => n + 1);
+    // Saved for the waitlist signup (M4), but never restored on load: every visit starts with
+    // nothing selected, on phones and desktop alike.
     try {
       sessionStorage.setItem(FLAVOR_STORAGE_KEY, slug);
     } catch {
