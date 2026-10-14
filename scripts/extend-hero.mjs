@@ -5,14 +5,17 @@
 // square crop around the pouch. Nothing is upscaled, and the JPEGs are near-lossless (q95, full
 // color resolution) so the image server's own compression is the only visible step.
 //
-// In:  assets-src/hero/hero-0N-<id>.png (1672 x 941, founder, 13 Oct; 08 is the 12 Oct lineup)
-// Out: public/images/hero-<id>.jpg (1672 x 941) and hero-<id>-square.jpg (941 x 941 or smaller)
+// In:  assets-src/hero/hero-0N-<id>.png (1672 x 941, founder, 13 Oct; desk, flavors and tote
+//      updated to the latest pack 13 Oct; 08 is the 12 Oct lineup)
+// Out: public/images/hero-<id>-<VERSION>.jpg (1672 x 941) and hero-<id>-<VERSION>-square.jpg
+// Bump VERSION (and FRAME_VERSION in HeroAnimation.tsx) whenever photos change, so caches refresh.
 // Usage: node scripts/extend-hero.mjs   (also run by npm run images)
 import path from "node:path";
 import sharp from "sharp";
 
 const DIR = "public/images";
 const SRC = "assets-src/hero";
+const VERSION = "v2";
 const JPEG = { quality: 95, chromaSubsampling: "4:4:4", mozjpeg: true };
 
 // `square` is the phone crop: its left edge and size, in source pixels.
@@ -28,14 +31,12 @@ const FRAMES = [
   { id: "lineup", file: "hero-08-lineup.png", square: { left: 790, top: 50, size: 882 } },
 ];
 
-const JPEG = { quality: 95, chromaSubsampling: "4:4:4", mozjpeg: true };
-
 const outDir = process.argv[2] ?? DIR;
 
 for (const f of FRAMES) {
   const src = path.join(SRC, f.file);
-  await sharp(src).jpeg(JPEG).toFile(path.join(outDir, `hero-${f.id}.jpg`));
+  await sharp(src).jpeg(JPEG).toFile(path.join(outDir, `hero-${f.id}-${VERSION}.jpg`));
   const { left, top, size } = f.square;
-  await sharp(src).extract({ left, top, width: size, height: size }).jpeg(JPEG).toFile(path.join(outDir, `hero-${f.id}-square.jpg`));
-  console.log(`wrote       hero-${f.id}.jpg, hero-${f.id}-square.jpg`);
+  await sharp(src).extract({ left, top, width: size, height: size }).jpeg(JPEG).toFile(path.join(outDir, `hero-${f.id}-${VERSION}-square.jpg`));
+  console.log(`wrote       hero-${f.id}-${VERSION}.jpg and its square crop`);
 }
