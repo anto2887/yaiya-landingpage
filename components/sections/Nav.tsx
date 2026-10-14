@@ -15,9 +15,9 @@ export function Nav() {
       className="group/header sticky top-0 z-40 border-b border-transparent transition-[background-color,border-color,box-shadow] duration-300 data-scrolled:border-line data-scrolled:bg-paper/90 data-scrolled:backdrop-blur-[12px]"
     >
       <NavScrollState />
-      {/* Desktop: at the top of the page the items sit 0.5in (48px) lower over the hero; once scrolled they
+      {/* Desktop: at the top of the page the items sit 38px lower over the hero; once scrolled they
           slide back into the frosted bar. */}
-      <Container className="flex h-nav items-center justify-between gap-4 transition-transform duration-300 ease-out motion-reduce:transition-none lg:h-nav-lg lg:translate-y-12 lg:group-data-scrolled/header:translate-y-0">
+      <Container className="flex h-nav items-center justify-between gap-4 transition-transform duration-300 ease-out motion-reduce:transition-none lg:h-nav-lg lg:translate-y-[38px] lg:group-data-scrolled/header:translate-y-0">
         {/* On desktop the logo steps left to line up with the hero copy (Hero.tsx: lg:-ml-3 xl:-ml-8). */}
         <Link href="#top" className="-m-2 inline-flex min-h-11 items-center rounded-small p-2 lg:-ml-5 xl:-ml-10">
           <Wordmark alt={nav.wordmarkAlt} className="h-[37px] lg:h-[46px]" />
