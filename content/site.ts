@@ -304,31 +304,31 @@ export const site = {
     body: "For people who want their food to taste good and contribute something. Here's where YAIYA fits.",
     scrollerLabel: "Ways to enjoy YAIYA",
     momentsLabel: "Great for",
-    // Founder supplied lifestyle product scenes on 11 Oct.
+    // Founder supplied lifestyle product scenes (11 Oct; replaced 13 Oct).
     // `moments` reuse OCCASION_OPTIONS ids.
     personas: [
       {
         id: "protein-regular",
         name: "The Protein Regular",
         line: "Your protein routine. A fresh plot twist.",
-        image: "/images/occasion-protein-regular-v3.jpg",
-        alt: "A Strawberry Peach pouch on sunny gym steps beside a gym bag, towel, water bottle, headphones and sneakers.",
+        image: "/images/occasion-protein-regular-v4.jpg",
+        alt: "A Strawberry Peach pouch on a gym bench, leaning on a black gym bag beside a towel, with weight racks behind.",
         moments: ["before-workout", "after-workout", "afternoon-snack"],
       },
       {
         id: "busy-day",
         name: "The Busy-Day Multitasker",
         line: "Between meetings. Between everything.",
-        image: "/images/occasion-busy-day-v4.jpg",
-        alt: "A Matcha Yuzu pouch on a sunny desk with a laptop, tablet, notebook, coffee mug and earbuds.",
+        image: "/images/occasion-busy-day-v5.jpg",
+        alt: "A Matcha Yuzu pouch on a wooden desk beside a laptop, a mug of coffee and a notebook with a to-do list.",
         moments: ["between-meetings", "commute", "hungry-not-meal"],
       },
       {
         id: "wellness-snacker",
         name: "The Everyday Wellness Snacker",
         line: "Something sweet. Something more.",
-        image: "/images/occasion-wellness-snacker-v3.jpg",
-        alt: "Strawberry Peach, Chocolate Silk and Matcha Yuzu pouches in an open beach bag with sunglasses, a book, strawberries, a peach slice, chocolate and a lemon.",
+        image: "/images/occasion-wellness-snacker-v4.jpg",
+        alt: "Strawberry Peach, Chocolate Silk and Matcha Yuzu pouches in an open canvas tote with a book, car keys and a water bottle.",
         moments: ["travel", "out-the-door", "afternoon-snack"],
       },
     ],
