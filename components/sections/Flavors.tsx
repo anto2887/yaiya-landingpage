@@ -12,8 +12,8 @@ import { WaveTop } from "@/components/ui/WaveTop";
 
 /**
  * Each card shows its pouch floating over the flavor color and a jelly blob,
- * with a soft shadow. Cutouts are founder-supplied (assets-src/pouch-*-v3.png, latest pack 13 Oct),
- * trimmed to public/images/pouch-*-v3.png.
+ * with a soft shadow. Cutouts are founder-supplied (assets-src/pouch-*-v4.png, latest pack 13 Oct),
+ * trimmed to public/images/pouch-*-v4.png.
  * Positions are % of the art area; `hover` is how the pouch moves on hover.
  */
 type Piece = {
@@ -30,8 +30,8 @@ const POUCH_STYLE: React.CSSProperties = { width: "54%", left: "23%", top: "6%" 
 const ART: Record<FlavorSlug, Piece[]> = {
   "strawberry-peach": [
     {
-      src: "/images/pouch-strawberry-peach-v3.png",
-      width: 589,
+      src: "/images/pouch-strawberry-peach-v4.png",
+      width: 563,
       height: 800,
       style: { ...POUCH_STYLE, rotate: "-6deg" },
       hover: "group-hover:-translate-y-2 group-hover:-rotate-3 group-hover:scale-105",
@@ -40,8 +40,8 @@ const ART: Record<FlavorSlug, Piece[]> = {
   ],
   "chocolate-silk": [
     {
-      src: "/images/pouch-chocolate-silk-v3.png",
-      width: 584,
+      src: "/images/pouch-chocolate-silk-v4.png",
+      width: 587,
       height: 800,
       style: { ...POUCH_STYLE, rotate: "4deg" },
       hover: "group-hover:-translate-y-2 group-hover:rotate-3 group-hover:scale-105",
@@ -50,8 +50,8 @@ const ART: Record<FlavorSlug, Piece[]> = {
   ],
   "matcha-yuzu": [
     {
-      src: "/images/pouch-matcha-yuzu-v3.png",
-      width: 580,
+      src: "/images/pouch-matcha-yuzu-v4.png",
+      width: 584,
       height: 800,
       style: { ...POUCH_STYLE, rotate: "-3deg" },
       hover: "group-hover:-translate-y-2 group-hover:-rotate-2 group-hover:scale-105",
