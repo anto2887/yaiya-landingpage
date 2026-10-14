@@ -17,24 +17,26 @@ type HeroAnimationProps = {
 const FADE_MS = 1600;
 /** Never wait longer than this for the next frame's image before cutting to it anyway. */
 const DECODE_CAP_MS = 2500;
+/** Matches VERSION in scripts/extend-hero.mjs; bumped when photos change so caches refresh. */
+const FRAME_VERSION = "v2";
 /** Above the default 75: these photos are the brand's first impression. */
 const QUALITY = 88;
 
 /**
  * Per frame: where the camera pulls back from (`focus`, the product in the desktop photo) and,
- * on wide screens (xl), where the handwritten note sits and which way its arrow points.
+ * on wide screens (1440px and up), where the handwritten note sits and which way its arrow points.
  * Notes stay right of the copy and off the pouch labels. Positions are % of the hero.
  */
 // `width` wraps a long note onto two lines where one would run into the pouch.
 const STAGE: Record<string, { focus: string; note: { left: string; top: string; rotate: number; arrow: "down" | "up"; width?: string } }> = {
   lineup: { focus: "68% 50%", note: { left: "45%", top: "21%", rotate: -5, arrow: "down" } },
-  desk: { focus: "70% 55%", note: { left: "45%", top: "17%", rotate: -4, arrow: "down" } },
+  desk: { focus: "70% 55%", note: { left: "40.5%", top: "14%", rotate: -4, arrow: "down", width: "6.4em" } },
   reach: { focus: "68% 50%", note: { left: "44%", top: "19%", rotate: -6, arrow: "down" } },
   jelly: { focus: "80% 40%", note: { left: "50%", top: "15%", rotate: -4, arrow: "down" } },
   "strawberry-peach": { focus: "70% 50%", note: { left: "44%", top: "24%", rotate: -5, arrow: "down", width: "7.4em" } },
-  "chocolate-silk": { focus: "70% 55%", note: { left: "44%", top: "16%", rotate: -5, arrow: "down" } },
+  "chocolate-silk": { focus: "70% 55%", note: { left: "40.5%", top: "15%", rotate: -5, arrow: "down", width: "5.2em" } },
   "matcha-yuzu": { focus: "70% 55%", note: { left: "44%", top: "16%", rotate: -4, arrow: "down", width: "8.6em" } },
-  "to-go": { focus: "72% 40%", note: { left: "45%", top: "21%", rotate: -5, arrow: "down" } },
+  "to-go": { focus: "72% 40%", note: { left: "41%", top: "20%", rotate: -5, arrow: "down", width: "5.8em" } },
 };
 
 /** A hand-drawn arrow that draws itself in, pointing at the product. */
@@ -57,8 +59,8 @@ function Frame({ scene, first }: { scene: Scene; first: boolean }) {
     loading: "eager",
     sizes: "100vw",
   } as const;
-  const { props: mobile } = getImageProps({ ...common, src: `/images/hero-${scene.id}-square.jpg`, width: 941, height: 941 });
-  const { props: desktop } = getImageProps({ ...common, src: `/images/hero-${scene.id}.jpg`, width: 1672, height: 941 });
+  const { props: mobile } = getImageProps({ ...common, src: `/images/hero-${scene.id}-${FRAME_VERSION}-square.jpg`, width: 941, height: 941 });
+  const { props: desktop } = getImageProps({ ...common, src: `/images/hero-${scene.id}-${FRAME_VERSION}.jpg`, width: 1672, height: 941 });
   return (
     <picture>
       <source media="(min-width: 1024px)" srcSet={desktop.srcSet} sizes="100vw" />
@@ -83,17 +85,18 @@ function FrameNote({ scene }: { scene: Scene }) {
   return (
     <p
       aria-hidden
-      className="film-frame-note pointer-events-none absolute hidden font-hand text-[36px] leading-none font-semibold whitespace-nowrap text-ink xl:block"
+      className="film-frame-note pointer-events-none absolute hidden font-hand text-[36px] leading-none font-semibold whitespace-nowrap text-ink min-[1440px]:block"
       style={
         {
           left: note.left,
           top: note.top,
           rotate: `${note.rotate}deg`,
-          ...(note.width && { maxWidth: note.width, whiteSpace: "normal" }),
+          // Wrapping notes break after their first comma or full stop.
+          ...(note.width && { whiteSpace: "pre-line" }),
         } as React.CSSProperties
       }
     >
-      {scene.note}
+      {note.width ? scene.note.replace(/([.,]) /, "$1\n") : scene.note}
       <NoteArrow dir={note.arrow} />
     </p>
   );
@@ -228,7 +231,7 @@ export function HeroAnimation({ film }: HeroAnimationProps) {
             key={`sticker-${active}`}
             aria-hidden
             data-anim
-            className="film-note rounded-pill bg-paper/90 px-3.5 pt-1 pb-1.5 font-hand text-[20px] leading-none font-semibold text-ink backdrop-blur-sm xl:hidden"
+            className="film-note rounded-pill bg-paper/90 px-3.5 pt-1 pb-1.5 font-hand text-[20px] leading-none font-semibold text-ink backdrop-blur-sm min-[1440px]:hidden"
             style={{ "--r": "-2deg", "--ms": `${scene.ms}ms` } as React.CSSProperties}
           >
             {scene.note}
