@@ -316,7 +316,7 @@ export const site = {
         id: "busy-day",
         name: "The Busy-Day Multitasker",
         line: "Between meetings. Between everything.",
-        image: "/images/occasion-busy-day-v5.jpg",
+        image: "/images/occasion-busy-day-v6.jpg",
         alt: "A Matcha Yuzu pouch on a wooden desk beside a laptop, a mug of coffee and a notebook with a to-do list.",
         moments: ["between-meetings", "commute", "hungry-not-meal"],
       },
