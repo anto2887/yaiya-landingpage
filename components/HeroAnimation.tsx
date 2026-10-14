@@ -35,7 +35,7 @@ const STAGE: Record<string, { focus: string; note: { left: string; top: string; 
   jelly: { focus: "80% 40%", note: { left: "50%", top: "15%", rotate: -4, arrow: "down" } },
   "strawberry-peach": { focus: "70% 50%", note: { left: "44%", top: "24%", rotate: -5, arrow: "down", width: "7.4em" } },
   "chocolate-silk": { focus: "70% 55%", note: { left: "40.5%", top: "15%", rotate: -5, arrow: "down", width: "5.2em" } },
-  "matcha-yuzu": { focus: "70% 55%", note: { left: "44%", top: "16%", rotate: -4, arrow: "down", width: "8.6em" } },
+  "matcha-yuzu": { focus: "70% 55%", note: { left: "41%", top: "15%", rotate: -4, arrow: "down", width: "11em" } },
   "to-go": { focus: "72% 40%", note: { left: "41%", top: "20%", rotate: -5, arrow: "down", width: "5.8em" } },
 };
 
@@ -85,14 +85,14 @@ function FrameNote({ scene }: { scene: Scene }) {
   return (
     <p
       aria-hidden
-      className="film-frame-note pointer-events-none absolute hidden font-hand text-[36px] leading-none font-semibold whitespace-nowrap text-ink min-[1440px]:block"
+      className="film-frame-note pointer-events-none absolute hidden font-hand text-[32px] leading-none font-semibold whitespace-nowrap text-ink min-[1440px]:block"
       style={
         {
           left: note.left,
           top: note.top,
           rotate: `${note.rotate}deg`,
           // Wrapping notes break after their first comma or full stop.
-          ...(note.width && { whiteSpace: "pre-line" }),
+          ...(note.width && { whiteSpace: "pre-line", maxWidth: note.width }),
         } as React.CSSProperties
       }
     >
