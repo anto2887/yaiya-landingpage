@@ -77,7 +77,7 @@ export const site = {
     title: "YAIYA | A new kind of protein jelly snack",
     description:
       "Soft, squeezable jelly with protein, collagen, fiber and vitamins. Join the waitlist for early access.",
-    ogImage: "/images/og-v3.jpg",
+    ogImage: "/images/og-v4.jpg",
   },
 
   features: {
@@ -142,8 +142,8 @@ export const site = {
     image: {
       // Desktop: the founder's scene as supplied; the copy sits on its open wall (D-25).
       // Mobile: photo first, a tight crop around the pouches (scripts/extend-hero.mjs, D-37).
-      desktop: "/images/hero-scene-v5.jpg",
-      mobile: "/images/hero-phone-v5.jpg",
+      desktop: "/images/hero-scene-v6.jpg",
+      mobile: "/images/hero-phone-v6.jpg",
       alt: "Strawberry Peach, Chocolate Silk and Matcha Yuzu pouches on a marble desk with fresh fruit and chocolate, and the jelly mascot Wobbie peeking out from behind the pouches.",
     },
   },
