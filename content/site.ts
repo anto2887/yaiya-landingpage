@@ -380,7 +380,7 @@ export const site = {
       note: "a snack that feels like a snack",
       // Founder photo, 13 Oct: lunch is done, the pouch is in hand.
       image: {
-        src: "/images/story-between-meals-v3.jpg",
+        src: "/images/story-between-meals-v4.jpg",
         alt: "A hand holding a Strawberry Peach pouch at a sunny table, beside a nearly finished bowl, a fork and a glass of water.",
       },
     },
