@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="40 25 1852 1852">
+  <!-- Wobbie, flat: the tab icon (founder, 13 Oct). -->
+  <path fill="#fda35d" d="M272 965C272 520 560 272 965 272S1660 520 1660 965V1500Q1660 1630 1450 1630H480Q272 1630 272 1500Z"/>
+  <path fill="none" stroke="#fee0af" stroke-width="122" stroke-linecap="round" d="M513 815C545 610 640 535 784 483"/>
+  <ellipse cx="754" cy="1058" rx="82" ry="112" fill="#50233a"/>
+  <ellipse cx="1268" cy="1058" rx="82" ry="112" fill="#50233a"/>
+  <rect x="936" y="1226" width="150" height="82" fill="#50233a"/>
+  <ellipse cx="300" cy="1478" rx="242" ry="150" fill="#feb46f"/>
+  <ellipse cx="1632" cy="1478" rx="242" ry="150" fill="#feb46f"/>
+</svg>

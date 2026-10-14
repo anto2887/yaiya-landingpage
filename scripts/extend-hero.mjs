@@ -6,7 +6,7 @@
 // color resolution) so the image server's own compression is the only visible step.
 //
 // In:  assets-src/hero/hero-0N-<id>.png (1672 x 941, founder, 13 Oct; desk, flavors and tote
-//      updated to the latest pack 13 Oct; 08 is the 12 Oct lineup)
+//      updated to the latest pack 13 Oct; 08 is the 13 Oct lineup)
 // Out: public/images/hero-<id>-<VERSION>.jpg (1672 x 941) and hero-<id>-<VERSION>-square.jpg
 // Bump VERSION (and FRAME_VERSION in HeroAnimation.tsx) whenever photos change, so caches refresh.
 // Usage: node scripts/extend-hero.mjs   (also run by npm run images)
@@ -15,7 +15,7 @@ import sharp from "sharp";
 
 const DIR = "public/images";
 const SRC = "assets-src/hero";
-const VERSION = "v2";
+const VERSION = "v3";
 const JPEG = { quality: 95, chromaSubsampling: "4:4:4", mozjpeg: true };
 
 // `square` is the phone crop: its left edge and size, in source pixels.
