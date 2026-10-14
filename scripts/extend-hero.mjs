@@ -15,7 +15,7 @@ import sharp from "sharp";
 
 const DIR = "public/images";
 const SRC = "assets-src/hero";
-const VERSION = "v3";
+const VERSION = "v4";
 const JPEG = { quality: 95, chromaSubsampling: "4:4:4", mozjpeg: true };
 
 // `square` is the phone crop: its left edge and size, in source pixels.

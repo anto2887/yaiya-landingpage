@@ -77,7 +77,7 @@ export const site = {
     title: "YAIYA | A new kind of protein jelly snack",
     description:
       "Soft, squeezable jelly with protein, collagen, fiber and vitamins. Join the waitlist for early access.",
-    ogImage: "/images/og-v4.jpg",
+    ogImage: "/images/og-v5.jpg",
   },
 
   features: {

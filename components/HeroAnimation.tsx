@@ -18,7 +18,7 @@ const FADE_MS = 1600;
 /** Never wait longer than this for the next frame's image before cutting to it anyway. */
 const DECODE_CAP_MS = 2500;
 /** Matches VERSION in scripts/extend-hero.mjs; bumped when photos change so caches refresh. */
-const FRAME_VERSION = "v3";
+const FRAME_VERSION = "v4";
 /** Above the default 75: these photos are the brand's first impression. */
 const QUALITY = 88;
 
