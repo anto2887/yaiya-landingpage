@@ -308,7 +308,7 @@ export const site = {
         id: "protein-regular",
         name: "The Protein Regular",
         line: "Your protein routine. A fresh plot twist.",
-        image: "/images/occasion-protein-regular-v4.jpg",
+        image: "/images/occasion-protein-regular-v5.jpg",
         alt: "A Strawberry Peach pouch on a gym bench, leaning on a black gym bag beside a towel, with weight racks behind.",
         moments: ["before-workout", "after-workout", "afternoon-snack"],
       },
