@@ -15,9 +15,9 @@ export function Nav() {
     >
       <NavScrollState />
       {/* Same edges as the hero copy (Hero.tsx), so the logo lines up with it on every width.
-          Desktop: at the top of the page the items sit 0.5in (48px) lower over the hero; once
+          Desktop: at the top of the page the items sit 38px lower over the hero; once
           scrolled they slide back into the frosted bar. */}
-      <div className="flex h-nav w-full items-center justify-between gap-4 px-4 transition-transform duration-300 ease-out motion-reduce:transition-none sm:px-6 lg:h-nav-lg lg:translate-y-12 lg:px-[clamp(24px,6vw,96px)] lg:group-data-scrolled/header:translate-y-0">
+      <div className="flex h-nav w-full items-center justify-between gap-4 px-4 transition-transform duration-300 ease-out motion-reduce:transition-none sm:px-6 lg:h-nav-lg lg:translate-y-[38px] lg:px-[clamp(24px,6vw,96px)] lg:group-data-scrolled/header:translate-y-0">
         <Link href="#top" className="-m-2 inline-flex min-h-11 items-center rounded-small p-2">
           <Wordmark alt={nav.wordmarkAlt} className="h-[37px] lg:h-[46px]" />
         </Link>
