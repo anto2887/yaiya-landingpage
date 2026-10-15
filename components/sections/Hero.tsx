@@ -55,7 +55,7 @@ export function Hero() {
             {hero.markers.map((m) => {
               const Icon = MARKER_ICONS[m.id];
               return (
-                <li key={m.id} className="flex items-center gap-1.5 type-small font-semibold text-ink">
+                <li key={m.id} className="flex items-center gap-1.5 text-[16px] leading-[1.45] font-semibold text-ink">
                   <span aria-hidden className="flex size-7 items-center justify-center rounded-full bg-paper/80 text-ink">
                     <Icon strokeWidth={1.75} className="size-4" />
                   </span>
