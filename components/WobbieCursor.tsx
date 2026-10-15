@@ -10,10 +10,10 @@ type WobbieCursorProps = {
 /** Over these the normal cursor comes back, so links, buttons and fields keep their usual cues. */
 const INTERACTIVE = "a, button, input, textarea, select, label, summary, [role='button'], [role='radio'], [role='tab'], [role='checkbox']";
 /**
- * Interactive elements that keep Wobbie anyway: flavor cards, the Wobbies on the page, call-to-action
- * buttons and the email box. A click there squishes him, no bubble.
+ * Interactive elements that keep Wobbie anyway: every link, flavor cards, the Wobbies on the page,
+ * call-to-action buttons and the email box. A click there squishes him, no bubble.
  */
-const KEEPS_WOBBIE = "[data-wobbie-cursor]";
+const KEEPS_WOBBIE = "[data-wobbie-cursor], a";
 
 function zone(target: EventTarget | null): "page" | "keeps" | "native" {
   if (!(target instanceof Element)) return "page";

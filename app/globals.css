@@ -589,7 +589,9 @@ html.wobbie-cursor body
   ) {
   cursor: none;
 }
-/* Interactive elements that opt in to keep Wobbie (the flavor cards). */
+/* Links and the elements that opt in keep Wobbie (WobbieCursor.tsx KEEPS_WOBBIE). */
+html.wobbie-cursor a,
+html.wobbie-cursor a *,
 html.wobbie-cursor [data-wobbie-cursor],
 html.wobbie-cursor [data-wobbie-cursor] * {
   cursor: none;
