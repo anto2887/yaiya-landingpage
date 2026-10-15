@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { Caveat, Fraunces, Instrument_Sans } from "next/font/google";
 import { RevealObserver } from "@/components/RevealObserver";
 import { Footer } from "@/components/sections/Footer";
-import { Nav } from "@/components/sections/Nav";
 import { site } from "@/content/site";
 import "./globals.css";
 
@@ -59,7 +58,6 @@ export default function RootLayout({
         >
           {site.a11y.skipLink}
         </a>
-        <Nav />
         {children}
         <Footer />
         <RevealObserver />

@@ -786,6 +786,7 @@ export const site = {
   },
 
   thankYou: {
+    metaTitle: "You're on the list | YAIYA",
     heading: "You're on the list.",
     body: "We'll email you when samples are ready. Got 20 seconds? These are optional and help us plan the first batch.",
     noSession: "Thanks for stopping by.",
@@ -821,7 +822,9 @@ export const site = {
 
   /** Draft. See guide/docs/pages/privacy.md. Bracketed parts are TODO(founder). */
   privacy: {
+    metaTitle: "Privacy | YAIYA",
     title: "Privacy",
+    updatedLabel: "Last updated:",
     updated: "[DATE]",
     sections: [
       {

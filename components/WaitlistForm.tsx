@@ -1,9 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useId, useRef, useState } from "react";
 import { ButtonIcon, buttonClasses } from "@/components/ui/Button";
 import type { site } from "@/content/site";
+import { readAttribution } from "@/lib/attribution";
+import { isValidEmail } from "@/lib/email";
+import { FLAVOR_STORAGE_KEY } from "@/lib/flavor";
 import { WAITLIST_INPUT_ID } from "@/lib/scroll";
 
 type WaitlistFormProps = {
@@ -13,14 +17,12 @@ type WaitlistFormProps = {
 
 type ErrorKey = keyof (typeof site.waitlist)["errors"];
 
-// Deliberately loose; the server validates again (M4).
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-
 export function WaitlistForm({ content }: WaitlistFormProps) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading">("idle");
   const [error, setError] = useState<ErrorKey | null>(null);
   const started = useRef(false);
+  const router = useRouter();
   const errorId = useId();
   const loading = status === "loading";
 
@@ -34,16 +36,47 @@ export function WaitlistForm({ content }: WaitlistFormProps) {
     e.preventDefault();
     if (loading) return;
     const value = email.trim();
-    if (!EMAIL_RE.test(value) || value.length > 254) {
+    // Same rules as the server; an invalid email never sends a request.
+    if (!isValidEmail(value)) {
       setError("invalid_email");
       return;
     }
     setError(null);
     setStatus("loading");
-    // TODO(M4): POST /api/signup with email, attribution, stored flavor and the honeypot,
-    // then go to /thank-you. Until then, log and stop.
-    console.log("[waitlist] would submit", { email: value });
-    await new Promise((r) => setTimeout(r, 600));
+
+    let firstFlavor: string | null = null;
+    try {
+      firstFlavor = sessionStorage.getItem(FLAVOR_STORAGE_KEY);
+    } catch {
+      // Storage blocked: send without it.
+    }
+    const honeypot = new FormData(e.currentTarget).get("company");
+
+    try {
+      const res = await fetch("/api/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: value,
+          company: typeof honeypot === "string" ? honeypot : "",
+          // One id per attempt; M5 uses it to match the pixel and server Lead events.
+          event_id: crypto.randomUUID(),
+          first_flavor_click: firstFlavor,
+          attribution: readAttribution(),
+        }),
+      });
+      const data = (await res.json().catch(() => null)) as { ok?: boolean; error?: string } | null;
+      if (res.ok && data?.ok) {
+        // A repeat email is treated as success; the visitor is never told it was already on the list.
+        // TODO(M5): track("email_signup_completed", { duplicate }) and the pixel Lead (new signups only).
+        router.push("/thank-you");
+        return;
+      }
+      const reason = data?.error;
+      setError(reason === "invalid_email" || reason === "rate_limited" ? reason : "server");
+    } catch {
+      setError("network");
+    }
     setStatus("idle");
   }
 
