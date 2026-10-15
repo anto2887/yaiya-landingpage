@@ -73,7 +73,6 @@ export function Hero() {
             {/* Mobile: a text link. Desktop: an outline button. */}
             <Link
               href={hero.secondaryCta.href}
-              data-wobbie-cursor
               className="inline-flex min-h-11 items-center justify-center self-center rounded-pill px-3 type-button text-ink underline underline-offset-4 transition-colors duration-150 hover:text-berry lg:h-12 lg:self-auto lg:border-2 lg:border-outline lg:bg-paper/70 lg:px-[22px] lg:no-underline lg:backdrop-blur-sm lg:hover:border-berry"
             >
               {hero.secondaryCta.label}

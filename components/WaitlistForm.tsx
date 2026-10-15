@@ -90,7 +90,6 @@ export function WaitlistForm({ content }: WaitlistFormProps) {
           id={WAITLIST_INPUT_ID}
           name="email"
           type="email"
-          data-wobbie-cursor
           autoComplete="email"
           inputMode="email"
           required
@@ -106,7 +105,6 @@ export function WaitlistForm({ content }: WaitlistFormProps) {
         <input type="text" name="company" tabIndex={-1} autoComplete="off" aria-hidden className="absolute -left-[9999px] h-px w-px opacity-0" />
         <button
           type="submit"
-          data-wobbie-cursor
           disabled={loading}
           aria-busy={loading || undefined}
           className={buttonClasses({ className: "h-[52px] w-full lg:h-12 lg:w-auto" })}

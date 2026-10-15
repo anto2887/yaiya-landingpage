@@ -7,23 +7,17 @@ type WobbieCursorProps = {
   lines: readonly string[];
 };
 
-/** Over these the normal cursor comes back, so links, buttons and fields keep their usual cues. */
+/** A click on any of these squishes Wobbie without a bubble, so it never competes with what was clicked. */
 const INTERACTIVE = "a, button, input, textarea, select, label, summary, [role='button'], [role='radio'], [role='tab'], [role='checkbox']";
-/**
- * Interactive elements that keep Wobbie anyway: every link, flavor cards, the Wobbies on the page,
- * call-to-action buttons and the email box. A click there squishes him, no bubble.
- */
-const KEEPS_WOBBIE = "[data-wobbie-cursor], a";
 
-function zone(target: EventTarget | null): "page" | "keeps" | "native" {
-  if (!(target instanceof Element)) return "page";
-  if (target.closest(KEEPS_WOBBIE)) return "keeps";
-  return target.closest(INTERACTIVE) ? "native" : "page";
+function isInteractive(target: EventTarget | null): boolean {
+  return target instanceof Element && !!target.closest(INTERACTIVE);
 }
 
 /**
- * Wobbie follows the mouse in place of the arrow (trial). A click on empty page squishes him and
- * pops a short line. Mouse and trackpad only: off on touch screens and with reduced motion.
+ * Wobbie follows the mouse in place of the arrow everywhere on the landing page (D-58). Every click
+ * squishes him; a click on empty page also pops a short line. Mouse and trackpad only: off on touch
+ * screens and with reduced motion.
  * Decorative and aria-hidden; it never intercepts clicks.
  */
 export function WobbieCursor({ lines }: WobbieCursorProps) {
@@ -59,7 +53,7 @@ export function WobbieCursor({ lines }: WobbieCursorProps) {
       if (e.pointerType !== "mouse") return;
       x = e.clientX;
       y = e.clientY;
-      setVisible(zone(e.target) !== "native");
+      setVisible(true);
       if (!frame) {
         frame = requestAnimationFrame(() => {
           frame = 0;
@@ -70,10 +64,8 @@ export function WobbieCursor({ lines }: WobbieCursorProps) {
     const leave = () => setVisible(false);
     const down = (e: PointerEvent) => {
       if (e.pointerType !== "mouse" || e.button !== 0) return;
-      const where = zone(e.target);
-      if (where === "native") return;
       setSquish((n) => n + 1);
-      if (where === "keeps") return;
+      if (isInteractive(e.target)) return;
       const text = lines[lineIndex.current % lines.length];
       lineIndex.current += 1;
       setBubble((b) => ({ n: (b?.n ?? 0) + 1, text }));

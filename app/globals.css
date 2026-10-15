@@ -567,33 +567,9 @@
   }
 }
 
-/*
- * Wobbie cursor (components/WobbieCursor.tsx, trial). The arrow hides everywhere except over
- * links, buttons, fields and their contents, which keep their normal cursors.
- */
+/* Wobbie cursor (components/WobbieCursor.tsx): the arrow is hidden everywhere on the landing page. */
 html.wobbie-cursor body,
-html.wobbie-cursor body
-  :not(
-    a,
-    button,
-    input,
-    textarea,
-    select,
-    label,
-    summary,
-    [role="button"],
-    [role="radio"],
-    [role="tab"],
-    [role="checkbox"],
-    :is(a, button, label, summary, [role="button"], [role="radio"], [role="tab"], [role="checkbox"]) *
-  ) {
-  cursor: none;
-}
-/* Links and the elements that opt in keep Wobbie (WobbieCursor.tsx KEEPS_WOBBIE). */
-html.wobbie-cursor a,
-html.wobbie-cursor a *,
-html.wobbie-cursor [data-wobbie-cursor],
-html.wobbie-cursor [data-wobbie-cursor] * {
+html.wobbie-cursor body * {
   cursor: none;
 }
 @keyframes wobbie-squish {

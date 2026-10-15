@@ -297,7 +297,6 @@ export function Wobbie({
             <button
               type="button"
               tabIndex={-1}
-              data-wobbie-cursor
               onClick={onTap}
               onMouseEnter={shyOnHover ? () => setOverride((o) => o ?? "shy") : undefined}
               onMouseLeave={shyOnHover ? () => setOverride((o) => (o === "shy" ? null : o)) : undefined}
