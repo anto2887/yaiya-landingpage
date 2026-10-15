@@ -97,6 +97,8 @@ export const site = {
    * TODO(founder): review Wobbie's lines.
    */
   wobbie: {
+    // The Wobbie cursor (desktop, trial): one line per click on empty page, in turn. Personality only.
+    cursor: ["Owie!", "Hey!", "Gentle!", "Boop."],
     // Mixed into every spot.
     lines: [
       "Protein is in its soft jelly era.",

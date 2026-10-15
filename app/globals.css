@@ -567,6 +567,68 @@
   }
 }
 
+/*
+ * Wobbie cursor (components/WobbieCursor.tsx, trial). The arrow hides everywhere except over
+ * links, buttons, fields and their contents, which keep their normal cursors.
+ */
+html.wobbie-cursor body,
+html.wobbie-cursor body
+  :not(
+    a,
+    button,
+    input,
+    textarea,
+    select,
+    label,
+    summary,
+    [role="button"],
+    [role="radio"],
+    [role="tab"],
+    [role="checkbox"],
+    :is(a, button, label, summary, [role="button"], [role="radio"], [role="tab"], [role="checkbox"]) *
+  ) {
+  cursor: none;
+}
+@keyframes wobbie-squish {
+  0% {
+    transform: scale(1, 1);
+  }
+  22% {
+    transform: scale(1.4, 0.6);
+  }
+  50% {
+    transform: scale(0.88, 1.14);
+  }
+  75% {
+    transform: scale(1.06, 0.95);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+@keyframes wobbie-owie {
+  0% {
+    opacity: 0;
+    translate: -50% 4px;
+    scale: 0.6;
+  }
+  15% {
+    opacity: 1;
+    translate: -50% 0;
+    scale: 1;
+  }
+  75% {
+    opacity: 1;
+    translate: -50% -2px;
+    scale: 1;
+  }
+  100% {
+    opacity: 0;
+    translate: -50% -8px;
+    scale: 1;
+  }
+}
+
 @layer base {
   /* Fraunces at its softest, with the wonky letterforms on. */
   :where(.font-heading, .type-h1, .type-h2, .type-h3) {
