@@ -61,6 +61,7 @@ export function Button({
 }: ButtonProps) {
   return (
     <button
+      data-wobbie-cursor
       type={type}
       className={buttonClasses({ variant, size, className })}
       disabled={disabled || loading}
@@ -80,7 +81,8 @@ type ButtonLinkProps = CommonProps &
 
 export function ButtonLink({ variant, size, arrow = true, className, children, href, ...rest }: ButtonLinkProps) {
   return (
-    <Link href={href} className={buttonClasses({ variant, size, className })} {...rest}>
+    // data-wobbie-cursor: the Wobbie cursor stays over call-to-action buttons (WobbieCursor.tsx).
+    <Link href={href} data-wobbie-cursor className={buttonClasses({ variant, size, className })} {...rest}>
       {children}
       {arrow && <ButtonIcon />}
     </Link>
