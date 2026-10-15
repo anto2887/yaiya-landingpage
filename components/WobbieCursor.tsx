@@ -92,7 +92,7 @@ export function WobbieCursor({ lines }: WobbieCursorProps) {
       <div className={`-translate-x-1/2 -translate-y-1/2 transition-opacity duration-150 ${visible ? "opacity-100" : "opacity-0"}`}>
         {/* eslint-disable-next-line @next/next/no-img-element -- a 1 KB SVG; next/image adds nothing here */}
         <img
-          key={squish}
+          key={`body-${squish}`}
           src="/images/wobbie/cursor.svg"
           alt=""
           width={36}
@@ -101,7 +101,7 @@ export function WobbieCursor({ lines }: WobbieCursorProps) {
         />
         {bubble && (
           <span
-            key={bubble.n}
+            key={`bubble-${bubble.n}`}
             className="absolute bottom-full left-1/2 mb-1 animate-[wobbie-owie_1100ms_ease-out_forwards] rounded-pill bg-paper px-2.5 py-1 font-hand text-[18px] leading-none font-semibold whitespace-nowrap text-ink shadow-[0_4px_12px_rgb(38_34_32/0.18)]"
           >
             {bubble.text}
