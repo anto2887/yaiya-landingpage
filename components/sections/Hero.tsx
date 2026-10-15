@@ -51,7 +51,7 @@ export function Hero() {
             </h1>
           </div>
 
-          <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-2 lg:mt-5">
+          <ul className="mt-5 flex flex-wrap gap-x-4 gap-y-2 lg:mt-6">
             {hero.markers.map((m) => {
               const Icon = MARKER_ICONS[m.id];
               return (
