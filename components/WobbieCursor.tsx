@@ -9,6 +9,14 @@ type WobbieCursorProps = {
 
 /** Over these the normal cursor comes back, so links, buttons and fields keep their usual cues. */
 const INTERACTIVE = "a, button, input, textarea, select, label, summary, [role='button'], [role='radio'], [role='tab'], [role='checkbox']";
+/** Interactive elements that keep Wobbie anyway (the flavor cards). A click there squishes him, no bubble. */
+const KEEPS_WOBBIE = "[data-wobbie-cursor]";
+
+function zone(target: EventTarget | null): "page" | "keeps" | "native" {
+  if (!(target instanceof Element)) return "page";
+  if (target.closest(KEEPS_WOBBIE)) return "keeps";
+  return target.closest(INTERACTIVE) ? "native" : "page";
+}
 
 /**
  * Wobbie follows the mouse in place of the arrow (trial). A click on empty page squishes him and
@@ -48,8 +56,7 @@ export function WobbieCursor({ lines }: WobbieCursorProps) {
       if (e.pointerType !== "mouse") return;
       x = e.clientX;
       y = e.clientY;
-      const overInteractive = e.target instanceof Element && !!e.target.closest(INTERACTIVE);
-      setVisible(!overInteractive);
+      setVisible(zone(e.target) !== "native");
       if (!frame) {
         frame = requestAnimationFrame(() => {
           frame = 0;
@@ -60,8 +67,10 @@ export function WobbieCursor({ lines }: WobbieCursorProps) {
     const leave = () => setVisible(false);
     const down = (e: PointerEvent) => {
       if (e.pointerType !== "mouse" || e.button !== 0) return;
-      if (e.target instanceof Element && e.target.closest(INTERACTIVE)) return;
+      const where = zone(e.target);
+      if (where === "native") return;
       setSquish((n) => n + 1);
+      if (where === "keeps") return;
       const text = lines[lineIndex.current % lines.length];
       lineIndex.current += 1;
       setBubble((b) => ({ n: (b?.n ?? 0) + 1, text }));

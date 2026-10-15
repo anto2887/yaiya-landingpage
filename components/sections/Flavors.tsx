@@ -160,6 +160,7 @@ export function Flavors({ content: flavors }: FlavorsProps) {
                 }}
                 type="button"
                 role="radio"
+                data-wobbie-cursor
                 aria-checked={isSelected}
                 tabIndex={i === focusIndex ? 0 : -1}
                 onClick={() => select(f.slug)}
