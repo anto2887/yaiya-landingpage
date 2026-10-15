@@ -152,6 +152,13 @@ export function HeroAnimation({ film }: HeroAnimationProps) {
   useEffect(() => {
     if (prev === null) return;
     cuts.current += 1;
+    // Every cut: a light glides across the headline in step with the wipe.
+    const lead = document.getElementById("hero-lead");
+    if (lead) {
+      lead.classList.remove("is-sweeping");
+      void lead.offsetWidth; // restart the animation
+      lead.classList.add("is-sweeping");
+    }
     if (cuts.current % 2 === 1) return;
     const script = document.getElementById("hero-script");
     if (!script) return;

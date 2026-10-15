@@ -33,15 +33,16 @@ export function Hero() {
           do not leave a band of empty photo before the copy. Phones use the usual gutters. */}
       <div className="relative w-full px-4 sm:px-6 lg:px-[clamp(24px,6vw,96px)]">
         <div className="pt-5 lg:max-w-[440px] lg:pt-[clamp(48px,7vw,112px)] xl:max-w-[500px]">
-          {/* Desktop test (hero-fx): the eyebrow and headline blend with the film using
-              "difference". White text shows near-black over the bright walls and flips light
-              over shadows as the frames sweep past. */}
-          <div className="lg:mix-blend-difference">
-            <Eyebrow className="lg:text-white">{hero.eyebrow}</Eyebrow>
-            <h1 id="hero-heading" className="mt-3 type-h1 text-ink lg:text-white">
-              {hero.headline.lead}{" "}
+          <div>
+            <Eyebrow>{hero.eyebrow}</Eyebrow>
+            <h1 id="hero-heading" className="mt-3 type-h1 text-ink">
+              {/* Stays solid charcoal; HeroAnimation glides a burgundy light across it on every cut,
+                  in step with the photo wipe (.is-sweeping). Replaces the difference blend, which grayed the text. */}
+              <span id="hero-lead" className="hero-lead">
+                {hero.headline.lead}
+              </span>{" "}
               {/* HeroAnimation rewrites this on every other cut (.is-writing). */}
-              <span id="hero-script" className="hero-script relative inline-block font-hand text-[1.3em] leading-[0.8] font-semibold whitespace-nowrap text-indulge lg:text-indulge-inverse">
+              <span id="hero-script" className="hero-script relative inline-block font-hand text-[1.3em] leading-[0.8] font-semibold whitespace-nowrap text-indulge">
                 {hero.headline.script}
                 {/* A hand-drawn swoosh under the script. */}
                 <svg aria-hidden viewBox="0 0 200 16" preserveAspectRatio="none" className="film-swoosh absolute -bottom-[0.12em] left-[2%] h-[0.22em] w-[92%] overflow-visible">
