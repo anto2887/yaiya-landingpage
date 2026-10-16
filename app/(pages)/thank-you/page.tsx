@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { cookies } from "next/headers";
 import { ThankYouForm } from "@/components/ThankYouForm";
+import { WobbieCursor } from "@/components/WobbieCursor";
 import { site } from "@/content/site";
 import { SESSION_COOKIE, isUuid } from "@/lib/session";
 
@@ -38,6 +39,8 @@ export default async function ThankYouPage() {
         </div>
         <ThankYouForm content={thankYou} hasSession={hasSession} />
       </div>
+      {/* Wobbie stays as the cursor after signing up (desktop only, like the landing page). */}
+      <WobbieCursor lines={site.wobbie.cursor} />
     </main>
   );
 }
