@@ -27,7 +27,9 @@ const nextConfig = {
   },
 
   images: {
-    formats: ["image/avif", "image/webp"],
+    // WebP only. AVIF encoding intermittently hung on Railway (requests stalled 40s+ and the
+    // flavor pouches never loaded); WebP returns in about 0.2s at every size.
+    formats: ["image/webp"],
   },
 };
 
