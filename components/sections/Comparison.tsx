@@ -43,7 +43,7 @@ export function Comparison() {
   const last = comparison.rows.length - 1;
 
   return (
-    <section id="compare" aria-labelledby="compare-heading" className="relative bg-cream py-section">
+    <section id="compare" data-section="compare" aria-labelledby="compare-heading" className="relative bg-cream py-section">
       <WaveTop fill="fill-mint-soft" />
       <Container>
         <SectionHeading id="compare-heading" title={comparison.heading} sub={comparison.sub} />

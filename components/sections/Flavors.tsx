@@ -3,6 +3,7 @@
 import { ArrowRight, Check } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { track } from "@/lib/analytics";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import type { FlavorSlug, site } from "@/content/site";
@@ -122,7 +123,7 @@ export function Flavors({ content: flavors }: FlavorsProps) {
     } catch {
       // Storage blocked (private mode, in-app browser). The pick still shows.
     }
-    // TODO(M5): track("flavor_selected", { flavor: slug })
+    track("flavor_selected", { flavor: slug });
   }
 
   // Radio group keyboard pattern: arrows move focus and select.
@@ -138,7 +139,7 @@ export function Flavors({ content: flavors }: FlavorsProps) {
   const focusIndex = Math.max(0, flavors.items.findIndex((f) => f.slug === selected));
 
   return (
-    <section id="flavors" aria-labelledby="flavors-heading" className="relative bg-lilac-soft py-section">
+    <section id="flavors" data-section="flavors" aria-labelledby="flavors-heading" className="relative bg-lilac-soft py-section">
       <WaveTop fill="fill-cream" />
       <Container>
         <SectionHeading

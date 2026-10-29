@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Caveat, Fraunces, Instrument_Sans } from "next/font/google";
+import { MetaPixel } from "@/components/analytics/MetaPixel";
+import { PostHogProvider } from "@/components/analytics/PostHogProvider";
 import { RevealObserver } from "@/components/RevealObserver";
 import { Footer } from "@/components/sections/Footer";
 import { site } from "@/content/site";
@@ -61,6 +63,12 @@ export default function RootLayout({
         {children}
         <Footer />
         <RevealObserver />
+        <PostHogProvider
+          apiKey={process.env.NEXT_PUBLIC_POSTHOG_KEY ?? ""}
+          apiHost={process.env.NEXT_PUBLIC_POSTHOG_HOST || "/ingest"}
+          landingVariant={process.env.LANDING_VARIANT?.trim() || "v1"}
+        />
+        <MetaPixel pixelId={process.env.NEXT_PUBLIC_META_PIXEL_ID?.trim() ?? ""} />
       </body>
     </html>
   );

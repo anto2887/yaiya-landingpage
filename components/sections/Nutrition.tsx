@@ -78,7 +78,7 @@ export function Nutrition() {
   const [protein, fiber, sugar, dv] = nutrition.stats;
 
   return (
-    <section id="nutrition" aria-labelledby="nutrition-heading" className="relative overflow-x-clip bg-ink py-section">
+    <section id="nutrition" data-section="nutrition" aria-labelledby="nutrition-heading" className="relative overflow-x-clip bg-ink py-section">
       <WaveTop fill="fill-lilac-soft" flip />
       <Container>
         <SectionHeading

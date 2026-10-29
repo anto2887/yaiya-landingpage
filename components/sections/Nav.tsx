@@ -28,6 +28,7 @@ export function Nav() {
               <li key={link.href}>
                 <Link
                   href={link.href}
+                  data-nav={link.href.replace(/^#/, "")}
                   className="inline-flex min-h-11 items-center rounded-small px-1 text-[16px] font-semibold text-ink transition-colors duration-150 hover:text-accent"
                 >
                   {link.label}
@@ -37,7 +38,7 @@ export function Nav() {
           </ul>
         </nav>
 
-        <WaitlistButton href={nav.cta.href} size="compact" className="lg:h-12 lg:px-[22px] lg:text-[15px]">
+        <WaitlistButton href={nav.cta.href} data-cta="nav" size="compact" className="lg:h-12 lg:px-[22px] lg:text-[15px]">
           {nav.cta.label}
         </WaitlistButton>
       </div>

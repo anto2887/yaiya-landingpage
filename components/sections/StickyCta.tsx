@@ -58,10 +58,8 @@ export function StickyCta({ content }: StickyCtaProps) {
         <p className="text-[14px] font-semibold text-ink max-[359px]:hidden">{content.line}</p>
         <button
           type="button"
-          onClick={() => {
-            scrollToWaitlist();
-            // TODO(M5): track("cta_clicked", { location: "sticky" })
-          }}
+          data-cta="sticky"
+          onClick={() => scrollToWaitlist()}
           className={buttonClasses({ size: "compact", className: "max-[359px]:w-full" })}
         >
           {content.button}

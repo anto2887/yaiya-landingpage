@@ -26,7 +26,7 @@ export function Faq() {
   const columns = Array.from({ length: COLUMNS }, (_, c) => faq.items.map((item, i) => ({ item, i })).filter(({ i }) => i % COLUMNS === c));
 
   return (
-    <section id="faq" aria-labelledby="faq-heading" className="relative bg-lilac-soft py-section">
+    <section id="faq" data-section="faq" aria-labelledby="faq-heading" className="relative bg-lilac-soft py-section">
       <WaveTop fill="fill-cream" flip />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Container>
@@ -45,7 +45,7 @@ export function Faq() {
           {columns.map((col, c) => (
             <div key={c} className="contents lg:flex lg:flex-col lg:gap-4">
               {col.map(({ item, i }) => (
-                // TODO(M5): track("faq_opened", { question_id: item.id }) on open only.
+                // faq_opened is sent by LandingTracking from data-faq-id, on open only.
                 <details
                   key={item.id}
                   data-faq-id={item.id}

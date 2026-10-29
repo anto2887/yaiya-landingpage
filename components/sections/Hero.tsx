@@ -22,6 +22,7 @@ export function Hero() {
     // Phones: the film comes first as a square block under the nav, then the copy (D-37).
     <section
       id="top"
+      data-section="hero"
       aria-labelledby="hero-heading"
       className="relative isolate -mt-nav overflow-hidden bg-cream pb-8 lg:-mt-nav-lg lg:flex lg:aspect-[1672/941] lg:max-h-[850px] lg:min-h-[700px] lg:w-full lg:items-start lg:pt-nav-lg lg:pb-0"
     >
@@ -67,12 +68,13 @@ export function Hero() {
           </ul>
 
           <div className="mt-5 flex flex-col items-stretch gap-1 lg:mt-7 lg:flex-row lg:items-center lg:gap-3">
-            <WaitlistButton id={HERO_CTA_ID} href={hero.primaryCta.href} className="w-full lg:w-auto">
+            <WaitlistButton id={HERO_CTA_ID} href={hero.primaryCta.href} data-cta="hero" className="w-full lg:w-auto">
               {hero.primaryCta.label}
             </WaitlistButton>
             {/* Mobile: a text link. Desktop: an outline button. */}
             <Link
               href={hero.secondaryCta.href}
+              data-cta="hero_secondary"
               className="inline-flex min-h-11 items-center justify-center self-center rounded-pill px-3 type-button text-ink underline underline-offset-4 transition-colors duration-150 hover:text-berry lg:h-12 lg:self-auto lg:border-2 lg:border-outline lg:bg-paper/70 lg:px-[22px] lg:no-underline lg:backdrop-blur-sm lg:hover:border-berry"
             >
               {hero.secondaryCta.label}

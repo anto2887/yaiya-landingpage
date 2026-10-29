@@ -22,6 +22,7 @@ export function Waitlist() {
   return (
     <section
       id="waitlist"
+      data-section="waitlist"
       tabIndex={-1}
       aria-labelledby="waitlist-heading"
       className="relative isolate overflow-hidden bg-blush py-section outline-none"

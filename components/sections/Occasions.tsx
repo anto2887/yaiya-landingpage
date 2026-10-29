@@ -13,7 +13,7 @@ const momentLabel = (id: string) => OCCASION_OPTIONS.find((o) => o.id === id)?.l
 
 export function Occasions() {
   return (
-    <section id="occasions" aria-labelledby="occasions-heading" className="relative bg-mango-soft py-section">
+    <section id="occasions" data-section="occasions" aria-labelledby="occasions-heading" className="relative bg-mango-soft py-section">
       <WaveTop fill="fill-ink" />
       <Container>
         <SectionHeading id="occasions-heading" title={occasions.heading} sub={occasions.body} />

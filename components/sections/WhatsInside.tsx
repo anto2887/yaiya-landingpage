@@ -51,7 +51,7 @@ export function WhatsInside() {
   const right = inside.items.slice(3);
 
   return (
-    <section id="inside" aria-labelledby="inside-heading" className="relative overflow-x-clip bg-mint-soft py-section">
+    <section id="inside" data-section="inside" aria-labelledby="inside-heading" className="relative overflow-x-clip bg-mint-soft py-section">
       <WaveTop fill="fill-highlight" flip />
       <Container>
         <SectionHeading id="inside-heading" title={inside.heading} sub={inside.sub} />

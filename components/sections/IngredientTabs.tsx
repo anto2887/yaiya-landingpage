@@ -2,6 +2,7 @@
 
 import { Candy, Droplet, Dumbbell, Leaf, Sparkles, Sun, type LucideProps } from "lucide-react";
 import { useId, useRef, useState } from "react";
+import { track } from "@/lib/analytics";
 import { CountUp } from "@/components/ui/CountUp";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { JellyIcon } from "@/components/ui/icons";
@@ -36,7 +37,7 @@ export function IngredientTabs({ content }: IngredientTabsProps) {
 
   function select(i: number) {
     setActive(i);
-    // TODO(M5): track("ingredient_tab_selected", { tab: content.tabs[i].id })
+    track("ingredient_tab_selected", { tab: content.tabs[i].id });
   }
 
   // Horizontal on phones, vertical on desktop: accept both arrow axes.

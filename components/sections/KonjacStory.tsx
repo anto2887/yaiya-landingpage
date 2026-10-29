@@ -18,7 +18,7 @@ const HERITAGE: Record<string, { Icon: typeof Sprout; tint: string }> = {
 
 export function KonjacStory() {
   return (
-    <section id="story" aria-labelledby="story-heading" className="relative bg-highlight py-section">
+    <section id="story" data-section="story" aria-labelledby="story-heading" className="relative bg-highlight py-section">
       <WaveTop fill="fill-cream" />
       <Container>
         {/* One mint panel, same container width as every other section. */}

@@ -14,6 +14,7 @@ export type SectionId =
   | "flavors"
   | "nutrition"
   | "occasions"
+  | "giving"
   | "story"
   | "inside"
   | "compare"

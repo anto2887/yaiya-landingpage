@@ -5,7 +5,9 @@ import { useRouter } from "next/navigation";
 import { useId, useRef, useState } from "react";
 import { ButtonIcon, buttonClasses } from "@/components/ui/Button";
 import type { site } from "@/content/site";
-import { readAttribution } from "@/lib/attribution";
+import { track } from "@/lib/analytics";
+import { getAttribution } from "@/lib/attribution";
+import { trackLead } from "@/lib/meta-pixel";
 import { isValidEmail } from "@/lib/email";
 import { FLAVOR_STORAGE_KEY } from "@/lib/flavor";
 import { WAITLIST_INPUT_ID } from "@/lib/scroll";
@@ -29,7 +31,7 @@ export function WaitlistForm({ content }: WaitlistFormProps) {
   function onFocus() {
     if (started.current) return;
     started.current = true;
-    // TODO(M5): track("email_signup_started")
+    track("email_signup_started");
   }
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -43,6 +45,9 @@ export function WaitlistForm({ content }: WaitlistFormProps) {
     }
     setError(null);
     setStatus("loading");
+    track("email_signup_submitted");
+    // One id per attempt, shared by the browser and server Lead events so Meta de-duplicates them.
+    const eventId = crypto.randomUUID();
 
     let firstFlavor: string | null = null;
     try {
@@ -59,22 +64,26 @@ export function WaitlistForm({ content }: WaitlistFormProps) {
         body: JSON.stringify({
           email: value,
           company: typeof honeypot === "string" ? honeypot : "",
-          // One id per attempt; M5 uses it to match the pixel and server Lead events.
-          event_id: crypto.randomUUID(),
+          event_id: eventId,
           first_flavor_click: firstFlavor,
-          attribution: readAttribution(),
+          attribution: getAttribution(),
         }),
       });
-      const data = (await res.json().catch(() => null)) as { ok?: boolean; error?: string } | null;
+      const data = (await res.json().catch(() => null)) as { ok?: boolean; duplicate?: boolean; error?: string } | null;
       if (res.ok && data?.ok) {
         // A repeat email is treated as success; the visitor is never told it was already on the list.
-        // TODO(M5): track("email_signup_completed", { duplicate }) and the pixel Lead (new signups only).
+        const duplicate = data.duplicate === true;
+        track("email_signup_completed", { duplicate });
+        // Meta counts new signups only, never a repeat.
+        if (!duplicate) trackLead(eventId);
         router.push("/thank-you");
         return;
       }
-      const reason = data?.error;
-      setError(reason === "invalid_email" || reason === "rate_limited" ? reason : "server");
+      const reason = data?.error === "invalid_email" || data?.error === "rate_limited" ? data.error : "server";
+      track("email_signup_failed", { reason });
+      setError(reason);
     } catch {
+      track("email_signup_failed", { reason: "network" });
       setError("network");
     }
     setStatus("idle");

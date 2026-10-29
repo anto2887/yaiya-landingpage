@@ -2,9 +2,11 @@
 
 import { Check } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { buttonClasses, ButtonIcon } from "@/components/ui/Button";
 import type { site } from "@/content/site";
+import { track, trackOnce } from "@/lib/analytics";
+import type { ResearchQuestion } from "@/lib/events";
 import { FLAVOR_STORAGE_KEY } from "@/lib/flavor";
 
 type ThankYouFormProps = {
@@ -46,8 +48,17 @@ export function ThankYouForm({ content, hasSession }: ThankYouFormProps) {
     } catch {
       // Storage blocked: start empty.
     }
-    // TODO(M5): track("thank_you_viewed", { has_session: hasSession })
   }, [q.flavor.options]);
+
+  useEffect(() => {
+    trackOnce("thank_you_viewed", "thank_you_viewed", { has_session: hasSession });
+  }, [hasSession]);
+
+  // Ids only; the free-text question sends no value, and only once.
+  const snackAnswered = useRef(false);
+  function answered(question: ResearchQuestion, value?: string) {
+    track("research_answered", value === undefined ? { question } : { question, value });
+  }
 
   // No session (page opened directly): just the heading and a way back.
   if (!hasSession) {
@@ -70,13 +81,13 @@ export function ThankYouForm({ content, hasSession }: ThankYouFormProps) {
   }
 
   function toggleOccasion(id: string) {
+    if (!answers.occasion_preferences.includes(id)) answered("occasion_preferences", id);
     setAnswers((a) => ({
       ...a,
       occasion_preferences: a.occasion_preferences.includes(id)
         ? a.occasion_preferences.filter((o) => o !== id)
         : [...a.occasion_preferences, id],
     }));
-    // TODO(M5): track("research_answered", { question: "occasion_preferences", option: id })
   }
 
   async function onSubmit(e: React.FormEvent) {
@@ -98,7 +109,7 @@ export function ThankYouForm({ content, hasSession }: ThankYouFormProps) {
         body: JSON.stringify(body),
       });
       if (!res.ok) throw new Error(String(res.status));
-      // TODO(M5): track("research_submitted")
+      track("research_submitted", { answered_count: Object.keys(body).length });
       setStatus("done");
     } catch {
       setSaveError(true);
@@ -107,7 +118,7 @@ export function ThankYouForm({ content, hasSession }: ThankYouFormProps) {
   }
 
   function skip() {
-    // TODO(M5): track("research_skipped")
+    track("research_skipped");
     setStatus("done");
   }
 
@@ -129,7 +140,10 @@ export function ThankYouForm({ content, hasSession }: ThankYouFormProps) {
                   name={q.flavor.id}
                   value={o.id}
                   checked={answers.flavor_preference === o.id}
-                  onChange={() => setAnswers((a) => ({ ...a, flavor_preference: o.id }))}
+                  onChange={() => {
+                    setAnswers((a) => ({ ...a, flavor_preference: o.id }));
+                    answered("flavor_preference", o.id);
+                  }}
                   className="sr-only"
                 />
                 {o.label}
@@ -176,7 +190,10 @@ export function ThankYouForm({ content, hasSession }: ThankYouFormProps) {
                   name={q.pack.id}
                   value={o.id}
                   checked={answers.pack_preference === o.id}
-                  onChange={() => setAnswers((a) => ({ ...a, pack_preference: o.id }))}
+                  onChange={() => {
+                    setAnswers((a) => ({ ...a, pack_preference: o.id }));
+                    answered("pack_preference", o.id);
+                  }}
                   className="peer sr-only"
                 />
                 <span
@@ -207,6 +224,11 @@ export function ThankYouForm({ content, hasSession }: ThankYouFormProps) {
             placeholder={q.snack.placeholder}
             value={answers.snack_instead}
             onChange={(e) => setAnswers((a) => ({ ...a, snack_instead: e.target.value }))}
+            onBlur={(e) => {
+              if (snackAnswered.current || !e.target.value.trim()) return;
+              snackAnswered.current = true;
+              answered("snack_instead");
+            }}
             className="mt-3 h-12 w-full rounded-pill border-2 border-line bg-white px-5 text-[16px] text-ink placeholder:text-muted focus-visible:border-berry"
           />
         </div>

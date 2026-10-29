@@ -15,7 +15,7 @@ const POINTS: Record<string, { Icon: typeof Eye; tint: string }> = {
 
 export function Giving() {
   return (
-    <section id="giving" aria-labelledby="giving-heading" className="relative bg-cream py-section">
+    <section id="giving" data-section="giving" aria-labelledby="giving-heading" className="relative bg-cream py-section">
       <WaveTop fill="fill-mango-soft" flip />
       <Container className="relative">
         {/* Wobbie's first appearance: peeking over the panel. */}

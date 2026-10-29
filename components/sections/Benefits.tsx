@@ -7,7 +7,7 @@ const TINTS = ["bg-highlight text-accent", "bg-mango-soft text-ink", "bg-mint-so
 
 export function Benefits() {
   return (
-    <section aria-label={site.a11y.benefitsLabel} className="bg-cream pt-8 lg:pt-12">
+    <section data-section="benefits" aria-label={site.a11y.benefitsLabel} className="bg-cream pt-8 lg:pt-12">
       <Container>
         <ul className="grid grid-cols-2 gap-grid lg:grid-cols-4">
           {site.benefits.map((b, i) => {

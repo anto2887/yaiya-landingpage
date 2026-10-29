@@ -1,3 +1,4 @@
+import { LandingTracking } from "@/components/analytics/LandingTracking";
 import { Nav } from "@/components/sections/Nav";
 import { WobbieCursor } from "@/components/WobbieCursor";
 import { site } from "@/content/site";
@@ -9,6 +10,7 @@ export default function LandingLayout({ children }: { children: React.ReactNode 
       <Nav />
       {children}
       <WobbieCursor lines={site.wobbie.cursor} />
+      <LandingTracking />
     </>
   );
 }
