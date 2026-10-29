@@ -1,37 +1,45 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { trafficCohort } from "@/lib/cohort";
 import { query } from "@/lib/db";
+import { errorText, withRequestLog, type LogContext } from "@/lib/log";
 import { allowAttempt, clientIp, hashIp } from "@/lib/rate-limit";
 import { QA_COOKIE, SESSION_COOKIE, SESSION_MAX_AGE_S } from "@/lib/session";
 import { MAX_BODY_BYTES, isFlavorSlug, isValidEmail, normalizeEmail, signupSchema } from "@/lib/validation";
 
 /**
  * POST /api/signup. The nine server steps in guide/docs/10-signup-backend.md, in order.
- * Never logs an email address and never returns a signup row.
+ * Never logs an email address and never returns a signup row. Every request logs one line
+ * (lib/log.ts); `reason` says why a request was turned away.
  */
 
 type Fail = "invalid_email" | "rate_limited" | "server";
 
-function fail(error: Fail, status: number) {
-  return NextResponse.json({ ok: false, error }, { status });
-}
+export const POST = withRequestLog("signup", handleSignup);
 
-export async function POST(req: NextRequest) {
+async function handleSignup(req: NextRequest, ctx: LogContext) {
+  const fail = (error: Fail, status: number, reason: string = error) => {
+    ctx.fields.reason = reason;
+    return NextResponse.json({ ok: false, error }, { status });
+  };
+
   // 1. Parse, rejecting bodies over 4 KB.
   const raw = await req.text();
-  if (Buffer.byteLength(raw, "utf8") > MAX_BODY_BYTES) return fail("invalid_email", 400);
+  if (Buffer.byteLength(raw, "utf8") > MAX_BODY_BYTES) return fail("invalid_email", 400, "body_too_large");
   let json: unknown;
   try {
     json = JSON.parse(raw);
   } catch {
-    return fail("invalid_email", 400);
+    return fail("invalid_email", 400, "bad_json");
   }
   const parsed = signupSchema.safeParse(json);
-  if (!parsed.success) return fail("invalid_email", 400);
+  if (!parsed.success) return fail("invalid_email", 400, "bad_body");
   const body = parsed.data;
 
   // 2. Honeypot: bots fill the hidden field. Pretend it worked; save nothing.
-  if (body.company.trim() !== "") return NextResponse.json({ ok: true, duplicate: false });
+  if (body.company.trim() !== "") {
+    ctx.fields.outcome = "honeypot";
+    return NextResponse.json({ ok: true, duplicate: false });
+  }
 
   // 3. Rate limit by salted IP hash.
   if (!allowAttempt(hashIp(clientIp(req.headers)))) return fail("rate_limited", 429);
@@ -97,11 +105,11 @@ export async function POST(req: NextRequest) {
     // 8. TODO(M5): when META_CAPI_TOKEN is set and !duplicate, send the server-side Lead event
     //    with body.event_id, without awaiting it. A failure must not fail the signup.
 
-    console.info(`[signup] ${duplicate ? "duplicate" : "new"} id=${id} cohort=${cohort} variant=${variant}`);
+    Object.assign(ctx.fields, { outcome: duplicate ? "duplicate" : "new", signup_id: id, cohort, variant });
     // 9. Respond.
     return res;
   } catch (err) {
-    console.error("[signup] failed:", err instanceof Error ? err.message : "unknown error");
-    return fail("server", 500);
+    ctx.fields.error = errorText(err);
+    return fail("server", 500, "db_error");
   }
 }

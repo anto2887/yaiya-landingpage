@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { query } from "@/lib/db";
+import { errorText, withRequestLog, type LogContext } from "@/lib/log";
 import { SESSION_COOKIE, isUuid } from "@/lib/session";
 import { MAX_BODY_BYTES, answersSchema } from "@/lib/validation";
 
@@ -11,22 +12,31 @@ import { MAX_BODY_BYTES, answersSchema } from "@/lib/validation";
 // Column names come from this fixed list, never from the request.
 const COLUMNS = ["flavor_preference", "occasion_preferences", "pack_preference", "snack_instead"] as const;
 
-export async function POST(req: NextRequest) {
+export const POST = withRequestLog("answers", handleAnswers);
+
+async function handleAnswers(req: NextRequest, ctx: LogContext) {
+  const reject = (error: string, status: number, reason: string = error) => {
+    ctx.fields.reason = reason;
+    return NextResponse.json({ ok: false, error }, { status });
+  };
+
   // 1. Session.
   const id = req.cookies.get(SESSION_COOKIE)?.value;
-  if (!isUuid(id)) return NextResponse.json({ ok: false, error: "no_session" }, { status: 401 });
+  if (!isUuid(id)) return reject("no_session", 401);
+  ctx.fields.signup_id = id;
 
   // 2. Validate against the option lists; free text is trimmed and cleaned by the schema.
   const raw = await req.text();
-  if (Buffer.byteLength(raw, "utf8") > MAX_BODY_BYTES) return NextResponse.json({ ok: false, error: "invalid" }, { status: 400 });
+  if (Buffer.byteLength(raw, "utf8") > MAX_BODY_BYTES) return reject("invalid", 400, "body_too_large");
   let json: unknown;
   try {
     json = JSON.parse(raw);
   } catch {
-    return NextResponse.json({ ok: false, error: "invalid" }, { status: 400 });
+    return reject("invalid", 400, "bad_json");
   }
   const parsed = answersSchema.safeParse(json);
-  if (!parsed.success) return NextResponse.json({ ok: false, error: "invalid" }, { status: 400 });
+  // Which fields failed, never their values.
+  if (!parsed.success) return reject("invalid", 400, `bad_${[...new Set(parsed.error.issues.map((i) => i.path[0] ?? "body"))].join("+")}`);
   const answers = parsed.data;
 
   // 3. Update only what was sent.
@@ -37,15 +47,18 @@ export async function POST(req: NextRequest) {
     params.push(col === "snack_instead" && answers.snack_instead === "" ? null : answers[col]);
     sets.push(`${col} = $${params.length}`);
   }
+  ctx.fields.fields = sets.length;
   if (sets.length === 0) return NextResponse.json({ ok: true });
 
   try {
     params.push(id);
-    await query(`update signups set ${sets.join(", ")}, answers_updated_at = now() where id = $${params.length}`, params);
+    const result = await query(`update signups set ${sets.join(", ")}, answers_updated_at = now() where id = $${params.length}`, params);
+    // 0 means the cookie named a row that no longer exists (e.g. deleted); worth seeing in the log.
+    ctx.fields.rows = result.rowCount ?? 0;
     // 4. Respond. An unknown id simply updates nothing; the visitor is never blocked.
     return NextResponse.json({ ok: true });
   } catch (err) {
-    console.error("[answers] failed:", err instanceof Error ? err.message : "unknown error");
-    return NextResponse.json({ ok: false, error: "server" }, { status: 500 });
+    ctx.fields.error = errorText(err);
+    return reject("server", 500, "db_error");
   }
 }

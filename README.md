@@ -35,6 +35,23 @@ Visit any page with `?qa=1` before testing: your signups are then saved with `la
 | `npm test` | Signup API and traffic cohort tests (vitest, no database needed) |
 | `npm run images` | Prepares images from `assets-src/` into `public/images/` |
 
+## Logs and monitoring
+
+Every API request writes one JSON line to Railway's Deploy Logs: route, status, time taken, a request id and, for anything turned away, a `reason`. Email addresses, typed answers and IP addresses are never logged.
+
+| You see | Means |
+|---|---|
+| `outcome: new` / `duplicate` | A signup saved, or a repeat email (still shown the thank-you page) |
+| `reason: invalid_email`, `bad_body`, `body_too_large` | The request was rejected as invalid (400) |
+| `reason: rate_limited` | Six or more tries in 10 minutes from one visitor (429) |
+| `outcome: honeypot` | A bot filled the hidden field; nothing saved |
+| `reason: no_session` | Thank-you answers sent without the signup cookie (401) |
+| `reason: db_error`, `db_unreachable` | The database failed; `error` gives the cause |
+
+In Railway's log search, filter with `@level:error`, `@route:signup`, `@reason:rate_limited` or `@req_id:<id>`. Each response carries an `x-request-id` header that matches its log line.
+
+`GET /api/health` returns 200 when the site and database both answer, 503 when the database does not (only failures are logged). Point an uptime monitor at it, and set it as the service's Healthcheck Path in Railway so a broken deploy never replaces a working one.
+
 ## Where things are
 
 - All copy and product data: `content/site.ts`. Components hold no copy.
