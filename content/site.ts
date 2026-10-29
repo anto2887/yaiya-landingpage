@@ -699,6 +699,14 @@ export const site = {
         a: "Konjac is a traditional Asian food ingredient. Its fiber absorbs water and helps create the soft, springy jelly texture.",
       },
       {
+        id: "choking",
+        q: "Is konjac jelly a choking risk?",
+        // C-30 (founder approved the wording, 29 Oct). TODO(founder): confirm the pouch texture is soft and
+        // drinkable, any gel-strength or dissolve testing, and that "not intended for young children"
+        // matches the pack's age line. Never promise "no choking risk".
+        a: "You may have heard about small konjac jelly cups that were pulled from shelves because they could cause choking. YAIYA is made differently: it's a soft, drinkable jelly in a spouted pouch that you squeeze and sip a little at a time, never swallowed whole in one go. As with any food, take small sips and don't eat it while lying down or on the move. YAIYA isn't intended for young children.",
+      },
+      {
         id: "taste",
         q: "What does it taste like?",
         // DRAFT
