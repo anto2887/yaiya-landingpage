@@ -25,11 +25,12 @@ export const FLAVORS = [
     tone: "chocolate",
   },
   {
-    slug: "matcha-yuzu",
-    name: "Matcha Yuzu",
-    descriptors: "Bright. Citrusy. Uplifting.", // C-16
-    image: "/images/flavor-matcha-yuzu.jpg",
-    tone: "matcha",
+    // Replaced Matcha Yuzu (founder, 31 Oct). TODO(founder): review the descriptors (C-31).
+    slug: "mango-goji",
+    name: "Mango Goji",
+    descriptors: "Juicy. Tropical. Bright.",
+    image: "/images/flavor-mango-goji.jpg",
+    tone: "mango",
   },
 ] as const;
 
@@ -63,7 +64,7 @@ const TARGETS = {
   protein: "15g",
   whey: "11g", // Q-01 answered 10 Oct
   collagen: "4g", // Q-01 answered 10 Oct
-  caffeine: "80mg", // Matcha Yuzu only. Q-16 answered 10 Oct
+  caffeine: "80mg", // Mango Goji only (moved from Matcha Yuzu 31 Oct; pack prints 80 mg). Q-16
   fiber: "3g",
   sugar: "0g",
   dailyValue: "25%",
@@ -77,7 +78,7 @@ export const site = {
     title: "YAIYA | A new kind of protein jelly snack",
     description:
       "Soft, squeezable jelly with protein, collagen, fiber and vitamins. Join the waitlist for early access.",
-    ogImage: "/images/og-v5.jpg",
+    ogImage: "/images/og-v6.jpg",
   },
 
   features: {
@@ -154,7 +155,7 @@ export const site = {
      */
     film: {
       label:
-        "A short looping film: a Matcha Yuzu pouch on a sunny desk, a hand picking it up, soft peach jelly on a spoon, each flavor with its fruit or chocolate, the pouch slipped into a tote bag, and all three pouches with the jelly mascot Wobbie.",
+        "A short looping film: a Mango Goji pouch on a sunny desk, a hand picking it up, soft peach jelly on a spoon, each flavor with its fruit or chocolate, the pouch slipped into a tote bag, and all three pouches with the jelly mascot Wobbie.",
       pause: "Pause the hero animation",
       play: "Play the hero animation",
       // `note` is the handwritten line that writes in beside the product. Personality only:
@@ -169,7 +170,7 @@ export const site = {
         { id: "strawberry-peach", note: "juicy strawberry, delicious collagen", ms: 1900 },
         { id: "chocolate-silk", note: "this is the guilty part", ms: 2000 },
         // Approved: "never artificial sweeteners".
-        { id: "matcha-yuzu", note: "zero artificial sweeteners, all the sweet", ms: 1900 },
+        { id: "mango-goji", note: "zero artificial sweeteners, all the sweet", ms: 1900 },
         { id: "to-go", note: "pocket-sized. no fridge.", ms: 2000 },
       ],
     },
@@ -181,7 +182,7 @@ export const site = {
     "Soft, squeezable jelly",
     "Chocolate Silk",
     `${TARGETS.protein} protein*`,
-    "Matcha Yuzu",
+    "Mango Goji",
     "No fridge, no spoon",
     "Pocket-sized",
   ],
@@ -204,7 +205,7 @@ export const site = {
       // C-08: mockup said "Real, Delicious Flavors".
       title: "Seriously Good Flavors",
       // C-08: mockup said "Made with real ingredients you can taste."
-      line: "Strawberry Peach, Chocolate Silk and Matcha Yuzu.",
+      line: "Strawberry Peach, Chocolate Silk and Mango Goji.",
     },
     {
       id: "pocket",
@@ -223,8 +224,8 @@ export const site = {
     /**
      * The breakout panel shown when a flavor is picked.
      * TODO(founder): review the taste descriptions; they stay within the flavor names.
-     * Matcha Yuzu caffeine shown here at the founder's request (11 Oct), replacing D-20's
-     * "FAQ and Matcha tab only".
+     * The caffeine flavor (Mango Goji since 31 Oct) shows it here at the founder's request (11 Oct),
+     * replacing D-20's "FAQ and caffeine tab only".
      */
     detail: {
       notesLabel: "Tastes like",
@@ -250,9 +251,10 @@ export const site = {
           extraFacts: [],
           extraNote: "",
         },
-        "matcha-yuzu": {
-          description: "Earthy matcha meets bright, citrusy yuzu in a clean, uplifting jelly.",
-          notes: ["Matcha", "Yuzu"],
+        // TODO(founder): review this taste description (C-31).
+        "mango-goji": {
+          description: "Ripe, juicy mango and tangy goji berry in a bright, tropical jelly.",
+          notes: ["Mango", "Goji berry"],
           extraFacts: [{ id: "caffeine", value: TARGETS.caffeine, label: "caffeine*" }],
           extraNote: "The only YAIYA flavor with caffeine.",
         },
@@ -321,16 +323,16 @@ export const site = {
         id: "busy-day",
         name: "The Busy-Day Multitasker",
         line: "Between meetings. Between everything.",
-        image: "/images/occasion-busy-day-v6.jpg",
-        alt: "A Matcha Yuzu pouch on a wooden desk beside a laptop, a mug of coffee and a notebook with a to-do list.",
+        image: "/images/occasion-busy-day-v7.jpg",
+        alt: "A Mango Goji pouch on a wooden desk beside a laptop, a mug of coffee and a notebook with a to-do list.",
         moments: ["between-meetings", "commute", "hungry-not-meal"],
       },
       {
         id: "wellness-snacker",
         name: "The Everyday Wellness Snacker",
         line: "Something sweet. Something more.",
-        image: "/images/occasion-wellness-snacker-v5.jpg",
-        alt: "Strawberry Peach, Chocolate Silk and Matcha Yuzu pouches in an open canvas tote with a book, car keys and a water bottle.",
+        image: "/images/occasion-wellness-snacker-v6.jpg",
+        alt: "Strawberry Peach, Chocolate Silk and Mango Goji pouches in an open canvas tote with a book, car keys and a water bottle.",
         moments: ["travel", "out-the-door", "afternoon-snack"],
       },
     ],
@@ -460,7 +462,7 @@ export const site = {
         id: "flavors",
         // C-08: mockup said "Real Flavors / from fruits, cocoa and tea".
         name: "Flavors",
-        line: "Strawberry peach, chocolate and matcha yuzu",
+        line: "Strawberry peach, chocolate and mango goji",
         icon: "flavors",
       },
     ],
@@ -555,12 +557,14 @@ export const site = {
       },
       {
         id: "energy",
-        label: "Matcha energy",
+        // Tab id stays "energy" (analytics). Label says what it is, not what it does (07 rule 2).
+        // TODO(founder): the caffeine source, now that matcha is gone (C-31).
+        label: "Caffeine",
         value: TARGETS.caffeine,
-        valueLabel: "caffeine target in Matcha Yuzu",
-        title: "A little matcha moment.",
-        body: `Matcha Yuzu has the same ${TARGETS.protein} protein target as the other flavors, plus ${TARGETS.caffeine} of caffeine.`,
-        note: "Only Matcha Yuzu contains caffeine. Final caffeine content will be measured and labeled.",
+        valueLabel: "caffeine target in Mango Goji",
+        title: "The one with caffeine.",
+        body: `Mango Goji has the same ${TARGETS.protein} protein target as the other flavors, plus ${TARGETS.caffeine} of caffeine.`,
+        note: "Only Mango Goji contains caffeine. Final caffeine content will be measured and labeled.",
       },
     ],
   },
@@ -678,7 +682,7 @@ export const site = {
         id: "experience",
         label: "The experience",
         cells: [
-          { main: "Three signature pairings", sub: "Strawberry Peach · Chocolate Silk · Matcha Yuzu" },
+          { main: "Three signature pairings", sub: "Strawberry Peach · Chocolate Silk · Mango Goji" },
           { main: "Drink from a bottle", sub: "Chocolate example" },
           { main: "Chew a bar", sub: "Chocolate sea salt example" },
           { main: "Squeeze and chew", sub: "Peach example" },
@@ -710,7 +714,7 @@ export const site = {
         id: "taste",
         q: "What does it taste like?",
         // DRAFT
-        a: "Like the flavor on the front: Strawberry Peach, Chocolate Silk or Matcha Yuzu, in a soft jelly you squeeze straight from the pouch. We're still perfecting the recipes, and waitlist members will be the first to try them.",
+        a: "Like the flavor on the front: Strawberry Peach, Chocolate Silk or Mango Goji, in a soft jelly you squeeze straight from the pouch. We're still perfecting the recipes, and waitlist members will be the first to try them.",
       },
       {
         id: "when",
@@ -729,10 +733,10 @@ export const site = {
         a: "No. YAIYA is a snack.",
       },
       {
-        id: "matcha",
-        q: "What makes Matcha Yuzu different?",
-        // Q-02 and Q-16 answered 10 Oct: protein and 80mg caffeine.
-        a: `Matcha Yuzu has the same protein as our other flavors, plus caffeine. Our recipe target is ${TARGETS.caffeine} per pouch. The other two flavors have none.`,
+        id: "caffeine",
+        q: "Which flavor has caffeine?",
+        // Q-02 and Q-16 answered 10 Oct: protein and 80mg caffeine. Moved to Mango Goji 31 Oct.
+        a: `Mango Goji. It has the same protein as our other flavors, plus caffeine. Our recipe target is ${TARGETS.caffeine} per pouch. The other two flavors have none.`,
       },
       {
         id: "protein",

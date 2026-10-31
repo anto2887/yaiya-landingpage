@@ -18,7 +18,7 @@ const FADE_MS = 1600;
 /** Never wait longer than this for the next frame's image before cutting to it anyway. */
 const DECODE_CAP_MS = 2500;
 /** Matches VERSION in scripts/extend-hero.mjs; bumped when photos change so caches refresh. */
-const FRAME_VERSION = "v4";
+const FRAME_VERSION = "v5";
 /** Above the default 75: these photos are the brand's first impression. */
 const QUALITY = 88;
 
@@ -35,7 +35,7 @@ const STAGE: Record<string, { focus: string; note: { left: string; top: string; 
   jelly: { focus: "80% 40%", note: { left: "50%", top: "15%", rotate: -4, arrow: "down" } },
   "strawberry-peach": { focus: "70% 50%", note: { left: "44%", top: "24%", rotate: -5, arrow: "down", width: "7.4em" } },
   "chocolate-silk": { focus: "70% 55%", note: { left: "40.5%", top: "15%", rotate: -5, arrow: "down", width: "5.2em" } },
-  "matcha-yuzu": { focus: "70% 55%", note: { left: "41%", top: "15%", rotate: -4, arrow: "down", width: "11em" } },
+  "mango-goji": { focus: "70% 55%", note: { left: "41%", top: "15%", rotate: -4, arrow: "down", width: "11em" } },
   "to-go": { focus: "72% 40%", note: { left: "41%", top: "20%", rotate: -5, arrow: "down", width: "5.8em" } },
 };
 

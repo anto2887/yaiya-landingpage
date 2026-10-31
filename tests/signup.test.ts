@@ -106,7 +106,7 @@ describe("POST /api/signup", () => {
 
 describe("POST /api/signup/answers", () => {
   it("returns 401 without a session cookie", async () => {
-    const res = await answers(post("/api/signup/answers", { flavor_preference: "matcha-yuzu" }));
+    const res = await answers(post("/api/signup/answers", { flavor_preference: "mango-goji" }));
     expect(res.status).toBe(401);
     expect(await res.json()).toEqual({ ok: false, error: "no_session" });
   });
@@ -115,6 +115,8 @@ describe("POST /api/signup/answers", () => {
     const id = crypto.randomUUID();
     const cookie = `yaiya_sid=${id}`;
     expect((await answers(post("/api/signup/answers", { flavor_preference: "mint-choc" }, { cookie }))).status).toBe(400);
+    // Retired flavor (replaced by Mango Goji, 31 Oct).
+    expect((await answers(post("/api/signup/answers", { flavor_preference: "matcha-yuzu" }, { cookie }))).status).toBe(400);
     expect((await answers(post("/api/signup/answers", { occasion_preferences: ["moon-landing"] }, { cookie }))).status).toBe(400);
     expect((await answers(post("/api/signup/answers", { pack_preference: "case-99" }, { cookie }))).status).toBe(400);
   });
@@ -125,7 +127,7 @@ describe("POST /api/signup/answers", () => {
     const res = await answers(
       post(
         "/api/signup/answers",
-        { flavor_preference: "matcha-yuzu", occasion_preferences: ["afternoon-snack"], pack_preference: "variety-4-6", snack_instead: "protein bars" },
+        { flavor_preference: "mango-goji", occasion_preferences: ["afternoon-snack"], pack_preference: "variety-4-6", snack_instead: "protein bars" },
         { cookie: `yaiya_sid=${id}` },
       ),
     );

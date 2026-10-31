@@ -49,10 +49,10 @@ const ART: Record<FlavorSlug, Piece[]> = {
       delay: "-1.3s",
     },
   ],
-  "matcha-yuzu": [
+  "mango-goji": [
     {
-      src: "/images/pouch-matcha-yuzu-v4.png",
-      width: 584,
+      src: "/images/pouch-mango-goji-v1.png",
+      width: 585,
       height: 800,
       style: { ...POUCH_STYLE, rotate: "-3deg" },
       hover: "group-hover:-translate-y-2 group-hover:-rotate-2 group-hover:scale-105",
@@ -65,7 +65,7 @@ const ART: Record<FlavorSlug, Piece[]> = {
 const TONES = {
   strawberry: { card: "bg-strawberry", ink: "text-strawberry-ink", dot: "bg-accent", blob: "fill-white/45" },
   chocolate: { card: "bg-chocolate", ink: "text-chocolate-ink", dot: "bg-mango", blob: "fill-white/35" },
-  matcha: { card: "bg-matcha", ink: "text-matcha-ink", dot: "bg-mint", blob: "fill-white/45" },
+  mango: { card: "bg-mango-goji", ink: "text-mango-goji-ink", dot: "bg-mango", blob: "fill-white/45" },
 } as const;
 
 // Confetti directions for the pick burst.

@@ -33,8 +33,9 @@
   --color-strawberry-ink: #b3123b;
   --color-chocolate: #f2c9a8;
   --color-chocolate-ink: #5a2a14;
-  --color-matcha: #ddf0b4;
-  --color-matcha-ink: #3d5410;
+  /* Mango Goji card (31 Oct): ink on card is 6.2:1. */
+  --color-mango-goji: #ffd6a0;
+  --color-mango-goji-ink: #8a2e12;
   --color-white: #ffffff;
   --color-transparent: transparent;
   --color-current: currentColor;

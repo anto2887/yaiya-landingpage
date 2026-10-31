@@ -23,7 +23,7 @@ const TARGETS = [
   { file: "hero-mobile.jpg", width: 1358, height: 1086 },
   { file: "flavor-strawberry-peach.jpg", width: 768, height: 1024 },
   { file: "flavor-chocolate-silk.jpg", width: 768, height: 1024 },
-  { file: "flavor-matcha-yuzu.jpg", width: 768, height: 1024 },
+  { file: "flavor-mango-goji.jpg", width: 768, height: 1024 },
   { file: "occasion-protein-regular-v3.jpg", width: 960, height: 1200 },
   { file: "occasion-busy-day-v3.jpg", width: 960, height: 1200 },
   { file: "occasion-wellness-snacker-v2.jpg", width: 960, height: 1200 },

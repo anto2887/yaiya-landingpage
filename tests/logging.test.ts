@@ -71,7 +71,7 @@ describe("request logging", () => {
 
   it("logs rejections as warnings with a reason", async () => {
     await signup(req("/api/signup", "POST", { email: "nope" }));
-    await answers(req("/api/signup/answers", "POST", { flavor_preference: "matcha-yuzu" }));
+    await answers(req("/api/signup/answers", "POST", { flavor_preference: "mango-goji" }));
     expect(lines[0]).toMatchObject({ level: "warn", status: 400, reason: "invalid_email" });
     expect(lines[1]).toMatchObject({ level: "warn", route: "answers", status: 401, reason: "no_session" });
   });
