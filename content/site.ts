@@ -315,7 +315,7 @@ export const site = {
         id: "protein-regular",
         name: "The Protein Regular",
         line: "Your protein routine. A fresh plot twist.",
-        image: "/images/occasion-protein-regular-v6.jpg",
+        image: "/images/occasion-protein-regular-v7.jpg",
         alt: "A Strawberry Peach pouch on a gym bench, leaning on a black gym bag beside a towel, with weight racks behind.",
         moments: ["before-workout", "after-workout", "afternoon-snack"],
       },
@@ -409,7 +409,7 @@ export const site = {
       note: "a snack that feels like a snack",
       // Founder photo, 13 Oct: lunch is done, the pouch is in hand.
       image: {
-        src: "/images/story-between-meals-v4.jpg",
+        src: "/images/story-between-meals-v5.jpg",
         alt: "A hand holding a Strawberry Peach pouch at a sunny table, beside a nearly finished bowl, a fork and a glass of water.",
       },
     },

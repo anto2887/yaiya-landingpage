@@ -63,7 +63,7 @@ export function WhatsInside() {
             <span className="absolute inset-[-4%] rounded-full border-2 border-dashed border-berry/20 motion-safe:animate-[spin_40s_linear_infinite]" />
             <span className="relative block motion-safe:animate-float">
               <Image
-                src="/images/pouch-chocolate-silk-v4.png"
+                src="/images/pouch-chocolate-silk-v5.png"
                 width={587}
                 height={800}
                 alt=""

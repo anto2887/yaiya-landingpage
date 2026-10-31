@@ -19,9 +19,9 @@ const TINTS: Record<string, string> = {
 
 // The three pouches, fanned out. Decorative: the flavor section names them.
 const FAN = [
-  { src: "/images/pouch-chocolate-silk-v4.png", w: 587, h: 800, cls: "left-[2%] top-[10%] -rotate-12 z-0", delay: "-1.2s" },
+  { src: "/images/pouch-chocolate-silk-v5.png", w: 587, h: 800, cls: "left-[2%] top-[10%] -rotate-12 z-0", delay: "-1.2s" },
   { src: "/images/pouch-mango-goji-v1.png", w: 585, h: 800, cls: "right-[2%] top-[10%] rotate-12 z-0", delay: "-2.4s" },
-  { src: "/images/pouch-strawberry-peach-v4.png", w: 563, h: 800, cls: "left-1/2 top-0 -translate-x-1/2 z-10", delay: "0s" },
+  { src: "/images/pouch-strawberry-peach-v5.png", w: 593, h: 800, cls: "left-1/2 top-0 -translate-x-1/2 z-10", delay: "0s" },
 ];
 
 type Stat = (typeof nutrition.stats)[number];

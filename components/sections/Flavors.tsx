@@ -13,8 +13,8 @@ import { WaveTop } from "@/components/ui/WaveTop";
 
 /**
  * Each card shows its pouch floating over the flavor color and a jelly blob,
- * with a soft shadow. Cutouts are founder-supplied (assets-src/pouch-*-v4.png, latest pack 13 Oct),
- * trimmed to public/images/pouch-*-v4.png.
+ * with a soft shadow. Cutouts are founder-supplied (assets-src/pouch-*-v5.png, latest pack 13 Oct),
+ * trimmed to public/images/pouch-*-v5.png.
  * Positions are % of the art area; `hover` is how the pouch moves on hover.
  */
 type Piece = {
@@ -31,8 +31,8 @@ const POUCH_STYLE: React.CSSProperties = { width: "54%", left: "23%", top: "6%" 
 const ART: Record<FlavorSlug, Piece[]> = {
   "strawberry-peach": [
     {
-      src: "/images/pouch-strawberry-peach-v4.png",
-      width: 563,
+      src: "/images/pouch-strawberry-peach-v5.png",
+      width: 593,
       height: 800,
       style: { ...POUCH_STYLE, rotate: "-6deg" },
       hover: "group-hover:-translate-y-2 group-hover:-rotate-3 group-hover:scale-105",
@@ -41,7 +41,7 @@ const ART: Record<FlavorSlug, Piece[]> = {
   ],
   "chocolate-silk": [
     {
-      src: "/images/pouch-chocolate-silk-v4.png",
+      src: "/images/pouch-chocolate-silk-v5.png",
       width: 587,
       height: 800,
       style: { ...POUCH_STYLE, rotate: "4deg" },
