@@ -155,7 +155,7 @@ export const site = {
      */
     film: {
       label:
-        "A short looping film: a Mango Goji pouch on a sunny desk, soft peach jelly on a spoon, each flavor with its fruit or chocolate, the pouch slipped into a tote bag, and all three pouches with the jelly mascot Wobbie.",
+        "A short looping film: a Mango Goji pouch on a sunny desk, a hand picking it up, soft peach jelly on a spoon, each flavor with its fruit or chocolate, the pouch slipped into a tote bag, and all three pouches with the jelly mascot Wobbie.",
       pause: "Pause the hero animation",
       play: "Play the hero animation",
       // `note` is the handwritten line that writes in beside the product. Personality only:
@@ -163,8 +163,7 @@ export const site = {
       scenes: [
         { id: "lineup", note: "three flavors, one wobble", ms: 2900 },
         { id: "desk", note: "3 PM. the slump is real.", ms: 2000 },
-        // "reach" (a hand picking up the pouch) is out until a Mango Goji version replaces the
-        // Matcha Yuzu photo (31 Oct). Put back: { id: "reach", note: "snack o'clock", ms: 1800 },
+        { id: "reach", note: "snack o'clock", ms: 1800 },
         // TODO(founder): C-28. Founder chose "prebiotics" to match the pack (14 Oct). Confirm the prebiotic
         // fiber and amount per pouch before ads. Ingredient only; never a gut benefit.
         { id: "jelly", note: "packed with prebiotics", ms: 2000 },
