@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { trafficCohort } from "@/lib/cohort";
 import { query } from "@/lib/db";
 import { errorText, withRequestLog, type LogContext } from "@/lib/log";
+import { sendLead } from "@/lib/meta";
 import { allowAttempt, clientIp, hashIp } from "@/lib/rate-limit";
 import { QA_COOKIE, SESSION_COOKIE, SESSION_MAX_AGE_S } from "@/lib/session";
 import { MAX_BODY_BYTES, isFlavorSlug, isValidEmail, normalizeEmail, signupSchema } from "@/lib/validation";
@@ -42,7 +43,8 @@ async function handleSignup(req: NextRequest, ctx: LogContext) {
   }
 
   // 3. Rate limit by salted IP hash.
-  if (!allowAttempt(hashIp(clientIp(req.headers)))) return fail("rate_limited", 429);
+  const ip = clientIp(req.headers);
+  if (!allowAttempt(hashIp(ip))) return fail("rate_limited", 429);
 
   // 4. Email.
   if (!isValidEmail(body.email)) return fail("invalid_email", 400);
@@ -102,8 +104,21 @@ async function handleSignup(req: NextRequest, ctx: LogContext) {
       maxAge: SESSION_MAX_AGE_S,
     });
 
-    // 8. TODO(M5): when META_CAPI_TOKEN is set and !duplicate, send the server-side Lead event
-    //    with body.event_id, without awaiting it. A failure must not fail the signup.
+    // 8. Meta's server-side Lead, for new signups only, not awaited (lib/meta.ts). Same event_id
+    //    as the browser pixel's Lead, so Meta counts them once.
+    if (!duplicate) {
+      sendLead({
+        eventId: body.event_id,
+        emailNormalized,
+        ip,
+        userAgent,
+        sourceUrl: req.headers.get("referer")?.split("?")[0] || `${process.env.NEXT_PUBLIC_SITE_URL ?? ""}/`,
+        fbp: req.cookies.get("_fbp")?.value,
+        fbc: req.cookies.get("_fbc")?.value,
+        fbclid: a.fbclid,
+        signupId: id,
+      });
+    }
 
     Object.assign(ctx.fields, { outcome: duplicate ? "duplicate" : "new", signup_id: id, cohort, variant });
     // 9. Respond.
