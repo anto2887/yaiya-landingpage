@@ -1,7 +1,8 @@
 /**
- * Meta pixel (guide/docs/11-analytics.md). The pixel loads only when NEXT_PUBLIC_META_PIXEL_ID is
- * set, and only after the page is usable (components/analytics/MetaPixel.tsx via lib/defer.ts).
- * Calls made before the script arrives wait in the standard fbq queue. Browser only; never throws.
+ * Meta pixel (guide/docs/11-analytics.md). The base code loads with the page when
+ * NEXT_PUBLIC_META_PIXEL_ID is set (components/analytics/MetaPixel.tsx). If a Lead is sent before
+ * it has run, loadPixel() installs the same snippet first, so the event is queued, not lost.
+ * Browser only; never throws.
  */
 
 type Fbq = ((command: string, event: string, params?: Record<string, unknown>, options?: { eventID?: string }) => void) & {
