@@ -20,7 +20,10 @@ vi.mock("@/lib/db", () => ({
 const { POST: signup } = await import("@/app/api/signup/route");
 const { resetRateLimit } = await import("@/lib/rate-limit");
 
-const calls: { url: string; body: any }[] = [];
+type LeadBody = {
+  data: { event_name: string; event_id?: string; action_source: string; event_source_url: string; user_data: Record<string, unknown> & { em: string[]; fbc?: string } }[];
+};
+const calls: { url: string; body: LeadBody }[] = [];
 let metaResponse: () => Response = () => new Response(JSON.stringify({ events_received: 1 }), { status: 200 });
 const logs: string[] = [];
 

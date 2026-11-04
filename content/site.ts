@@ -834,63 +834,104 @@ export const site = {
     },
   },
 
-  /** Draft. See guide/docs/pages/privacy.md. Bracketed parts are TODO(founder). */
+  /**
+   * Privacy notice (founder supplied the entity, location and contact, 4 Nov). Written from what the
+   * site actually collects: signup route, thank-you answers, PostHog, Meta pixel and Conversions API,
+   * cookies, rate limiter. Update it whenever any of those change. Not legal advice; have it reviewed
+   * before launch. A section renders `lead`, then `items` (a bullet list), then `paragraphs`.
+   */
   privacy: {
     metaTitle: "Privacy | YAIYA",
     title: "Privacy",
     updatedLabel: "Last updated:",
-    updated: "[DATE]",
+    updated: "November 4, 2026",
+    intro:
+      "This notice explains what YAIYA collects through takeayaiya.com, why we collect it, who helps us handle it, and the choices you have. YAIYA is still in development, so for now this site is a waitlist.",
     sections: [
       {
         heading: "Who we are",
         paragraphs: [
-          "YAIYA is a snack brand in development, run by [LEGAL ENTITY NAME], [LOCATION]. You can reach us at [CONTACT EMAIL].",
+          "YAIYA is a snack brand in development, run by Yaiya, Inc., based in Delaware, USA. For any question or request about your information, write to hello@takeayaiya.com.",
         ],
       },
       {
         heading: "What we collect",
-        paragraphs: [
+        items: [
           "Your email address, when you join the waitlist.",
-          "Your answers to the optional questions after you join.",
-          "How you arrived at the site: the link you followed and its campaign tags.",
-          "How the site is used: pages viewed, buttons tapped, and anonymized recordings of sessions in which anything you type is hidden.",
+          "Your optional answers after you join: the flavor you'd want first, when you'd eat YAIYA, how you'd like to stock up, and what you usually snack on instead.",
+          "The flavor you picked on the page, if you picked one.",
+          "How you arrived: the campaign tags in the link you followed, Meta's ad click ID, the website that sent you, and the page you landed on.",
+          "Your browser type, so we can see which devices people use.",
+          "How the site is used: pages and sections viewed, how far you scroll, the buttons and tabs you tap, errors in the page, and recordings of visits in which everything you type is hidden. These visits are not linked to your name or email.",
+        ],
+        paragraphs: [
+          "To stop spam signups, we briefly use your IP address. We keep only a scrambled version of it, in memory, for no more than 10 minutes, and never save it with your signup.",
+          "We don't ask for your name, phone number, address or payment details.",
         ],
       },
       {
         heading: "Why we collect it",
-        paragraphs: [
-          "To email you about YAIYA: launch news, samples and offers.",
-          "To learn which flavors and ideas people like, so we can make a better product.",
-          "To measure whether our ads work.",
+        items: [
+          "To email you about YAIYA: launch news, samples, early access and offers.",
+          "To learn which flavors and ideas people want, so we make a better product.",
+          "To measure and improve our ads and this site.",
+          "To keep the waitlist free of spam and abuse.",
         ],
       },
       {
-        heading: "Who we share it with",
-        paragraphs: [
-          "We use a small number of service providers to run the site: Railway (hosting and database), PostHog (site analytics) and Meta (ad measurement). To measure ads, we may send Meta a scrambled, one-way version of your email address. We do not sell your information.",
+        heading: "Who helps us",
+        lead: "We use a few service providers to run the site. They handle your information only to provide their service to us.",
+        items: [
+          "Railway hosts the site and the waitlist database.",
+          "Cloudflare runs our domain and its secure redirects.",
+          "PostHog measures how the site is used. Your email is never sent to PostHog.",
+          "Meta measures our ads. When you join, our site and our server tell Meta a signup happened, with a scrambled, one-way version of your email, your IP address and browser details, so Meta can match it to the ad you saw. Meta may use this to measure and improve how our ads are shown.",
+          "Google Workspace runs our email.",
         ],
+      },
+      {
+        heading: "We don't sell your information",
+        paragraphs: ["We don't sell your information, and we don't rent or trade our waitlist."],
       },
       {
         heading: "Cookies",
-        paragraphs: [
-          "We use first-party cookies to remember how you arrived, and Meta and PostHog set cookies to measure visits and ad performance.",
+        lead: "We and our providers store a few small files in your browser:",
+        items: [
+          "yaiya_attr remembers how you first arrived, for 30 days.",
+          "yaiya_sid connects your optional answers to your signup. It holds only a random ID and expires after 30 minutes.",
+          "PostHog stores an anonymous visitor ID to count visits.",
+          "Meta's pixel stores IDs that connect your visit to an ad you clicked.",
+        ],
+      },
+      {
+        heading: "Your choices",
+        items: [
+          "Unsubscribe any time using the link in any email we send.",
+          "Ask to see, correct or delete your information by writing to hello@takeayaiya.com. We'll reply within 30 days.",
+          "Block or clear cookies in your browser settings, or use an ad blocker. Joining the waitlist still works.",
         ],
       },
       {
         heading: "How long we keep it",
         paragraphs: [
-          "We keep waitlist details until you unsubscribe or ask us to delete them.",
+          "We keep your waitlist details until you unsubscribe or ask us to delete them, or until we no longer need them for the launch. Site usage data and recordings are kept only as long as they help us improve the site.",
         ],
       },
       {
-        heading: "Your choices",
+        heading: "Keeping it safe",
         paragraphs: [
-          "You can unsubscribe using the link in any email, or ask us to see or delete your information by writing to [CONTACT EMAIL].",
+          "The site only works over encrypted connections, and only the founders can access waitlist data.",
+        ],
+      },
+      {
+        heading: "Children",
+        paragraphs: [
+          "This site isn't meant for children under 13, and we don't knowingly collect their information. If you think a child has joined, write to us and we'll delete it.",
         ],
       },
       {
         heading: "Changes",
-        paragraphs: ["If this notice changes, we will update the date above."],
+        paragraphs: ["If this notice changes, we'll update it here and change the date at the top."],
       },
     ],
   },
