@@ -3,7 +3,6 @@
 // Check PostHog's current Next.js proxy docs before relying on these paths.
 
 const posthogHost = process.env.POSTHOG_UPSTREAM_HOST ?? "https://us.i.posthog.com";
-const posthogAssets = process.env.POSTHOG_ASSETS_HOST ?? "https://us-assets.i.posthog.com";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -12,7 +11,7 @@ const nextConfig = {
 
   async rewrites() {
     return [
-      { source: "/ingest/static/:path*", destination: `${posthogAssets}/static/:path*` },
+      // /ingest/static/* is served by app/ingest/static/[...path]/route.ts (see the note there).
       { source: "/ingest/:path*", destination: `${posthogHost}/:path*` },
     ];
   },
