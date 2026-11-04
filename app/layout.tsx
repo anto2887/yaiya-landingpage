@@ -11,7 +11,8 @@ import "./globals.css";
 // Founder and cofounder, 11 Oct: Fredoka + Inter + Caveat read as AI-generated.
 const fraunces = Fraunces({
   subsets: ["latin"],
-  style: ["normal", "italic"],
+  // Upright only: nothing on the site is set in italic.
+  style: ["normal"],
   axes: ["SOFT", "WONK", "opsz"],
   variable: "--font-fraunces",
   display: "swap",

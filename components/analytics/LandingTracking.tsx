@@ -15,33 +15,21 @@ export function LandingTracking() {
   useEffect(() => {
     track("landing_viewed");
 
+    // "Viewed" = half the section is on screen, or it fills half the screen (for sections taller
+    // than the screen). Read from the observer's own measurements, so nothing forces a layout.
     const sections = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
-          if (!e.isIntersecting) continue;
+          const screen = e.rootBounds?.height ?? window.innerHeight;
+          if (!(e.intersectionRatio >= 0.5 || e.intersectionRect.height >= screen * 0.5)) continue;
           const id = (e.target as HTMLElement).dataset.section as SectionId;
           trackOnce(`section:${id}`, "section_viewed", { section: id });
           sections.unobserve(e.target);
         }
       },
-      // Half of the section, or half of the screen for sections taller than it.
-      { threshold: [0.5] },
+      { threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5] },
     );
-    const tall = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          if (!e.isIntersecting) continue;
-          const id = (e.target as HTMLElement).dataset.section as SectionId;
-          trackOnce(`section:${id}`, "section_viewed", { section: id });
-          tall.unobserve(e.target);
-        }
-      },
-      { rootMargin: "-25% 0px -25% 0px" },
-    );
-    document.querySelectorAll<HTMLElement>("[data-section]").forEach((el) => {
-      // A section taller than twice the screen can never be 50% visible; watch the middle of the screen instead.
-      (el.offsetHeight > window.innerHeight * 2 ? tall : sections).observe(el);
-    });
+    document.querySelectorAll<HTMLElement>("[data-section]").forEach((el) => sections.observe(el));
 
     const depth = new IntersectionObserver((entries) => {
       for (const e of entries) {
@@ -71,7 +59,6 @@ export function LandingTracking() {
       document.removeEventListener("click", onClick);
       document.removeEventListener("toggle", onToggle, true);
       sections.disconnect();
-      tall.disconnect();
       depth.disconnect();
     };
   }, []);

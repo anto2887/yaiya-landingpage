@@ -14,7 +14,7 @@ import { WaveTop } from "@/components/ui/WaveTop";
 /**
  * Each card shows its pouch floating over the flavor color and a jelly blob,
  * with a soft shadow. Cutouts are founder-supplied (assets-src/pouch-*-v5.png, latest pack 13 Oct),
- * trimmed to public/images/pouch-*-v5.png.
+ * trimmed to public/images/pouch-*-v5.png, then served as ready-made WebP (scripts/prepare-pouches.mjs).
  * Positions are % of the art area; `hover` is how the pouch moves on hover.
  */
 type Piece = {
@@ -31,9 +31,9 @@ const POUCH_STYLE: React.CSSProperties = { width: "54%", left: "23%", top: "6%" 
 const ART: Record<FlavorSlug, Piece[]> = {
   "strawberry-peach": [
     {
-      src: "/images/pouch-strawberry-peach-v5.png",
-      width: 593,
-      height: 800,
+      src: "/images/pouch-strawberry-peach-v5.webp",
+      width: 600,
+      height: 809,
       style: { ...POUCH_STYLE, rotate: "-6deg" },
       hover: "group-hover:-translate-y-2 group-hover:-rotate-3 group-hover:scale-105",
       delay: "0s",
@@ -41,9 +41,9 @@ const ART: Record<FlavorSlug, Piece[]> = {
   ],
   "chocolate-silk": [
     {
-      src: "/images/pouch-chocolate-silk-v5.png",
-      width: 587,
-      height: 800,
+      src: "/images/pouch-chocolate-silk-v5.webp",
+      width: 600,
+      height: 818,
       style: { ...POUCH_STYLE, rotate: "4deg" },
       hover: "group-hover:-translate-y-2 group-hover:rotate-3 group-hover:scale-105",
       delay: "-1.3s",
@@ -51,9 +51,9 @@ const ART: Record<FlavorSlug, Piece[]> = {
   ],
   "mango-goji": [
     {
-      src: "/images/pouch-mango-goji-v1.png",
-      width: 585,
-      height: 800,
+      src: "/images/pouch-mango-goji-v1.webp",
+      width: 600,
+      height: 821,
       style: { ...POUCH_STYLE, rotate: "-3deg" },
       hover: "group-hover:-translate-y-2 group-hover:-rotate-2 group-hover:scale-105",
       delay: "-2.6s",
@@ -187,6 +187,7 @@ export function Flavors({ content: flavors }: FlavorsProps) {
                       <span key={p.src} className="absolute motion-safe:animate-float" style={{ ...p.style, animationDelay: p.delay }}>
                         <Image
                           src={p.src}
+                          unoptimized
                           width={p.width}
                           height={p.height}
                           alt=""
@@ -264,6 +265,7 @@ function FlavorDetail({ flavor, detail }: { flavor: FlavorItem; detail: typeof s
         <span className="block motion-safe:animate-float">
           <Image
             src={pouch.src}
+            unoptimized
             width={pouch.width}
             height={pouch.height}
             alt=""
