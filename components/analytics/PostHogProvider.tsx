@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { getAttribution, getCohort, isQa } from "@/lib/attribution";
 import { setAnalyticsSink } from "@/lib/analytics";
+import { onIntentOrLoad } from "@/lib/defer";
 
 type PostHogProviderProps = {
   /** NEXT_PUBLIC_POSTHOG_KEY. Empty turns PostHog off entirely. */
@@ -17,7 +18,7 @@ function deviceType(): "mobile" | "tablet" | "desktop" {
 }
 
 /**
- * Loads PostHog once the page is idle, through the site's own /ingest proxy (next.config.mjs).
+ * Loads PostHog after the page is usable, through the site's own /ingest proxy (next.config.mjs).
  * Visitors stay anonymous: no identify, no person profiles. Session replay masks every input.
  * Registers the common properties from 11-analytics.md on every event.
  */
@@ -63,16 +64,13 @@ export function PostHogProvider({ apiKey, apiHost, landingVariant }: PostHogProv
       }
     };
 
-    // After the page has settled, so analytics never competes with the first paint.
-    const idle = (window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number }).requestIdleCallback;
-    let handle: number | undefined;
-    if (idle) handle = idle(() => void start(), { timeout: 3000 });
-    else handle = window.setTimeout(() => void start(), 1500);
+    // On first scroll, tap or key press, or 3s after load (lib/defer.ts), so PostHog's startup
+    // never competes with the page becoming usable. Earlier events wait in track()'s queue.
+    const cancel = onIntentOrLoad(() => void start());
 
     return () => {
       cancelled = true;
-      const cancelIdle = (window as Window & { cancelIdleCallback?: (h: number) => void }).cancelIdleCallback;
-      if (handle !== undefined) (cancelIdle ?? window.clearTimeout)(handle);
+      cancel();
     };
   }, [apiKey, apiHost, landingVariant]);
 

@@ -13,7 +13,7 @@ type HeroAnimationProps = {
   film: Film;
 };
 
-/** How long a frame takes to sweep in over the one before. Matches film-wipe in globals.css. */
+/** How long a frame takes to sweep in over the one before. Matches film-slide in globals.css. */
 const FADE_MS = 1600;
 /** Never wait longer than this for the next frame's image before cutting to it anyway. */
 const DECODE_CAP_MS = 2500;
@@ -219,8 +219,14 @@ export function HeroAnimation({ film }: HeroAnimationProps) {
             className="film-frame absolute inset-0"
             style={{ "--ms": `${s.ms + FADE_MS}ms` } as React.CSSProperties}
           >
-            <Frame scene={s} first={i === 0} />
-            <FrameNote scene={s} />
+            {/* Two layers for the wipe: the outer slides in, the inner slides back by the same amount,
+                so the picture stays still while the soft edge sweeps across (globals.css). */}
+            <div className="film-slide">
+              <div className="film-slide-inner">
+                <Frame scene={s} first={i === 0} />
+                <FrameNote scene={s} />
+              </div>
+            </div>
           </div>
         );
       })}

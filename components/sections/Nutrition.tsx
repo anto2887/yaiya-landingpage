@@ -36,19 +36,18 @@ function StatCard({ s, index }: { s: Stat; index: number }) {
     <div
       data-reveal
       style={{ "--reveal-delay": `${index * 90}ms` } as React.CSSProperties}
-      className={`jelly flex flex-col rounded-card p-5 lg:p-6 ${TINTS[s.id]}`}
+      className={`jelly relative flex flex-col rounded-card p-5 lg:p-6 ${TINTS[s.id]}`}
     >
-      <div className="flex items-start justify-between gap-3">
-        <dt aria-describedby={NOTE_ID} className="font-heading text-ink">
-          <span className="block text-[44px] leading-none font-bold lg:text-[52px]">
-            <CountUp value={s.value} />
-          </span>
-          <span className="mt-1 block text-[18px] font-semibold lg:text-[20px]">{s.label}</span>
-        </dt>
-        <span aria-hidden className="flex size-11 shrink-0 items-center justify-center rounded-full bg-white/80 text-accent">
-          {Icon && <Icon strokeWidth={1.75} className="size-[22px]" />}
+      {/* dt and dd sit directly in this div, as a definition list requires; the icon is a corner badge. */}
+      <dt aria-describedby={NOTE_ID} className="pr-14 font-heading text-ink">
+        <span className="block text-[44px] leading-none font-bold lg:text-[52px]">
+          <CountUp value={s.value} />
         </span>
-      </div>
+        <span className="mt-1 block text-[18px] font-semibold lg:text-[20px]">{s.label}</span>
+      </dt>
+      <span aria-hidden className="absolute top-5 right-5 flex size-11 items-center justify-center rounded-full bg-white/80 text-accent lg:top-6 lg:right-6">
+        {Icon && <Icon strokeWidth={1.75} className="size-[22px]" />}
+      </span>
       <dd className="mt-2 type-small text-muted">
         {s.line}
         {split && (
@@ -62,7 +61,7 @@ function StatCard({ s, index }: { s: Stat; index: number }) {
               {split.map((p, i) => (
                 <span key={p.label} className="flex items-center gap-1.5">
                   <span aria-hidden className={`size-2.5 rounded-full ${i === 0 ? "bg-berry" : "bg-mango"}`} />
-                  {p.value} {p.label}
+                  {p.value}* {p.label}
                 </span>
               ))}
             </span>

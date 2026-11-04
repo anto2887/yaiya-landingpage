@@ -355,6 +355,11 @@
 .film-frame {
   opacity: 0;
 }
+.film-slide,
+.film-slide-inner {
+  position: absolute;
+  inset: 0;
+}
 .film-frame[data-state="still"],
 .film-frame[data-state="off"] {
   opacity: 1;
@@ -369,6 +374,8 @@
 }
 .film[data-paused] [data-anim],
 .film[data-paused] .film-frame,
+.film[data-paused] .film-slide,
+.film[data-paused] .film-slide-inner,
 .film[data-paused] .film-arrow path,
 .film[data-paused] .film-bar-fill {
   animation-play-state: paused !important;
@@ -381,12 +388,23 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .film-frame[data-state="on"] {
-    -webkit-mask-image: linear-gradient(100deg, transparent 0%, transparent 44%, #000 56%, #000 100%);
-    mask-image: linear-gradient(100deg, transparent 0%, transparent 44%, #000 56%, #000 100%);
-    -webkit-mask-size: 300% 100%;
-    mask-size: 300% 100%;
-    animation: film-wipe 1600ms cubic-bezier(0.45, 0, 0.25, 1) both;
+  /*
+   * The wipe, as two transforms the GPU runs on its own (an animated mask-position repainted the
+   * whole hero on the main thread every frame). The outer layer is 30% wider than the frame, with
+   * a soft edge on its left 30%, and slides in from the right; the inner layer slides back by the
+   * same distance, so the picture holds still while the soft edge sweeps across and ends off-frame.
+   */
+  .film-frame[data-state="on"] .film-slide {
+    left: -30%;
+    width: 130%;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 23.08%);
+    mask-image: linear-gradient(90deg, transparent 0%, #000 23.08%);
+    animation: film-slide 1600ms cubic-bezier(0.45, 0, 0.25, 1) both;
+  }
+  .film-frame[data-state="on"] .film-slide-inner {
+    left: 23.08%;
+    width: 76.92%;
+    animation: film-slide-inner 1600ms cubic-bezier(0.45, 0, 0.25, 1) both;
   }
   .film-frame[data-state="on"] .film-drift {
     animation: film-pull var(--ms, 3s) cubic-bezier(0.2, 0.6, 0.35, 1) both;
@@ -423,7 +441,7 @@
   /* "soo guilty." on each cut: wiped away right to left with the sweep, then written in left to
      right like a pen, then the swoosh draws under it again. */
   /* The headline's lead line on each cut: a soft burgundy light passes right to left with the
-     same timing and easing as film-wipe, then the text is plain charcoal again. */
+     same timing and easing as film-slide, then the text is plain charcoal again. */
   .hero-lead.is-sweeping {
     background-image: linear-gradient(
       100deg,
@@ -493,14 +511,20 @@
     background-position: 100% 0;
   }
 }
-@keyframes film-wipe {
+@keyframes film-slide {
   from {
-    -webkit-mask-position: 0% 0;
-    mask-position: 0% 0;
+    transform: translateX(100%);
   }
   to {
-    -webkit-mask-position: 100% 0;
-    mask-position: 100% 0;
+    transform: none;
+  }
+}
+@keyframes film-slide-inner {
+  from {
+    transform: translateX(-130%);
+  }
+  to {
+    transform: none;
   }
 }
 @keyframes film-pull {

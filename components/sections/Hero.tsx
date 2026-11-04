@@ -26,7 +26,8 @@ export function Hero() {
       aria-labelledby="hero-heading"
       className="relative isolate -mt-nav overflow-hidden bg-cream pb-8 lg:-mt-nav-lg lg:flex lg:aspect-[1672/941] lg:max-h-[850px] lg:min-h-[700px] lg:w-full lg:items-start lg:pt-nav-lg lg:pb-0"
     >
-      <div className="relative aspect-square w-full lg:absolute lg:inset-0 lg:-z-10 lg:aspect-auto">
+      {/* Short phones (iPhone SE and similar) get a less tall photo so the main button stays above the fold. */}
+      <div className="relative aspect-square w-full [@media(max-height:700px)]:aspect-[5/4] lg:absolute lg:inset-0 lg:-z-10 lg:aspect-auto lg:[@media(max-height:700px)]:aspect-auto">
         <HeroAnimation film={hero.film} />
       </div>
 
