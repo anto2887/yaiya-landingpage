@@ -865,7 +865,7 @@ export const site = {
           "How the site is used: pages and sections viewed, how far you scroll, the buttons and tabs you tap, errors in the page, and recordings of visits in which everything you type is hidden. These visits are not linked to your name or email.",
         ],
         paragraphs: [
-          "To stop spam signups, we briefly use your IP address. We keep only a scrambled version of it, in memory, for no more than 10 minutes, and never save it with your signup.",
+          "To stop spam signups, we briefly use your IP address. We keep only a scrambled version of it, separate from your signup, and delete it automatically after about 10 minutes.",
           "We don't ask for your name, phone number, address or payment details.",
         ],
       },

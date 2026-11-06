@@ -3,7 +3,7 @@ import { trafficCohort } from "@/lib/cohort";
 import { query } from "@/lib/db";
 import { errorText, withRequestLog, type LogContext } from "@/lib/log";
 import { sendLead } from "@/lib/meta";
-import { allowAttempt, clientIp, hashIp, remainingFor } from "@/lib/rate-limit";
+import { clientIp, hashIp, recordAttempt } from "@/lib/rate-limit";
 import { QA_COOKIE, SESSION_COOKIE, SESSION_MAX_AGE_S } from "@/lib/session";
 import { MAX_BODY_BYTES, isFlavorSlug, isValidEmail, normalizeEmail, signupSchema } from "@/lib/validation";
 
@@ -44,10 +44,16 @@ async function handleSignup(req: NextRequest, ctx: LogContext) {
 
   // 3. Rate limit by salted IP hash.
   const ip = clientIp(req.headers);
-  const ipKey = hashIp(ip);
-  const allowed = allowAttempt(ipKey);
-  ctx.fields.rl_remaining = remainingFor(ipKey);
-  if (!allowed) return fail("rate_limited", 429);
+  let rl: { allowed: boolean; remaining: number };
+  try {
+    rl = await recordAttempt(hashIp(ip));
+  } catch (err) {
+    // Without the database the signup cannot save anyway; report it as the same failure.
+    ctx.fields.error = errorText(err);
+    return fail("server", 500, "db_error");
+  }
+  ctx.fields.rl_remaining = rl.remaining;
+  if (!rl.allowed) return fail("rate_limited", 429);
 
   // 4. Email.
   if (!isValidEmail(body.email)) return fail("invalid_email", 400);

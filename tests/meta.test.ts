@@ -4,8 +4,15 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 /** The server-side Lead: one per new signup, none for repeats, never blocks or breaks the signup. */
 const ids = new Map<string, string>();
+const attempts = new Map<string, number>();
 vi.mock("@/lib/db", () => ({
   query: vi.fn(async (text: string, params: unknown[] = []) => {
+    if (text.includes("signup_attempts")) {
+      if (text.startsWith("delete")) return { rows: [] };
+      const key = params[0] as string;
+      attempts.set(key, (attempts.get(key) ?? 0) + 1);
+      return { rows: [{ n: String(attempts.get(key)) }] };
+    }
     if (text.startsWith("insert into signups")) {
       const key = params[1] as string;
       if (ids.has(key)) return { rows: [] };
@@ -18,7 +25,6 @@ vi.mock("@/lib/db", () => ({
 }));
 
 const { POST: signup } = await import("@/app/api/signup/route");
-const { resetRateLimit } = await import("@/lib/rate-limit");
 
 type LeadBody = {
   data: { event_name: string; event_id?: string; action_source: string; event_source_url: string; user_data: Record<string, unknown> & { em: string[]; fbc?: string } }[];
@@ -41,7 +47,7 @@ const settle = () => new Promise((r) => setTimeout(r, 20));
 
 beforeEach(() => {
   ids.clear();
-  resetRateLimit();
+  attempts.clear();
   calls.length = 0;
   logs.length = 0;
   metaResponse = () => new Response(JSON.stringify({ events_received: 1 }), { status: 200 });

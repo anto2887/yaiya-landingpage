@@ -8,8 +8,15 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 type Row = { id: string; email_normalized: string; [k: string]: unknown };
 const rows: Row[] = [];
 
+const attempts = new Map<string, number>();
 vi.mock("@/lib/db", () => ({
   query: vi.fn(async (text: string, params: unknown[] = []) => {
+    if (text.includes("signup_attempts")) {
+      if (text.startsWith("delete")) return { rows: [] };
+      const key = params[0] as string;
+      attempts.set(key, (attempts.get(key) ?? 0) + 1);
+      return { rows: [{ n: String(attempts.get(key)) }] };
+    }
     if (text.startsWith("insert into signups")) {
       const emailNormalized = params[1] as string;
       if (rows.some((r) => r.email_normalized === emailNormalized)) return { rows: [] };
@@ -32,7 +39,6 @@ vi.mock("@/lib/db", () => ({
 
 const { POST: signup } = await import("@/app/api/signup/route");
 const { POST: answers } = await import("@/app/api/signup/answers/route");
-const { resetRateLimit } = await import("@/lib/rate-limit");
 
 function post(url: string, body: unknown, init: { cookie?: string; ip?: string } = {}) {
   const headers: Record<string, string> = { "content-type": "application/json", "x-forwarded-for": init.ip ?? "203.0.113.7" };
@@ -42,7 +48,7 @@ function post(url: string, body: unknown, init: { cookie?: string; ip?: string }
 
 beforeEach(() => {
   rows.length = 0;
-  resetRateLimit();
+  attempts.clear();
 });
 
 describe("POST /api/signup", () => {

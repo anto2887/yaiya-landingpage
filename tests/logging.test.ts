@@ -5,8 +5,15 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 let dbDown = false;
 const ids = new Map<string, string>();
 
+const attempts = new Map<string, number>();
 vi.mock("@/lib/db", () => ({
   query: vi.fn(async (text: string, params: unknown[] = []) => {
+    if (text.includes("signup_attempts")) {
+      if (text.startsWith("delete")) return { rows: [] };
+      const key = params[0] as string;
+      attempts.set(key, (attempts.get(key) ?? 0) + 1);
+      return { rows: [{ n: String(attempts.get(key)) }] };
+    }
     if (dbDown) throw new Error("connect ECONNREFUSED");
     if (text === "select 1") return { rows: [{ "?column?": 1 }] };
     if (text.startsWith("insert into signups")) {
@@ -24,7 +31,6 @@ vi.mock("@/lib/db", () => ({
 const { POST: signup } = await import("@/app/api/signup/route");
 const { POST: answers } = await import("@/app/api/signup/answers/route");
 const { GET: health } = await import("@/app/api/health/route");
-const { resetRateLimit } = await import("@/lib/rate-limit");
 
 const lines: Record<string, unknown>[] = [];
 const raw: string[] = [];
@@ -38,7 +44,7 @@ function req(url: string, method: string, body?: unknown, cookie?: string) {
 beforeEach(() => {
   dbDown = false;
   ids.clear();
-  resetRateLimit();
+  attempts.clear();
   lines.length = 0;
   raw.length = 0;
   for (const m of ["info", "warn", "error"] as const) {
