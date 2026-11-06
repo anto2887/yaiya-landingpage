@@ -3,7 +3,7 @@ import { trafficCohort } from "@/lib/cohort";
 import { query } from "@/lib/db";
 import { errorText, withRequestLog, type LogContext } from "@/lib/log";
 import { sendLead } from "@/lib/meta";
-import { allowAttempt, clientIp, hashIp } from "@/lib/rate-limit";
+import { allowAttempt, clientIp, hashIp, remainingFor } from "@/lib/rate-limit";
 import { QA_COOKIE, SESSION_COOKIE, SESSION_MAX_AGE_S } from "@/lib/session";
 import { MAX_BODY_BYTES, isFlavorSlug, isValidEmail, normalizeEmail, signupSchema } from "@/lib/validation";
 
@@ -44,7 +44,10 @@ async function handleSignup(req: NextRequest, ctx: LogContext) {
 
   // 3. Rate limit by salted IP hash.
   const ip = clientIp(req.headers);
-  if (!allowAttempt(hashIp(ip))) return fail("rate_limited", 429);
+  const ipKey = hashIp(ip);
+  const allowed = allowAttempt(ipKey);
+  ctx.fields.rl_remaining = remainingFor(ipKey);
+  if (!allowed) return fail("rate_limited", 429);
 
   // 4. Email.
   if (!isValidEmail(body.email)) return fail("invalid_email", 400);

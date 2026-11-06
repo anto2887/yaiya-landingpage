@@ -53,6 +53,8 @@ export function withRequestLog(route: string, handler: Handler, opts: { quietOk?
       res = NextResponse.json({ ok: false, error: "server" }, { status: 500 });
     }
     res.headers.set("x-request-id", reqId);
+    // Standard rate-limit hint; tells a visitor (and us, when debugging) how many tries are left.
+    if (typeof ctx.fields.rl_remaining === "number") res.headers.set("x-ratelimit-remaining", String(ctx.fields.rl_remaining));
 
     const status = res.status;
     const level: Level = status >= 500 ? "error" : status >= 400 ? "warn" : "info";

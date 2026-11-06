@@ -15,6 +15,12 @@ export function hashIp(ip: string): string {
   return createHash("sha256").update(`${salt}:${ip}`).digest("hex");
 }
 
+/** Attempts left in the current window for a key, after recording. */
+export function remainingFor(key: string, now = Date.now()): number {
+  const recent = (hits.get(key) ?? []).filter((t) => now - t < RATE_WINDOW_MS);
+  return Math.max(0, RATE_LIMIT - recent.length);
+}
+
 /** Records an attempt; returns false once the visitor is over the limit. */
 export function allowAttempt(key: string, now = Date.now()): boolean {
   const recent = (hits.get(key) ?? []).filter((t) => now - t < RATE_WINDOW_MS);
