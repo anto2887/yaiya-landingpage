@@ -35,6 +35,46 @@ Visit any page with `?qa=1` before testing: your signups are then saved with `la
 | `npm test` | Signup API and traffic cohort tests (vitest, no database needed) |
 | `npm run images` | Prepares images from `assets-src/` into `public/images/` |
 
+## Deploy (Railway)
+
+One web service and one Postgres database in the same Railway project. Every push to `main` deploys.
+
+| Setting | Value |
+|---|---|
+| Build | `npm ci && npm run build` (Railway detects this) |
+| Start | `npm run start`: applies `db/schema.sql`, then starts Next.js on Railway's `PORT` |
+| Healthcheck path | `/api/health` |
+
+Variables on the web service (see `.env.example` for each one):
+
+| Variable | Value |
+|---|---|
+| `DATABASE_URL` | `${{Postgres.DATABASE_URL}}` (reference to the Postgres service) |
+| `NEXT_PUBLIC_SITE_URL` | `https://www.takeayaiya.com` |
+| `NEXT_PUBLIC_POSTHOG_KEY` | PostHog project API key (`phc_...`) |
+| `NEXT_PUBLIC_META_PIXEL_ID` | Meta pixel / dataset ID |
+| `META_CAPI_TOKEN` | Meta Conversions API access token (secret) |
+| `IP_HASH_SALT` | Long random string (letters and digits) |
+| `LANDING_VARIANT` | `v1` (optional; the default) |
+
+`NEXT_PUBLIC_*` values are built into the page: change one, then redeploy. Never commit real values.
+
+**Domain:** `www.takeayaiya.com` is a Railway custom domain (CNAME, Cloudflare "DNS only"). The bare `takeayaiya.com` redirects to `www` with a Cloudflare redirect rule that keeps the path and query string.
+
+**Rollback:** in Railway, open Deployments and redeploy the last good one, then fix forward.
+
+## Export and read signups
+
+In Railway, open the Postgres service, then **Data** (or connect with `psql` using `DATABASE_PUBLIC_URL`). Ready queries are in `db/queries.sql`: totals, per day, by traffic source, by ad (`utm_content`), flavor picks, thank-you answers, and a CSV export. Every query leaves out test signups (`landing_variant = 'qa'`).
+
+Before and after each ad phase, export the table to CSV and keep the files.
+
+To clear test signups before launch:
+
+```sql
+delete from signups where landing_variant = 'qa';
+```
+
 ## Logs and monitoring
 
 Every API request writes one JSON line to Railway's Deploy Logs: route, status, time taken, a request id and, for anything turned away, a `reason`. Email addresses, typed answers and IP addresses are never logged.
